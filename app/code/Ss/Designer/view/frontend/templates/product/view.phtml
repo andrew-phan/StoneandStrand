@@ -1,0 +1,33 @@
+<?php
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+$helper = $block->getDesignerHelper();
+$designer = $block->getDesigner();
+$product = $block->getProduct();
+
+$urlShopFull = $block->getUrl('find-the-right-stud');
+
+if ($designer):
+    $name = $designer->getName();
+    ?>
+
+    <div class="product-designer-info">
+        <div class="title"><?php echo __('meet the designer'); ?></div>
+        <div class="designer-avatar">
+            <img src="<?php echo $designer->getFeatureImageUrl() ?>" alt="<?php echo __('designer avatar'); ?>"/>
+        </div>
+        <div class="designer-info">
+            <p class="title"><?php echo __('meet the designer'); ?></p>
+            <div class="tinymce-editor info">
+                <?php echo $designer->getDescription() ?>
+            </div>
+            <?php if ($product->getAttributeSetId() == $themeHelper->getConfigAttributeSetNormal()) { ?>
+                <a href="<?php echo $designer->getUrl(); ?>" title="<?php echo sprintf(__('shop all %s'), $name); ?>" class="go-to-shop btn btn-white"><?php echo sprintf(__('shop all %s'), $name); ?></a>
+            <?php } elseif ($product->getAttributeSetId() == $themeHelper->getConfigAttributeSetDiamond()) { ?>
+                <a href="<?php echo $urlShopFull ?>" title="<?php echo __('shop full collection'); ?>" class="go-to-shop btn btn-white"><?php echo __('shop full collection'); ?></a>
+            <?php } ?>
+        </div>
+    </div>
+    <?php
+
+
+ endif;

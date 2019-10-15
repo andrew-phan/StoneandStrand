@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="sales_email_order_template" label="New Order" file="order_new.html" type="html" module="Ss_Sales" area="frontend"/>
+    <template id="sales_email_creditmemo_template" label="New Credit Memo" file="creditmemo_new.html" type="html" module="Ss_Sales" area="frontend"/>
+    <template id="sales_email_designer_po_template" label="Designer PO" file="designer_po.html" type="html" module="Ss_Sales" area="frontend"/>
+</config>

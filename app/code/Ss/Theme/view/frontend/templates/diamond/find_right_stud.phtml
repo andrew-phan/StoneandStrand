@@ -1,0 +1,54 @@
+<?php
+$helper = $this->helper('Ss\Designer\Helper\Data');
+$productCollection = $block->getDiamondCollection();
+
+$imageBefore = 'diamond_stud_before';
+$imageAfter = 'diamond_stud_after';
+?>
+<?php if ($productCollection->getSize() > 0): ?>
+    <div class="filter-select">
+        <?php echo $block->getToolbarHtml(); ?>
+    </div>
+<?php endif; ?>
+
+<div class="list-product">
+    <div class="row">
+        <?php if ($productCollection->getSize() > 0): ?>
+            <?php
+            foreach ($productCollection as $product):
+                $productName = $block->stripTags($product->getName(), null, true);
+                $productUrl = $product->getProductUrl();
+                $designer = $helper->getDesignerById($product->getSsDesigner());
+                $designerName = $designer->getName();
+                $productImageBefore = $block->getImage($product, $imageBefore);
+                $productImageAfter = $block->getImage($product, $imageAfter);
+                ?>
+                <div class="col-xs-6 col-md-4 item">
+                    <div class="thumbnail text-center">
+                        <a href="<?php echo $productUrl; ?>" title="<?php echo $productName; ?>" class="image">
+                            <div class="before-wapper">
+                                <?php echo $productImageBefore->toHtml() ?>
+                            </div>
+                            <div class="behind-wapper">
+                                <?php echo $productImageAfter->toHtml() ?>
+                            </div>
+                        </a>
+                        <div class="description">
+                            <p class="material">
+                                <a href="<?php echo $productUrl; ?>" title="<?php echo $productName; ?>"><?php echo $productName; ?></a>
+                            </p>
+                            <?php if ($designer): ?>
+                                <p class="author">
+                                    <a href="<?php echo $designer->getUrl(); ?>" title="<?php echo $designerName; ?>"><?php echo $designerName; ?></a>
+                                </p>
+                            <?php endif; ?>
+                            <?php echo $block->getProductPrice($product) ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="no-product empty"><?php echo __('There is no product mapping with filter.'); ?></p>
+        <?php endif; ?>
+    </div>
+</div>

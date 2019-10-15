@@ -1,0 +1,41 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    ?>
+
+    <div class="block sevices-block">
+        <h2 class="line-title">
+            <a href="<?php echo $block->getLink(); ?>" title="<?php echo $block->getTitle(); ?>"><span><?php echo $block->getTitle(); ?></span></a>
+        </h2>
+        <div data-slick-slider="{&quot;typeSlide&quot;: &quot;services&quot;}" class="slider sevices-list block-center-3">
+            <?php
+            foreach ($postIds as $postId) :
+                $post = $block->getPostById($postId);
+                $postUrl = $block->getUrl() . $post->getIdentifier();
+                if ($post && $post->getIsActive()) :
+                    $postTitle = $post->getTitle();
+                    ?>
+                    <div class="item">
+                        <div class="thumbnail style-2">
+                            <a href="<?php echo $postUrl ?>" title="<?php echo $postTitle; ?>" class="image">
+                                <img src="<?php echo $post->getFeatureImageUrl() ?>" alt="image"/>
+                            </a>
+                            <div class="description">
+                                <p class="title">
+                                    <a href="<?php echo $postUrl ?>" title="<?php echo $postTitle; ?>"><?php echo $postTitle; ?></a>
+                                </p>
+                                <div class="tinymce-editor">
+                                    <?php echo $post->getContent(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                endif;
+            endforeach;
+            ?>
+        </div>
+    </div>
+    <?php
+endif;

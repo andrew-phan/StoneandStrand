@@ -1,0 +1,128 @@
+<?php
+$isCollapse = $block->isCollapseDiamondFilter();
+$helper = $this->helper('Ss\Designer\Helper\Data');
+$swatchHelper = $this->helper('Magento\Swatches\Helper\Media');
+$diamondHelper = $this->helper('Ss\Theme\Helper\Diamond');
+$listDiamondAttribute = $diamondHelper->getListDiamondAttribute();
+$listOptionLabels = $diamondHelper->getListOptionLabels();
+
+$defaultImageSwatch = 'images/upload/img-120x110.png';
+$mediaSwatchUrl = $swatchHelper->getSwatchMediaUrl();
+$mediaUrl = $helper->getSrcMediaImage();
+
+$postIds = $block->getPostIds();
+if (!empty($postIds)) {
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+}
+?>
+
+<?php
+$count = 1;
+foreach ($listDiamondAttribute as $attributeCode => $collectionOption):
+    if ($attributeCode == "color" || ($attributeCode != "color" && $collectionOption['options']->getSize() > 0)):
+        $defaultParams = $diamondHelper->getAttributeParam($attributeCode, true);
+        ?>
+        <div data-collapse="<?php echo (!$isCollapse) ? "{&quot;numItemOpenDefault&quot;: [1]}" : '' ?>" class="filter-block <?php echo $collectionOption['class']; ?>">
+            <div data-item class="collapse style-1 <?php echo (!$isCollapse) ? "active" : ""; ?>">
+                <div data-item-heading class="heading-collapse"><span><?php echo $count . '. ' . $collectionOption['title']; ?></span></div>
+                <div data-item-body class="content-collapse">
+                    <div data-select-style class="list-items row-1">
+                        <?php
+                        foreach ($collectionOption['options'] as $attributeColorCode => $option):
+                            if ($attributeCode != "color"):
+                                $class = "";
+                                $optionId = $option->getOptionId();
+                                if ($optionId && !empty($defaultParams) && in_array($optionId, $defaultParams)) {
+                                    $class = "selected";
+                                }
+                                $optionTitle = $listOptionLabels[$optionId];
+                                $imageSwatchUrl = ($option->getType() == \Magento\Swatches\Model\Swatch::SWATCH_TYPE_VISUAL_IMAGE) ? $mediaSwatchUrl . $option->getValue() : $mediaUrl . $defaultImageSwatch;
+                                $filterUrl = $diamondHelper->getFilterUrl($attributeCode, $optionId);
+                                ?>
+                                <div class="col-xs-4 col-md-2 item">
+                                    <a href="<?php echo $filterUrl; ?>" title="<?php echo $optionTitle; ?>" class="thumbnail text-center <?php echo $class; ?>" data-item-style="">
+                                        <?php if ($option->getType() == \Magento\Swatches\Model\Swatch::SWATCH_TYPE_VISUAL_IMAGE || $option->getType() == \Magento\Swatches\Model\Swatch::SWATCH_TYPE_EMPTY): ?>
+                                            <span class="image">
+                                                <img src="<?php echo $imageSwatchUrl; ?>" alt="<?php echo $optionTitle; ?>"/>
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="image swatch_color" style="background-color: <?php echo $option->getValue() ?> "></span>
+                                        <?php endif; ?>
+                                        <div class="description">
+                                            <p class="title"><?php echo $optionTitle; ?></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php elseif ($option["items"]->getSize() > 0): ?>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="list-items">
+                                        <p class="title-filter"><?php echo $option["title"] ?></p>
+                                        <div class="row-1">
+                                            <?php
+                                            $defaultParams = $diamondHelper->getAttributeParam($attributeColorCode, true);
+                                            foreach ($option["items"] as $optionColor):
+                                                $class = "";
+                                                $optionId = $optionColor->getOptionId();
+                                                if ($optionId && !empty($defaultParams) && in_array($optionId, $defaultParams)) {
+                                                    $class = "selected";
+                                                }
+                                                $optionTitle = $listOptionLabels[$optionId];
+                                                $imageSwatchUrl = ($optionColor->getType() == \Magento\Swatches\Model\Swatch::SWATCH_TYPE_VISUAL_IMAGE) ? $mediaSwatchUrl . $optionColor->getValue() : $mediaUrl . $defaultImageSwatch;
+                                                $filterUrl = $diamondHelper->getFilterUrl($attributeColorCode, $optionId);
+                                                ?>
+                                                <div class="col-xs-4">
+                                                    <div class="item">
+                                                        <a href="<?php echo $filterUrl; ?>" title="<?php echo $optionTitle; ?>" class="thumbnail text-center <?php echo $class; ?>" data-item-style="">
+                                                            <?php if ($optionColor->getType() == \Magento\Swatches\Model\Swatch::SWATCH_TYPE_VISUAL_IMAGE || $optionColor->getType() == \Magento\Swatches\Model\Swatch::SWATCH_TYPE_EMPTY): ?>
+                                                                <span class="image">
+                                                                    <img src="<?php echo $imageSwatchUrl; ?>" alt="<?php echo $optionTitle; ?>"/>
+                                                                </span>
+                                                            <?php else: ?>
+                                                                <span class="image swatch_color" style="background-color: <?php echo $optionColor->getValue() ?> "></span>
+                                                            <?php endif; ?>
+                                                            <div class="description">
+                                                                <p class="title">
+                                                                <p class="title"><?php echo $optionTitle; ?></p>
+                                                                </p>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            endif;
+                        endforeach;
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php $count++;
+    endif; ?>
+<?php endforeach; ?>
+
+
+<div class="diamonds-sort">
+<?php if ($post && $post->getIsActive()) : ?>
+        <div class="title-block">
+            <div class="line-title"><span><?php echo $block->getTitle(); ?></span></div>
+            <div class="tinymce-editor">
+    <?php echo $post->getContent(); ?>
+            </div>
+        </div>
+<?php endif; ?>
+
+    <div class="product-filter">
+        <?php
+        echo $this->getLayout()
+            ->createBlock("Ss\Theme\Block\Diamond\FilterStud")
+            ->setTemplate("Ss_Theme::diamond/find_right_stud.phtml")
+            ->toHtml();
+        ?>
+    </div>
+</div>

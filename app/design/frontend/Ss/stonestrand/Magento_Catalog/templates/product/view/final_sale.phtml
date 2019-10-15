@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View
+ */
+?>
+
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_product = $block->getProduct();
+
+$_code = $block->getAtCode();
+$_className = $block->getCssClass();
+$_attributeLabel = $block->getAtLabel();
+$_attributeType = $block->getAtType();
+$_attributeAddAttribute = $block->getAddAttribute();
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+
+if ($_attributeLabel && $_attributeLabel == 'default') {
+    $_attributeLabel = $_product->getResource()->getAttribute($_code)->getFrontendLabel();
+}
+
+$_attributeValue = $_product->getResource()->getAttribute('diamond_final_sale')->getFrontend()->getValue($_product);
+?>
+
+<?php
+if ($_attributeValue == "Yes"):
+    if ($_product->getAttributeSetId() == $themeHelper->getConfigAttributeSetDiamond()):
+        ?>
+        <div class="final-sale"><?php echo $_attributeLabel ?></div>
+        <?php
+    endif;
+endif;
+?>

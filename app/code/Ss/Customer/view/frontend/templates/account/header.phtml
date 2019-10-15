@@ -1,0 +1,28 @@
+<?php
+$themeHelper = $block->getThemeHelper();
+$phone = $themeHelper->getTelephone();
+$email = $themeHelper->getSystemConfig(Ss\Theme\Helper\Data::XML_PATH_EMAIL_CUSTOMERS);
+$urlShipping = $block->getUrl('assistance/shipping/');
+$urlOurPolicy = $block->getUrl('assistance/return/');
+?>
+
+<div class="account_header">
+   <div class="page-descriptions style-2 visible-md-up">
+	  <div class="descriptions">
+		<div class="grid-fluid">
+		  <h1 class="title-page"><?php echo __($block->getTitle()) ?></h1>
+		  <ul class="contact-list">
+			<li><span><?php echo __("questions")?>? <a href="tel:<?php echo str_replace(' ', '', $phone); ?>" title="hotline"><?php echo __("call") ?> <?php echo $phone; ?></a></span>
+			</li>
+			<li><a href="mailto:<?php echo $email ?>" title="<?php echo __("mail to customer services") ?>"><?php echo __("email customer services") ?></a>
+			</li>
+			<li><a href="<?php echo $urlShipping ?>" title="<?php echo __("shipping information") ?>"><?php echo __("shipping information") ?></a>
+			</li>
+			<li><a href="<?php echo $urlOurPolicy ?>" title="<?php echo __("policy page") ?>"><?php echo __("return policy") ?></a>
+			</li>
+		  </ul>
+		</div>
+	  </div>
+	</div>
+    
+</div>

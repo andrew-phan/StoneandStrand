@@ -1,0 +1,47 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    ?>
+    <div class="wrapper">
+        <?php
+        $count = 1;
+        $imageCount = 1;
+        $descCount = 1;
+        foreach ($postIds as $postId):
+            $post = $block->getPostById($postId);
+            if ($post && $post->getIsActive()) :
+                $postTitle = $post->getTitle();
+                $class = "pictures picture-" . $imageCount;
+                ?>
+                <?php
+                if (in_array($count, [3, 7, 9])) {
+                    $class = "description-picture description-" . $descCount;
+                }
+                ?>
+                <div class="<?php echo $class ?>">
+                    <?php if (in_array($count, [3, 7, 9])): $descCount++; ?>
+                        <div class="description tinymce-editor">
+                            <?php echo $post->getContent(); ?>
+                        </div>
+
+                    <?php else: $imageCount++; ?>
+                        <div data-toggle-caption="" class="image">
+                            <img src="<?php echo $post->getFeatureImageUrl(); ?>" alt="<?php echo $postTitle; ?>"/>
+
+                            <div class="caption tinymce-editor">
+                                <?php echo $post->getContent(); ?>
+                            </div><span class="icon icon-close"></span>
+                        </div>
+                    <?php endif; ?>
+
+                </div>
+            <?php endif; ?>
+            <?php
+            $count++;
+        endforeach;
+        ?>
+    </div>
+
+    <?php
+ endif;

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+        <meta name="robots" content="index, follow"/>
+        <css src="mage/calendar.css"/>
+        <css src="css/styles-media.css" order="100"/>
+        <css src="css/style.css" order="101"/>
+        <css src="css/print-default.css" order="102"/>
+
+        <remove src="css/print.css" />
+        <remove src="css/styles-l.css" />
+        <remove src="css/styles-m.css" />
+
+
+        <!-- Remove local resources -->
+        <!--        <remove src="css/styles-m.css" />
+        <remove src="my-js.js"/>
+        <remove src="Magento_Catalog::js/compare.js" />-->
+    </head>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Js\Components" name="head.components" as="components" template="Magento_Theme::js/components.phtml" before="-"/>
+        </referenceContainer>
+    </body>
+</page>

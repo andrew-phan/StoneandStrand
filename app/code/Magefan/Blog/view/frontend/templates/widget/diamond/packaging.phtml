@@ -1,0 +1,50 @@
+
+<?php
+$strPostIds = $block->getPostIds();
+if (!empty($strPostIds)) :
+    $postIds = explode(',', $strPostIds);
+    asort($postIds);
+    $firstPostId = array_shift($postIds);
+    $firstPost = $block->getPostById($firstPostId);
+    $image = $firstPost->getFeatureImageUrl('images/upload/img-326x400.png');
+    ?>
+    <div class="package-block">
+        <h2 class="line-title"><span><?php echo $block->getTitle(); ?></span></h2>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="tinymce-editor text-center content">
+                    <?php
+                    if ($firstPost && $firstPost->getIsActive()) :
+                        echo $firstPost->getContent();
+                    endif;
+                    ?>
+                </div>
+                <div class="package-1 thumbnail-horizontal">
+                    <span class="image">
+                        <img src="<?php echo $image; ?>" alt="img-package"/>
+                    </span>
+                    <div class="description">
+                        <ol class="list-1">
+                            <?php
+                            $i = 1;
+                            foreach ($postIds as $postId):
+                                $post = $block->getPostById($postId);
+                                if ($post && $post->getIsActive()):
+                                ?>
+                                    <li><span class="num"><?php echo $i; $i++; ?>.</span>
+                                    <div class="tinymce-editor">
+                                        <?php
+                                            echo $post->getContent();
+                                        ?>
+                                    </div>
+                                </li>
+                                <?php endif;
+                            endforeach; ?>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+ endif;

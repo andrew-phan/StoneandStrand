@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Newsletter\Controller\Subscriber\NewAction"
+                type="Ss\Newsletter\Controller\Subscriber\NewAction" />
+    <preference for="Magento\Newsletter\Controller\Manage\Save"
+                type="Ss\Newsletter\Controller\Manage\Save" />
+    <preference for="Magento\Newsletter\Block\Subscribe" 
+                type="Ss\Newsletter\Block\Subscribe" />
+    <preference for="Magento\Newsletter\Controller\Manage\Index"
+                type="Ss\Newsletter\Controller\Manage\Index" />
+    <preference for="Magento\Newsletter\Model\Subscriber"
+                type="Ss\Newsletter\Override\Model\Subscriber" />
+</config>

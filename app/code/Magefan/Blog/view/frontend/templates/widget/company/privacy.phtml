@@ -1,0 +1,28 @@
+<?php
+$strPostIds = $block->getPostIds();
+if (!empty($strPostIds)) :
+$postIds = explode(',', $strPostIds);
+asort($postIds);
+?>
+
+<div class="policy-block">
+    <h1 class="title"><?php echo $block->getTitle(); ?></h1>
+    <hr />
+    <?php
+    foreach ($postIds as $postId):
+    $post = $block->getPostById($postId);
+    ?>
+    <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.policy-info&quot;}" class="policy-info-wrapper">
+        <div class="tinymce-editor policy-info">
+            <?php
+            if ($post) :
+            echo $post->getContent();
+            endif;
+            ?>
+        </div>
+        <a class="hidden-md-up read-more-btn" title="<?php echo __("...read more"); ?>" href="#"><?php echo __("...read more"); ?></a>
+    </div>
+    <?php endforeach; ?>
+</div>
+<?php
+endif;

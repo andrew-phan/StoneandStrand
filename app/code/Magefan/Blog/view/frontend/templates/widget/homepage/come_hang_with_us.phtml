@@ -1,0 +1,57 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)):
+    $themeHelper = $block->getThemeHelper();
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+    $youtubeId = $block->getYoutubeId();
+    $om = \Magento\Framework\App\ObjectManager::getInstance();
+    $newsletterBlock = $om->create('Ss\Newsletter\Block\Subscribe');
+    $newsletterBlock->setTemplate('Ss_Newsletter::subscribe_home.phtml');
+    $designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+    $youtube_image = $designerHelper->getSrcMediaImage() . $block->getImage();
+    ?>
+    <div class="block subcribe-block">
+        <h2 class="line-title">
+            <span><?php echo $block->getTitle(); ?></span>
+        </h2>
+        <div class="inner">
+            <div class="subcribe-box">
+                <?php if ($post && $post->getIsActive()): ?>
+                    <h3 class="subcribe-title"><?php echo $post->getTitle(); ?></h3>
+                    <div class="tinymce-editor subcribe-des">
+                        <?php echo $post->getContent(); ?>
+                    </div>
+                <?php endif; ?>
+                <?php echo $newsletterBlock->toHtml(); ?>
+
+                <div class="follow-us">
+                    <p class="title">follow us</p>
+                    <ul class="social-icon">
+                        <li><a target="_blank" href="<?php echo $themeHelper->getUrlSocialInstagram() ?>" title="Instagram" class="icon icon-instagram"></a>
+                        </li>
+                        <li><a target="_blank" href="<?php echo $themeHelper->getUrlSocialFacebook() ?>" title="Facebook" class="icon icon-facebook"></a>
+                        </li>
+                        <li><a target="_blank" href="<?php echo $themeHelper->getUrlSocialTwitter() ?>" title="Twitter" class="icon icon-twitter"></a>
+                        </li>
+                        <li><a target="_blank" href="<?php echo $themeHelper->getUrlSocialPin() ?>" title="Pinterest" class="icon icon-pinterest"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div data-video-frame="{&quot;name&quot;: &quot;youtube&quot;, &quot;videoId&quot;: &quot;<?php echo $youtubeId ?>&quot;}" class="commercial-video">
+                <div class="mask-video" <?php if($block->getImage()){ ?> style='background-image: url("<?php echo $youtube_image ?>");' <?php } ?>><a href="#" title="play" class="btn-play" data-trigger-play="">play</a>
+                </div>
+                <div class="video-wrapper">
+                    <div class="video-item"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+
+
+
+
+endif;

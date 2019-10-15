@@ -1,0 +1,52 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="block discount-code"
+     data-bind="mageInit: {'collapsible':{'openedState': '_active'}}">
+    
+    <div class="title payment-option-title" data-role="title">
+        <strong role="heading">
+            <!-- ko i18n: 'Add Promotion Code'--><!-- /ko -->
+        </strong>
+    </div>
+    
+    <div class="payment-option-content" data-role="content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <form class="form form-discount" id="discount-form" data-bind="blockLoader: isLoading">
+            <div class="payment-option-inner">
+                <div class="field">
+                    <label class="label" for="discount-code">
+                        <span data-bind="i18n: 'Promo code'"></span>
+                    </label>
+                    <div class="control">
+                        <input class="input-text"
+                               type="text"
+                               id="discount-code"
+                               name="discount_code"
+                               data-validate="{'required-entry':true}"
+                               data-bind="value: couponCode, attr:{placeholder: $t('Promo code')} " />
+                    </div>
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <!-- ko ifnot: isApplied() -->
+                        <button class="action action-apply" type="submit" data-bind="'value': $t('Apply'), click: apply">
+                            <span><!-- ko i18n: 'Apply'--><!-- /ko --></span>
+                        </button>
+                    <!-- /ko -->
+                    <!-- ko if: isApplied() -->
+                        <button class="action action-apply" type="submit" data-bind="'value': $t('Cancel'), click: cancel">
+                            <span><!-- ko i18n: 'Cancel'--><!-- /ko --></span>
+                        </button>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

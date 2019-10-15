@@ -1,0 +1,18 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)):
+    $themeHelper = $block->getThemeHelper();
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+    if ($post && $post->getIsActive()):
+        ?>
+        <div class="introduce">
+            <h2 class="title-page text-center"><?php echo $post->getTitle() ?></h2>
+            <div class="tinymce-editor">
+                <?php echo $post->getContent(); ?>
+            </div>
+        </div>
+        <?php
+    endif;
+ endif;

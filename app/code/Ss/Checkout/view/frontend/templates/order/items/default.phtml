@@ -1,0 +1,87 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/** @var  $block \Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer */
+try {
+    $_item = $block->getProductRepository()->getById($block->getItem()->getProductId());
+} catch (\Magento\Framework\Exception\NoSuchEntityException $noEntityException) {
+    $_item = null;
+}
+
+$imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+$productImage = $imagehelper->init($_item, 'success_product_image')->getUrl();
+
+$designer = $block->getDesignerHelper()->getDesignerById($_item->getSsDesigner());
+$designerName = ($designer) ? $designer->getName() : '';
+$designerUrl = ($designer) ? $designer->getUrl() : '#';
+?>
+<li class="product-item">
+    <div class="product">
+        <span class="product-image-container">
+            <span class="product-image-wrapper">
+                <img src="<?php echo $productImage; ?>" id="success_product_image" alt="<?php echo $block->escapeHtml($_item->getName()) ?>">
+            </span>
+        </span>
+        <div class="product-item-details">
+            <div class="product-item-inner">
+                <div class="product-item-name-block">
+                    <strong class="product-item-name">
+                        <?php echo $block->escapeHtml($_item->getName()) ?>
+                    </strong>
+                    <p class="author-name">
+                        <a href="<?php echo $designerUrl; ?>" title="<?php echo $designerName; ?>">
+                            <span><?php echo $designerName; ?></span>
+                        </a>
+                    </p>
+                </div>
+                <div class="block-qty-price">
+                    <div class="details-qty">(
+                        <span class="value">
+                            <?php if ($block->getItem()->getQtyOrdered() > 0): ?>
+                                <?php echo $block->getItem()->getQtyOrdered() * 1 ?>
+                            <?php endif; ?> 
+                        </span>)
+                    </div>
+                    <div class="subtotal">
+                        <?php echo $block->getItemRowTotalHtml(); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="product options">
+                <div class="product options list">
+                    <?php $_options = $block->getItemOptions(); ?>
+                    <?php $htmlAttribute = []; ?>
+                    <?php foreach ($_options as $key => $options) : ?>
+                        <?php $htmlAttribute[$key] = ""; ?>
+                        <?php foreach ($options as $_option) : ?>
+                            <?php  if (isset($symbol)): ?>
+                                <?php $htmlAttribute[$key] .= $symbol; ?>
+                            <?php endif; ?>
+                            <?php if (isset($_option['option_id'])) { $htmlAttribute[$key] .= $block->escapeHtml($_option['label']) . ": "; } ?>
+                            <?php if (!$block->getPrintStatus()): ?>
+                                <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option); ?>
+                                    <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                        <?php /* @escapeNotVerified */ $htmlAttribute[$key] .= $_formatedOptionValue['full_view']; ?>
+                                    <?php else: ?>
+                                        <?php /* @escapeNotVerified */ $htmlAttribute[$key] .= $_formatedOptionValue['value']; ?>
+                                    <?php endif; ?>
+                            <?php else: ?>
+                                    <?php $htmlAttribute[$key] .= nl2br($block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value']))); ?>
+                            <?php endif; ?>
+                            <?php $symbol = ", "; ?>
+                        <?php endforeach; ?>
+                        <?php $htmlAttribute[$key] .= "."; ?>
+                        <?php unset($symbol); ?>
+                        <span class="values">
+                            <?php echo $block->escapeHtml($htmlAttribute[$key]) ?>
+                        </span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

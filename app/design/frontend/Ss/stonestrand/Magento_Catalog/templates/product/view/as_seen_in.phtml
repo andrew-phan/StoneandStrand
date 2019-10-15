@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View
+ */
+?>
+
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_product = $block->getProduct();
+
+$_code = $block->getAtCode();
+$_className = $block->getCssClass();
+$_attributeLabel = $block->getAtLabel();
+$_attributeType = $block->getAtType();
+
+if ($_attributeLabel && $_attributeLabel == 'default') {
+    $_attributeLabel = $_product->getResource()->getAttribute($_code)->getFrontendLabel();
+}
+
+$_attributeValue =$_product->getResource()->getAttribute($_code)->getFrontend()->getValue($_product);
+$_attributeValues = explode(", ", $_attributeValue);
+?>
+
+<?php if ($_attributeValue): ?>
+  <div class="product attibute <?php echo $_className?>">
+    <div data-item="" class="collapse">
+      <div data-item-heading class="heading-collapse">
+        <?php if ($_attributeLabel != 'none'): ?><span class="type"><?php echo $_attributeLabel?></span><?php endif; ?>
+      </div>
+      <div data-item-body class="content-collapse">
+        <?php foreach ($_attributeValues as $_attributeValue){ ?>
+          <p class="value"><?php echo $_attributeValue; ?></p>
+        <?php } ?>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>

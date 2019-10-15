@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerRepository = $objectManager->get('Magento\Customer\Api\CustomerRepositoryInterface');
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+if ($customerSession->isLoggedIn()) {
+    $customerId = $customerSession->getCustomerId();
+    $customer = $customerRepository->getById($customerId);
+    $subscriberType = $customer->getCustomAttribute(\Ss\Newsletter\Controller\Manage\Save::ATTRIBUTE_CODE_SUBSCRIBER);
+    $subscriber = explode(',', $subscriberType->getValue());
+    $countSubscriber = count($subscriber);
+}
+if (!(isset($countSubscriber) && $countSubscriber == 3)) :
+?>
+    <form action="<?php /* @escapeNotVerified */ echo $block->getFormActionUrl() ?>" method="post" name="email-form" data-validate-form='{"isSetCookieVlidated": true}' class="subcribe-form" data-mage-init='{"validation": {"errorClass": "mage-error"}}' id="newsletter-validate-detail" novalidate>
+        <input type="text" id="newsletter" maxlength="125" name="email" class="subcribe-email" placeholder="<?php /* @escapeNotVerified */ echo __('Sign up for email updates') ?>" required="" data-parsley-required-message="<?php echo __("Please enter Email Address."); ?>" data-parsley-validate-email="" data-parsley-validate-email-message="<?php echo __("Email format is incorrect. Only these characters are allowed: letters, numbers, and some special characters '@', '.', '_'"); ?>" />
+        <button type="submit" name="submit-subcribe" id="submit-subcribe" class="subcribe-btn icon icon-arrow-r">
+        </button>
+    </form>
+<?php endif; ?>

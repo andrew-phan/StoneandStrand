@@ -1,0 +1,81 @@
+<?php
+if ($block->getBestsellerProduct() && $block->getBestsellerProduct()->getPageSize()):
+
+    $type = 'widget-product-grid';
+
+    $mode = 'grid';
+
+    $image = 'new_products_content_widget_grid';
+    $title = $block->getTitle() ? __($block->getTitle()) : '';
+    $seller_products = $block->getBestsellerProduct();
+
+    $shopAllUrl = $block->getAllShopUrl();
+    $bestsellerUrl = $block->getBestsellerUrl();
+
+    $om = \Magento\Framework\App\ObjectManager::getInstance();
+    $catalogBlock = $om->create('Ss\Theme\Block\CatalogWidget\ProductsList');
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+    $description = false;
+
+    $items = array();
+    foreach ($seller_products as $product) {
+        $i = $block->loadProductById($product->getProductId());
+        if ($i->getIsSalable()) {
+            $items[] = $product;
+        }
+    }
+
+    if (count($items)) :
+        ?>
+        <?php
+            $store = $om->get('Magento\Store\Model\StoreManagerInterface')->getStore();
+            $mediaUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product';
+        ?>
+        <div class="jewelry-pick-block">
+            <?php if ($title): ?>
+                <h2 class="line-title"><span><?php echo $title; ?></span></h2>
+            <?php endif ?>
+            <div data-slick-slider="{&quot;typeSlide&quot;: &quot;otherFavorites&quot;}" class="slider related-slider padding-60">
+                <?php $i = 0; ?>
+                <?php foreach ($items as $item): ?>
+                    <div class="item">
+                        <?php
+                        $_item = $block->loadProductById($item->getProductId());
+
+                        $productUrl = $_item->getProductUrl();
+                        $productName = $block->escapeHtml($_item->getName());
+                        $designer = $catalogBlock->getDesignerById($_item->getSsDesigner());
+                        $designerName = ($designer) ? $designer->getName() : '';
+                        $designerUrl = ($designer) ? $designer->getUrl() : '#';
+                        ?>
+                        <div class="thumbnail text-center">
+                            <a href="<?php echo $productUrl; ?>" title="<?php echo $productName ?>" class="image">
+                                <img src="<?php echo $mediaUrl . $_item->getImage(); ?>" title="<?php echo $productName ?>"/>
+                            </a>
+                            <div class="description">
+                                <p class="material">
+                                    <a href="<?php echo $productUrl ?>" title="<?php echo $productName ?>"><?php echo $productName ?></a>
+                                </p>
+                                <?php if ($designer): ?>
+                                    <p class="author">
+                                        <a href="<?php echo $designerUrl; ?>" title="<?php echo $designerName; ?>"><?php echo $designerName; ?></a>
+                                    </p>
+                                <?php endif; ?>
+                                <?php echo $catalogBlock->getProductPriceHtml($_item, $type); ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="group-btn text-center">
+                <a href="<?php echo $shopAllUrl ? $shopAllUrl : 'javascript:;'; ?>" title="<?php echo __("Shop all"); ?>" class="btn btn-white"><?php echo __("Shop all"); ?></a>
+            </div>
+        </div>
+
+        <?php
+    endif;
+ endif;

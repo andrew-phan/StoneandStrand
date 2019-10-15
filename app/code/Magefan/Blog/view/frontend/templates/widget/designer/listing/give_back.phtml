@@ -1,0 +1,30 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)):
+    $designerHelper = $this->helper('\Ss\Designer\Helper\Data');
+    $themeHelper = $block->getThemeHelper();
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+    if ($post && $post->getIsActive()):
+        ?>
+        <div class="give-back-block">
+            <div class="thumbnail-horizontal">
+                <span class="image">
+                    <img src="<?php echo $post->getFeatureImageUrl(); ?>" alt="img"/>
+                </span>
+                <div class="description text-center">
+                    <h3 class="title"><?php echo $post->getTitle(); ?></h3>
+                    <div class="tinymce-editor">
+                        <?php echo $post->getContent() ?>
+                    </div>
+                    <div class="group-btn text-center">
+                        <a href="<?php echo $designerHelper->getGiveBackUrlPage(); ?>" title="<?php echo __('Learn more'); ?>" class="btn btn-white"><?php echo __('Learn more'); ?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php
+    endif;
+ endif;

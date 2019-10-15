@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="page.top">
+            <referenceBlock name="breadcrumbs" remove="true" />
+        </referenceContainer>
+
+        <referenceContainer name="header.container">
+            <referenceContainer name="header.panel" remove="true"/>
+            <referenceContainer name="header-wrapper" remove="true"/>
+
+            <container name="ss.header.top" htmlClass="header-top" htmlTag="div" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="ss.header.block.top" before="-" template="Ss_Theme::header/header_top.phtml">
+                    <block class="Magento\Theme\Block\Html\Header\Logo" name="ss.header.logo"></block>
+                </block>
+            </container>
+
+        </referenceContainer>
+
+        <move element="navigation.sections" destination="header.container" after="ss.header.top"/>
+
+        <referenceContainer name ="page.wrapper">
+
+            <container name="ss.header.message" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="ss.block.header.message" before="-" template="Ss_Theme::header/header_message.phtml">
+                    <block class="Magento\Cms\Block\Block" name="ss.block.header.message.static">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_header_message</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="page.top">
+            <referenceBlock name="store.links" remove="true" />
+            <referenceBlock name="navigation.sections">
+                <block class="Magento\Framework\View\Element\Template" name="store.menu" group="navigation-sections" template="Magento_Theme::html/container.phtml">
+                    <arguments>
+                        <argument name="title" translate="true" xsi:type="string">Menu</argument>
+                    </arguments>
+                </block>
+            </referenceBlock>
+        </referenceContainer>
+
+        <referenceContainer name="main" label="Main Content Container" htmlTag="div" htmlClass="grid-fluid">
+        </referenceContainer>
+
+        <referenceContainer name="footer-container">
+            <referenceContainer name="footer" remove="true" />
+            <container name="ss.page.footer" htmlClass="grid-fluid" htmlTag="div" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="ss.footer" before="-" template="Ss_Theme::footer/footer.phtml">
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.aboutUs">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_aboutUs</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.information">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_information</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.contactUs">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_contactUs</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.assistance">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_assistance</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.services">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_services</argument>
+                        </arguments>
+                    </block>
+                    <block class="Ss\Newsletter\Block\Subscribe" name="ss.footer.newsletter" template="Ss_Newsletter::subscribe.phtml" />
+                </block>
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="page.wrapper">
+            <container name="ss.footer-banner-container-page" before="footer">
+                <block class="Magento\Cms\Block\Block" name="ss.popup.newsletter">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">ss_newsletter_popup</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

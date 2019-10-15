@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Bannerslider
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ss_Slideshow::slideshow" title="Slideshow" module="Ss_Slideshow" sortOrder="10" resource="Ss_Slideshow::slideshow" parent="Magento_Backend::content"/>
+
+        <!-- Magestore_Bannerslider::bannerslider_bannerslider -->
+
+        <!--<add id="Ss_Slideshow::slideshow_sliders" title="Manage Sliders" module="Ss_Slideshow" sortOrder="10" parent="Ss_Slideshow::slideshow" action="ss_slideshow/slider" resource="Ss_Slideshow::slideshow_sliders"/>-->
+
+        <add id="Ss_Slideshow::slideshow_banners" title="Manage Banners" module="Ss_Slideshow" sortOrder="10" parent="Ss_Slideshow::slideshow" action="ss_slideshow/banner" resource="Ss_Slideshow::slideshow_banners"/>
+
+        
+
+
+        
+
+        <!-- End Magestore_Bannerslider::bannerslider_bannerslider -->
+    </menu>
+</config>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\Checkout\Block\Onepage\Success"
+                type="Ss\Checkout\Block\Onepage\Success" />
+    
+    <preference for="Magento\Checkout\CustomerData\DefaultItem"
+                type="Ss\Checkout\CustomerData\Override\DefaultItem" />
+    
+    <preference for="Magento\ConfigurableProduct\CustomerData\ConfigurableItem"
+                type="Ss\Checkout\CustomerData\Override\ConfigurableItem" />
+    
+    <preference for="Magento\GroupedProduct\CustomerData\GroupedItem"
+                type="Ss\Checkout\CustomerData\Override\GroupedItem" />
+    
+    <preference for="Magento\Checkout\Model\DefaultConfigProvider"
+                type="Ss\Checkout\Model\Override\DefaultConfigProvider" />
+    
+    <preference for="Magento\Quote\Model\Cart\CartTotalRepository"
+                type="Ss\Checkout\Model\Override\Cart\CartTotalRepository" /> 
+    
+    <preference for="Magento\Checkout\Block\Checkout\AttributeMerger"
+                type="Ss\Checkout\Block\Override\Checkout\AttributeMerger" />
+    
+    <preference for="Magento\Quote\Model\QuoteManagement"
+                type="Ss\Checkout\Model\Override\QuoteManagement" />
+    
+    <preference for="Magento\Checkout\Controller\Cart\Index"
+                type="Ss\Checkout\Controller\Cart\Index" />
+    
+    <preference for="Magento\Paypal\Model\Api\Nvp"
+                type="Ss\Checkout\Model\Override\Api\Nvp" />
+    
+    
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="save-in-quote" type="Ss\Checkout\Plugin\ShippingInformationManagementPlugin" sortOrder="10"/>
+    </type>
+    
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="save-comments" type="Ss\Checkout\Plugin\PaymentInformationManagementPlugin" sortOrder="10"/>
+    </type>
+    
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+        <plugin name="save-comments" type="Ss\Checkout\Plugin\GuestPaymentInformationManagementPlugin" sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="change-state-field" type="Ss\Checkout\Plugin\LayoutProcessorPlugin" sortOrder="10"/>
+    </type>
+    
+    <type name="Magento\Quote\Model\CouponManagement">
+        <plugin name="handle-message-coupon" type="Ss\Checkout\Plugin\CouponManagementPlugin" sortOrder="-1"/>
+    </type>
+    
+    <type name="Magento\SalesRule\Model\Rule">
+        <plugin name="add-message-coupon" type="Ss\Checkout\Plugin\RulePlugin" sortOrder="-1"/>
+    </type>
+    
+    <preference for="Magento\SalesRule\Block\Adminhtml\Promo\Quote\Edit\Tab\Main"
+                type="Ss\Checkout\Block\Override\Adminhtml\Promo\Quote\Edit\Tab\Main" />
+</config>

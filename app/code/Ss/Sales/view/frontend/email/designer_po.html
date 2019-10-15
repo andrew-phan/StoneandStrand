@@ -1,0 +1,309 @@
+<!--@subject Welcome to Designer @-->
+<!--@vars {
+"var order.increment_id":"Order Id"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<tr>
+    <td>
+        <table width="600" align="center" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+                    <td>
+                        <table width="550" align="center" style="border-bottom: 1px solid #b2b2b2" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                    <td height="30">&nbsp;</td>
+                                    <td height="30">&nbsp;</td>
+                                </tr>
+                                <tr height="25">
+                                    <td width="20">&nbsp;</td>
+                                    <td width="530" align="left" valign="middle">
+                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "DESIGNER NAME:"}}<span style="font-size: 12px!important; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; letter-spacing: 0; text-transform: none; font-weight: 400"> {{var name}}</span></p>
+                                    </td>
+                                </tr>
+                                <tr height="25">
+                                    <td width="20">&nbsp;</td>
+                                    <td width="530" align="left" valign="middle">
+                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "ORDER NUMBER:"}}<span style="font-size: 12px!important; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; letter-spacing: 0; text-transform: none; font-weight: 400"> {{var order.increment_id}}</span></p>
+                                    </td>
+                                </tr>
+                                <tr height="25">
+                                    <td width="20">&nbsp;</td>
+                                    <td width="530" align="left" valign="middle">
+                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "DATE:"}}<span style="font-size: 12px!important; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; letter-spacing: 0; text-transform: none; font-weight: 400"> {{var order_date}}</span></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="34">&nbsp;</td>
+                                    <td height="34">&nbsp;</td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="550" align="center" style="border-bottom: 1px solid #b2b2b2" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                <tr height="30">
+                                    <td width="20">&nbsp;</td>
+                                    <td width="530">
+                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "DESIGNER INFORMATION"}}</p>
+                                    </td>
+                                </tr>
+                                <tr height="100">
+                                    <td width="20">&nbsp;</td>
+                                    <td width="530">
+                                        <table width="530" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody><tr height="26">
+                                                    <td width="270">
+                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "DESIGNER ADDRESS:"}}</p>
+                                                    </td>
+                                                    <td width="270">
+                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "S&S SHIPPING ADDRESS:"}}</p>
+                                                    </td>
+                                                </tr>
+                                                <tr height="70">
+                                                    <td width="270" valign="top">
+                                                        <table width="270" border="0" cellpadding="0" cellspacing="0">
+                                                            <tbody><tr>
+                                                                    <td>
+                                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; line-height: 18px">{{trans "NAME:"}}</p>
+                                                                    </td>
+                                                                    <td width="5">&nbsp;</td>
+                                                                    <td width="170">
+                                                                        <p style="font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 18px">{{var firstname}} {{var lastname}}</p>
+                                                                    </td>
+                                                                    <td width="60">&nbsp;</td>
+                                                                </tr>
+                                                                <tr height="18">
+                                                                    <td valign="top">
+                                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; line-height: 18px">{{trans "ADDRESS:"}}</p>
+                                                                    </td>
+                                                                    <td width="5">&nbsp;</td>
+                                                                    <td width="170" valign="top">
+                                                                        <p style="font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 18px">{{var address}}</p>
+                                                                    </td>
+                                                                    <td width="60">&nbsp;</td>
+                                                                </tr>
+                                                            </tbody></table>
+                                                    </td>
+                                                    <td width="260" valign="top">
+                                                        <table width="260" border="0" cellpadding="0" cellspacing="0">
+                                                            <tbody><tr>
+                                                                    <td>
+                                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; line-height: 18px">{{trans "NAME:"}}</p>
+                                                                    </td>
+                                                                    <td width="5">&nbsp;</td>
+                                                                    <td width="170">
+                                                                        <p style="font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 18px">{{config path="general/store_information/name"}}</p>
+                                                                    </td>
+                                                                    <td width="50">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign="top">
+                                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; line-height: 18px">{{trans "ADDRESS:"}}</p>
+                                                                    </td>
+                                                                    <td width="5">&nbsp;</td>
+                                                                    <td width="170" valign="top">
+                                                                        <p style="font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 18px">{{config path="general/store_information/street_line1"}} {{var state}}, {{config path="general/store_information/city"}} {{config path="general/store_information/postcode"}}</p>
+                                                                    </td>
+                                                                    <td width="50">&nbsp;</td>
+                                                                </tr>
+                                                                <tr height="18">
+                                                                    <td>&nbsp;</td>
+                                                                    <td width="5">&nbsp;</td>
+                                                                    <td width="170">
+                                                                        <p style="font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 18px">{{config path="general/store_information/phone"}}</p>
+                                                                    </td>
+                                                                    <td width="50">&nbsp;</td>
+                                                                </tr>
+                                                            </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30">&nbsp;</td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <table width="525" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                    <td height="25">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="525" border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #b2b2b2">
+                                            <tbody><tr height="40">
+                                                    <td width="9">&nbsp;</td>
+                                                    <td width="516">
+                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "ORDER INFORMATION"}}</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td align="center">
+                                        <table width="525" border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #b2b2b2">
+                                            <tbody><tr height="38">
+                                                    <td width="7">&nbsp;</td>
+                                                    <td width="28" align="left">
+                                                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">NO.</p>
+                                                    </td>
+                                                    <td width="55" align="left">
+                                                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">SKU</p>
+                                                    </td>
+                                                    <td width="10">&nbsp;</td>
+                                                    <td width="95" align="left">
+                                                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">NAME</p>
+                                                    </td>
+                                                    <td width="10">&nbsp;</td>
+                                                    <td width="150" align="left">
+                                                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">TYPE</p>
+                                                    </td>
+                                                    <td width="10">&nbsp;</td>
+                                                    <td width="40" align="left">
+                                                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">PRICE</p>
+                                                    </td>
+                                                    <td width="35" align="center">
+                                                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">#</p>
+                                                    </td>
+                                                    <td align="left">
+                                                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">TOTAL</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="22" colspan="11" style="border-top: 1px solid #b2b2b2">&nbsp;</td>
+                                                </tr>
+                                                {{var item_info|raw }}
+                                                <tr>
+                                                    <td height="13" colspan="11" style="line-height: 0">&nbsp;</td>
+                                                </tr>
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="48">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="600" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                    <td width="38">&nbsp;</td>
+                                    <td>
+                                        <table width="524" border="0" cellpadding="0" cellspacing="0" bgcolor="#ededed">
+                                            <tbody><tr>
+                                                    <td height="20">&nbsp;</td>
+                                                    <td height="20">&nbsp;</td>
+                                                    <td height="20">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="32">&nbsp;</td>
+                                                    <td width="460">
+                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "ORDER NOTES"}}</p>
+                                                    </td>
+                                                    <td width="32">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="8" style="line-height: 0">&nbsp;</td>
+                                                    <td height="8" style="line-height: 0">&nbsp;</td>
+                                                    <td height="8" style="line-height: 0">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="32">&nbsp;</td>
+                                                    <td width="460" align="left" valign="middle">
+                                                        <p style="font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 1.7">{{var order_note}}</p>
+                                                    </td>
+                                                    <td width="32">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="25">&nbsp;</td>
+                                                    <td height="25">&nbsp;</td>
+                                                    <td height="25">&nbsp;</td>
+                                                </tr>
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="37">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="600" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                    <td width="38">&nbsp;</td>
+                                    <td>
+                                        <table width="524" border="0" cellpadding="0" cellspacing="0" bgcolor="#ededed">
+                                            <tbody><tr>
+                                                    <td height="20">&nbsp;</td>
+                                                    <td height="20">&nbsp;</td>
+                                                    <td height="20">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="32">&nbsp;</td>
+                                                    <td width="460">
+                                                        <p style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{trans "PAYMENT NOTES"}}</p>
+                                                    </td>
+                                                    <td width="32"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="8" style="line-height: 0">&nbsp;</td>
+                                                    <td height="8" style="line-height: 0">&nbsp;</td>
+                                                    <td height="8" style="line-height: 0">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="32">&nbsp;</td>
+                                                    <td width="460" align="left" valign="middle">
+                                                        <p style="font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 1.7">{{var payment_note}}</p>
+                                                    </td>
+                                                    <td width="32">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="22">&nbsp;</td>
+                                                    <td height="22">&nbsp;</td>
+                                                    <td height="22">&nbsp;</td>
+                                                </tr>
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="38">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px">CONTACT US AT DESIGNERS@STONEANDSTRAND.COM WITH ANY QUESTIONS</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="8" style="line-height: 0">&nbsp;</td>
+                    <td height="8" style="line-height: 0">&nbsp;</td>
+                    <td height="8" style="line-height: 0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <p style="text-transform: uppercase; font-size: 9px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">STONE &amp; STRAND LLC</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="95">&nbsp;</td>
+                </tr>
+            </tbody></table>
+    </td>
+</tr>
+{{template config_path="design/email/footer_template"}}

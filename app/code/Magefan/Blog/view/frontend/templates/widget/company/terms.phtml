@@ -1,0 +1,34 @@
+
+<?php
+$strPostIds = $block->getPostIds();
+if (!empty($strPostIds)) :
+    $postIds = explode(',', $strPostIds);
+    asort($postIds);
+    ?>
+
+    <div class="term-block">
+        <h1 class="title"><?php echo $block->getTitle(); ?></h1>
+        <?php
+        foreach ($postIds as $postId):
+            $post = $block->getPostById($postId);
+            ?>
+            <h2 class="line-title"><span><?php
+                    if ($post):
+                        echo $post->getTitle();
+                    endif;
+                    ?></span></h2>
+            <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.term-info&quot;}" class="term-info-wrapper">
+                <div class="tinymce-editor e-commerce-term term-info">
+                    <?php
+                    if ($post) :
+                        echo $post->getContent();
+                    endif;
+                    ?>
+                </div>
+                <a class="hidden-md-up read-more-btn" title="<?php echo __("...read more"); ?>" href="#"><?php echo __("...read more"); ?></a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php
+
+endif;

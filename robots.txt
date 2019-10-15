@@ -1,0 +1,77 @@
+# Crawlers Setup
+# Directories
+User-agent: *
+Disallow: /app/
+Disallow: /bin/
+Disallow: /dev/
+Disallow: /lib/
+Disallow: /phpserver/
+Disallow: /pub/
+Disallow: /setup/
+Disallow: /update/
+Disallow: /var/
+Disallow: /vendor/
+Disallow: /pkginfo/
+Disallow: /report/
+
+# Paths (clean URLs)
+User-agent: *
+#Disallow: /index.php/
+#Disallow: /catalog/product_compare/
+#Disallow: /catalog/category/view/
+#Disallow: /catalog/product/view/
+#Disallow: /catalogsearch/
+Disallow: /checkout/
+Disallow: /control/
+Disallow: /contacts/
+Disallow: /customer/
+Disallow: /customize/
+Disallow: /newsletter/
+Disallow: /wishlist/
+Disallow: /customer/account/
+Disallow: /customer/account/login/
+
+# Do not index the general technical directories and files on a server
+Disallow: /cgi-bin/
+
+# Files
+User-agent: *get
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /CONTRIBUTING.md
+Disallow: /CONTRIBUTOR_LICENSE_AGREEMENT.html
+Disallow: /COPYING.txt
+Disallow: /Gruntfile.js
+Disallow: /LICENSE.txt
+Disallow: /LICENSE_AFL.txt
+Disallow: /nginx.conf.sample
+Disallow: /package.json
+Disallow: /php.ini.sample
+Disallow: /RELEASE_NOTES.txt
+
+# Do not index the page subcategories that are sorted or filtered.
+Disallow: /*?
+Disallow: /*?Dir*
+Disallow: /*?Dir=desc
+Disallow: /*?Dir=asc
+Disallow: /*?Limit=all
+Disallow: /*?Mode*
+
+# Do not index the link from the session ID
+Disallow: /*.php$
+Disallow: /*?SID=
+
+# CVS, SVN directory and dump files
+Disallow: /*.CVS
+Disallow: /*.Zip$
+Disallow: /*.Svn$
+Disallow: /*.Idea$
+Disallow: /*.Sql$
+Disallow: /*.Tgz$
+
+User-agent: *
+Allow: /
+# Website Sitemap
+Sitemap: http://www.stoneandstrand.com/sitemap.xml
+
+Sitemap: https://www.stoneandstrand.com/sitemap.xml

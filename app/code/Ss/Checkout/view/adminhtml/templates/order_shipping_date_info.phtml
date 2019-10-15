@@ -1,0 +1,14 @@
+
+<div id="ss-shipping-date" style="margin-top: 7px;">
+    <strong><?php echo __('Estimated shipping date:') ?></strong>
+    <span class="price">&nbsp;<?php echo $block->getSsShippingDate() ?></span>
+</div>
+<script type="text/javascript">
+    require(
+            ['jquery'],
+            function ($) {
+                var element = $('#ss-shipping-date').detach();
+                $('.order-shipping-method').append(element);
+            }
+    );
+</script>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_save_after">
+        <observer name="designer_url_rewrite_saving" instance="Ss\Designer\Observer\ProductProcessUrlRewriteSavingObserver"/>
+    </event>
+    
+    <event name="catalog_product_import_bunch_save_after">
+        <observer name="designer_catalog_product_import_rewrites_generation" instance="Ss\Designer\Observer\AfterImportDataObserver"/>
+    </event>
+</config>

@@ -1,0 +1,75 @@
+<?php
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+$designerHelper = $this->helper('Ss\Designer\Helper\Data');
+$designer = $block->getDesigner();
+$type = $block->getType();
+$designerName = $designer->getName();
+$designerListingUrl = $designerHelper->getDesignerListingUrl();
+?>
+<div class="grid-fluid">
+    <?php if ($type->getIsVintage()): ?>
+        <div data-author-wishlist="{&quot;itemInBlock&quot;: &quot;.content-block&quot;, &quot;itemBeMoved&quot;: &quot;.head-content&quot;}" class="banner-content">
+            <span class="img"><img src="<?php echo $designer->getFeatureImageUrl(); ?>" alt="<?php echo $designerName; ?>"/></span>
+            <div class="content-block">
+                <div class="head-content">
+                    <a href="<?php echo $designerListingUrl; ?>" title="<?php echo $type->getName(); ?>" class="author"><?php echo $type->getName(); ?></a>
+                    <h1 class="title-product"><?php echo $designerName; ?></h1>
+                </div>
+                <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.content-info&quot;}" class="info-wrapper">
+                    <div class="tinymce-editor note content-info">
+                        <?php echo $designer->getDescription(); ?>
+                    </div>
+                    <a href="#" title="<?php echo __('...read more'); ?>" class="hidden-md-up read-more-btn"><?php echo __('...read more'); ?></a>
+                </div>
+                <blockquote><?php echo $designer->getQuote(); ?></blockquote>
+                <ul class="link-list text-center">
+                    <li><a href="mailto:<?php echo $themeHelper->getEmailToLink(); ?>" title="<?php echo __('Email us'); ?>"><?php echo __('Email us'); ?></a>
+                    </li>
+                    <li><span><?php echo __('call'); ?> <?php echo $themeHelper->getTelephone(); ?></span>
+                    </li>
+                    <li><a href="<?php echo $designerHelper->getContactUsUrlPage(); ?>" title="<?php echo __('visit us'); ?>"><?php echo __('visit us'); ?></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <?php
+    else:
+        $typeName = $type->getName() . __(' Designer');
+        $tagCollections = $block->getTagCollections();
+        ?>
+        <div data-author-wishlist="{&quot;itemInBlock&quot;: &quot;.descriptions&quot;, &quot;itemBeMoved&quot;: &quot;.title-block&quot;}" class="filter-banner-2">
+            <div class="wapper-image">
+                <div class="image">
+                    <img src="<?php echo $designer->getFeatureImageUrl(); ?>" alt="<?php echo $designerName; ?>"/>
+                </div>
+                <div class="caption">
+                    <div class="desc-caption"><strong><?php echo $designerName; ?></strong>
+                        <p><?php echo $designer->getQuote(); ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="descriptions">
+                <div class="title-block">
+                    <a href="<?php echo $designerListingUrl; ?>" title="<?php echo $typeName; ?>" class="link-small"><?php echo $typeName; ?></a>
+                    <h3 class="title"><?php echo $designerName; ?></h3>
+                </div>
+                <div class="tinymce-editor">
+                    <?php echo $designer->getDescription(); ?>
+                </div>
+                <h2 class="line-title"><span><?php echo __('Why we love this brand'); ?></span></h2>
+                <div class="tinymce-editor style-1">
+                    <p><?php echo $designer->getWhyLove(); ?></p>
+                </div>
+                <?php if ($tagCollections->getSize() > 0): ?>
+                    <div class="tag-block"><strong><?php echo __('Tags:'); ?></strong>
+                        <div class="link-block">
+                            <?php foreach ($tagCollections as $tagItem): ?>
+                                <a href="<?php echo $tagItem->getUrl(); ?>" title="<?php echo $tagItem->getName(); ?>"><?php echo $tagItem->getName(); ?></a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>

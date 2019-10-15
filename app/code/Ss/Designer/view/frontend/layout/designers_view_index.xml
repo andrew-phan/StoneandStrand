@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="catalog_category_view"/>
+    <body>        
+        <attribute name="class" value="filter"/>
+        <attribute name="class" value="page-with-filter"/>
+        <attribute name="class" value="page-products"/>
+        <attribute name="class" value="catalog-category-view"/>
+        
+        <referenceContainer name="sidebar.main">            
+            <block class="Magento\LayeredNavigation\Block\Navigation\Category" name="catalog.leftnav" before="-" template="layer/view.phtml">
+                <block class="Magento\LayeredNavigation\Block\Navigation\State" name="catalog.navigation.state" as="state" />
+                <block class="Magento\LayeredNavigation\Block\Navigation\FilterRenderer" name="catalog.navigation.renderer" as="renderer" template="layer/filter.phtml"/>
+            </block>
+        </referenceContainer>
+        
+        <referenceBlock name="ss.category.info" remove="true"></referenceBlock>
+        
+        <referenceContainer name="columns.top">
+            <container name="category.view.container" after="-">
+                <block class="Ss\Designer\Block\DesignerView" name="ss.designer.info" template="designer/designer_detail_info.phtml"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

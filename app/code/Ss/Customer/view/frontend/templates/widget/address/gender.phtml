@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<div class="field gender<?php if ($block->isRequired()) { echo ' required'; } ?>">
+    <label class="label" for="<?php /* @escapeNotVerified */ echo $block->getFieldId('gender')?>"><span><?php /* @escapeNotVerified */ echo __('Title'); ?></span><?php if ($block->isRequired()): ?><span class="mandatory-field">*</span><?php endif; ?></label>
+    <div class="control">
+        <select required data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("You can't leave this empty."); ?></p>" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('gender')?>" name="<?php /* @escapeNotVerified */ echo $block->getFieldName('gender')?>" title="<?php /* @escapeNotVerified */ echo __('Gender'); ?>"<?php if ($block->isRequired()):?> required=""<?php endif; ?> <?php /* @escapeNotVerified */ echo $block->getFieldParams(); ?>>
+            <?php $options = $block->getGenderOptions(); ?>
+            <?php $value = $block->getGender();?>
+            <?php foreach ($options as $option):
+                if (!empty($option->getValue())): ?>
+                <option value="<?php /* @escapeNotVerified */ echo $option->getValue(); ?>"<?php if ($option->getValue() == $value) { echo ' selected="selected"'; } ?>><?php /* @escapeNotVerified */ echo $option->getLabel(); ?></option>
+            <?php endif;
+            endforeach; ?>
+        </select>
+    </div>
+</div>

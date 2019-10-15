@@ -1,0 +1,36 @@
+<?php
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+if (!empty($postIds)) {
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+}
+
+if ($post && $post->getIsActive()) :
+    $postTitle = $post->getTitle();
+    ?>
+    <div class="page-descriptions">
+        <?php
+        if (!$post || $post->getFeaturedImg() == '') :
+            $featureImage = $block->getViewFileUrl('images/upload/img-1000x300.png');
+        else :
+            $featureImage = $media . $post->getFeaturedImg();
+        endif;
+        ?>
+        <div class="banner-top">
+            <div class="thumbnail">
+                <img src="<?php echo $featureImage; ?>" alt="<?php echo $postTitle; ?>"/>
+            </div>
+        </div>
+        <div class="descriptions">
+            <div class="grid-fluid">
+                <h1 class="title-page"><?php echo $postTitle; ?></h1>
+                <div class="tinymce-editor note">
+                    <?php echo $post->getContent(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+ endif;

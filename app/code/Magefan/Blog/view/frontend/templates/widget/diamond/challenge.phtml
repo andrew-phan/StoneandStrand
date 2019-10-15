@@ -1,0 +1,26 @@
+<?php
+$strPostIds = $block->getPostIds();
+if (!empty($strPostIds)) :
+    $postIds = explode(',', $strPostIds);
+    asort($postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+    $image = $post->getFeatureImageUrl('images/upload/img-800x350.png');
+    ?>
+    <?php if($post && $post->getIsActive()) : ?>
+    <div class="challenge-block">
+        <h2 class="title text-center"><?php echo $block->getTitle(); ?></h2>
+        <span class="image">
+            <img src="<?php echo $image; ?>" alt="image"/></span>
+        <div class="tinymce-editor description">
+            <?php
+            if ($post) :
+                echo $post->getContent();
+            endif;
+            ?>
+        </div>
+        <p class="text-why"><?php echo __("#whydontyouSS"); ?></p>
+    </div>
+    <?php endif;?>
+    <?php
+ endif;

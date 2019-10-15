@@ -1,0 +1,27 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+?>
+
+<div class="col-md-10 assistance-content">
+    <h2 class="line-title">
+        <span>
+            <?php
+            if ($post):
+                echo $post->getTitle();
+            endif;
+            ?>
+        </span>
+    </h2>
+    <div class="tinymce-editor main-content">
+        <?php
+        if ($post):
+            echo $post->getContent();
+        endif;
+        ?>
+    </div>
+</div>

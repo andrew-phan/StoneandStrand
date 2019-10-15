@@ -1,0 +1,14 @@
+<?php
+$blockMessage = $block->getChildHtml("ss.block.header.message.static");
+if (!empty($blockMessage)):
+    $themeHelper = $this->helper("\Ss\Theme\Helper\Data");
+    ?>
+    <div class="new-info <?php echo ($themeHelper->checkIsCustomerGroupVip()) ? 'club-new' : ''; ?>">
+        <?php
+        echo $blockMessage;
+        ?>
+        <button type="button" name="close" id="close" class="img-icon icon-close-1" data-header-info="">
+        </button>
+    </div>
+    <?php
+endif;

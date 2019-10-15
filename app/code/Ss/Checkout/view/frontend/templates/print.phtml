@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<?php
+    $faviconSrc = $block->getFavicon()->getFaviconFile();
+?>
+<html lang="en" class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <title>Print Receipt | Stone & Strand</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="robots" content="index, follow">
+        <meta property="og:description" content="">
+        <meta property="og:url" content="https://www.facebook.com/StoneandStrand/">
+        <meta property="og:title" content="Print Receipt">
+        <meta property="og:image" content="">
+        <meta property="og:capption" content="">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="https://twitter.com/StoneandStrand">
+        <meta name="twitter:creator" content="">
+        <meta name="twitter:title" content="Print Receipt">
+        <meta name="twitter:image" content="">
+        <link rel="icon" href="<?php echo $faviconSrc ? $faviconSrc : '' ?>" type="image/x-icon" sizes="16x16">
+        <style>
+            @font-face {
+                font-family: OpenSans-Regular;
+                src: url('/OpenSans-Regular.woff2') format('woff2'),
+                    url('/OpenSans-Regular.woff') format('woff'),
+                    url('/OpenSans-Regular.ttf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: PlayfairDisplay-Regular;
+                src: url('/PlayfairDisplay-Regular.woff2') format('woff2'),
+                    url('/PlayfairDisplay-Regular.woff') format('woff'),
+                    url('/PlayfairDisplay-Regular.ttf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+            body {
+                font-size: 14px;
+                font-family: OpenSans-Regular, Helvetica, Arial, sans-serif;
+            }
+            a {
+                color: #1d1d1d;
+                text-decoration: none;
+            }
+            p {
+                margin: 0;
+            }
+            .print-receipt-block {
+                margin: 0 auto;
+                max-width: 450px;
+            }
+            .grid-fluid {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .header-logo {
+                margin: 20px auto 20px;
+            }
+            .logo img {
+                max-width: 100%;
+            }
+            .opc-sidebar {
+                margin: 0;
+                padding: 0;
+            }
+            .opc-sidebar .product-item-details {
+                min-height: 5.357em;
+            }
+            .opc-sidebar .product-item .product-item-title {
+                padding-left: 20px;
+            }
+            .opc-sidebar .product-item td {
+                vertical-align: top;
+                text-align: left;
+            }
+            .opc-sidebar .product-item-name {
+                font-size: 1.1em;
+                color: #1d1d1d;
+                text-transform: capitalize;
+            }
+            .opc-sidebar .product-item-details .author-name {
+                margin-bottom: 0.857em;
+                margin-top: 0.214em;
+                font-weight: bold;
+            }
+            .opc-sidebar .minicart-items .product-item-details .block-qty-price .details-qty, .opc-sidebar .minicart-items .product-item-details .block-qty-price .subtotal {
+                display: inline-block;
+            }
+            .opc-sidebar .minicart-items .options.list span {
+                position: relative;
+                display: inline-block;
+                font-size: 0.857em;
+                letter-spacing: .84px;
+                color: #1d1d1d;
+                padding-right: 2px;
+            }
+            .opc-sidebar .minicart-items .product-item {
+                border-bottom: 1px solid #d0cccb;
+                padding: 1.214em 1.429em;
+            }
+            .opc-sidebar .title {
+                display: block;
+                font-family: PlayfairDisplay-Regular, Helvetica, Arial, sans-serif;
+                font-weight: normal;
+                font-size: 1.786em;
+                color: #1d1d1d;
+                padding: 0.96em 0.8em 0.76em;
+                border-bottom: 1px solid #d0cccb;
+            }
+            .opc-sidebar .title span {
+                display: block;
+            }
+            .opc-sidebar .minicart-items {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+            }
+            .opc-sidebar .minicart-items img {
+                max-width: 100%;
+                height: auto;
+            }
+            .opc-block-summary {
+                background-color: white;
+                border: 1px solid #d0cccb;
+            }
+            .order-id {
+                display: block;
+                font-weight: bold;
+                font-size: 0.571em;
+                padding-top: 0.357em;
+                letter-spacing: 1px;
+            }
+            .opc-sidebar .table-totals th {
+                color: #797979;
+                opacity: .8;
+                width: 50%;
+                text-align: left;
+            }
+            .opc-sidebar .table-totals th, .opc-sidebar .table-totals td {
+                font-size: 0.786em;
+                text-transform: uppercase;
+                letter-spacing: 1.2px;
+                padding: 0.909em 1.518em;
+                word-wrap: break-word;
+                font-weight: bold;
+            }
+            .opc-sidebar .custom-block .wapper {
+                letter-spacing: 1.2px;
+                line-height: 1.273em;
+                padding: 1.643em 1.429em;
+                font-weight: bold;
+                font-size: 0.786em;
+            }
+            .opc-sidebar .table-totals td {
+                color: black;
+                text-align: right;
+                width: 50%;
+            }
+            .custom-block .title-custom {
+                display: inline-block;
+                width: 100%;
+                vertical-align: middle;
+                text-transform: uppercase;
+                color: black;
+            }
+            .custom-block .text {
+                width: 100%;
+                padding-left: 0;
+                padding-top: 0.714em;
+                font-size: 1.273em;
+                text-transform: capitalize;
+                color: #bfbfbf;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .table-totals {
+                border-top: none;
+                position: relative;
+                width: 100%;
+                text-align: left;
+            }
+            .block-shipping-date {
+                border-bottom: 1px solid #d0cccb;
+                padding: 1.643em 1.429em;
+                overflow: hidden;
+            }
+            .block-shipping-date .value {
+                width: 60%;
+                font-size: 0.857em;
+                text-transform: capitalize;
+                color: #1d1d1d;
+                padding-left: 1.667em;
+                text-align: right;
+            }
+            .block-shipping-date .title {
+                letter-spacing: 1.2px;
+                font-size: 0.786em;
+                line-height: 1.273em;
+                text-transform: uppercase;
+                color: black;
+                width: 40%;
+                cursor: default;
+                font-weight: bold;
+                border-bottom: none;
+            }
+            .custom-block {
+                border-bottom: 1px solid #d0cccb;
+            }
+            .block {
+                margin-bottom: 0;
+                overflow: hidden;
+            }
+            .checkout-success {
+                padding: 2.857em 0;
+                overflow: hidden;
+            }
+            .checkout-success .shipping-info {
+                margin-bottom: 2.857em;
+            }
+            .checkout-success .shipping-info .content-info {
+                padding: 1.429em 3.429em 1.143em;
+                font-size: 1em;
+                line-height: 1.571em;
+            }
+            .checkout-success .payment-info .content-info {
+                font-size: 0.857em;
+                padding: 1.667em 3.75em;
+                line-height: 1.667em;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+            .checkout-success .content-info {
+                background: white;
+                color: black;
+                border: 1px solid #d0cccb;
+            }
+            .checkout-success .title-info {
+                font-size: 0.786em;
+                color: black;
+                text-transform: uppercase;
+                margin-bottom: 1.273em;
+            }
+            .checkout-success .payment-info .image {
+                display: block;
+                float: left;
+                width: 4.643em;
+                margin-right: 0.929em;
+                margin-top: 0.214em;
+                overflow: hidden;
+            }
+            .checkout-success .image img {
+                display: block;
+                max-width: 100%;
+            }
+            .checkout-success .desc {
+                overflow: hidden;
+            }
+            .checkout-success .desc strong {
+                color: #b2b2b2;
+                font-size: 0.833em;
+            }
+        </style>
+    </head>
+    <body class="print-receipt">
+        <div class="container">
+            <div class="print-receipt-block">
+                <div class="grid-fluid">
+                    <div class="header-logo">
+                        <?php echo $block->getChildHtml('print.logo') ?>
+                    </div>
+                    <div class="content">
+                        <?php echo $block->getChildHtml('print.order.info') ?>
+                    </div>
+                    <div class="checkout-success">
+                        <?php echo $block->getChildHtml('print.customer.info') ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

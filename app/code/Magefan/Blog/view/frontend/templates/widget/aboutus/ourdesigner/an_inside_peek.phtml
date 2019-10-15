@@ -1,0 +1,118 @@
+<?php
+$strPostIds = $block->getPostIds();
+$link = $block->getShopAllDesignerUrl();
+$media = $block->getSrcMediaImage();
+if (!empty($strPostIds)) :
+    $postIds = explode(',', $strPostIds);
+    asort($postIds);
+    ?>
+
+    <div class="information-pictures style-2">
+        <div class="title-block">
+            <div class="line-title"><span><?php echo $block->getTitle(); ?></span></div>
+        </div>
+        <div class="wrapper">
+            <?php
+            if (isset($postIds[0]) && $postIds[0]):
+                $post = $block->getPostById($postIds[0]);
+                ?>
+                <div class="pictures picture-7">
+                    <div data-toggle-caption="" class="image">
+                        <?php
+                        if ($post->getFeaturedImg() == '') :
+                            $featureImage = $media . 'images/upload/img-375x475.png';
+                        else :
+                            $featureImage = $media . $post->getFeaturedImg();
+                        endif;
+                        ?>
+                        <img src="<?php echo $featureImage; ?>" alt="<?php echo $post->getTitle(); ?>"/>
+                        <div class="caption tinymce-editor">
+                            <?php echo $post->getContent(); ?>
+                        </div><span class="icon icon-close"></span>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php
+            if (isset($postIds[1]) && $postIds[1]):
+                $post = $block->getPostById($postIds[1]);
+            ?>
+            <div class="description-picture description-1">
+                        <div class="tinymce-editor">
+                        <p><?php echo $post->getContent(); ?></p>
+                    </div>
+                    </div>
+            <?php endif; ?>
+            <?php
+            if (isset($postIds[2]) && $postIds[2]):
+                $post = $block->getPostById($postIds[2]);
+                ?>
+                <div class="pictures picture-1">
+                    <div data-toggle-caption="" class="image">
+                        <?php
+                        if ($post->getFeaturedImg() == '') :
+                            $featureImage = $media . 'images/upload/img-620x620.png';
+                        else :
+                            $featureImage = $media . $post->getFeaturedImg();
+                        endif;
+                        ?>
+                        <img src="<?php echo $featureImage; ?>" alt="<?php echo $post->getTitle(); ?>"/>
+                        <div class="caption tinymce-editor">
+                            <?php echo $post->getContent(); ?>
+                        </div><span class="icon icon-close"></span>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php
+            if (isset($postIds[3]) && $postIds[3]):
+                $post = $block->getPostById($postIds[3]);
+                ?>
+                <div class="pictures picture-4">
+                    <div data-toggle-caption="" class="image">
+                        <?php
+                        if ($post->getFeaturedImg() == '') :
+                            $featureImage = $media . 'images/upload/img-620x620.png';
+                        else :
+                            $featureImage = $media . $post->getFeaturedImg();
+                        endif;
+                        ?>
+                        <img src="<?php echo $featureImage; ?>" alt="<?php echo $post->getTitle(); ?>"/>
+                        <div class="caption tinymce-editor">
+                            <?php echo $post->getContent(); ?>
+                        </div><span class="icon icon-close"></span>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php
+            if (isset($postIds[4]) && $postIds[4]):
+                $post = $block->getPostById($postIds[4]);
+            ?>
+            <div class="description-picture description-2">
+                        <div class="tinymce-editor">
+                        <p><?php echo $post->getContent(); ?></p>
+                    </div>
+                    </div>
+            <?php endif; ?>
+            <?php
+            if (isset($postIds[5]) && $postIds[5]):
+                $post = $block->getPostById($postIds[5]);
+                ?>
+                <div class="pictures picture-6">
+                    <div data-toggle-caption="" class="image">
+                        <?php
+                        if ($post->getFeaturedImg() == '') :
+                            $featureImage = $media . 'images/upload/img-800x800.png';
+                        else :
+                            $featureImage = $media . $post->getFeaturedImg();
+                        endif;
+                        ?>
+                        <img src="<?php echo $featureImage; ?>" alt="<?php echo $post->getTitle(); ?>"/>
+                        <div class="caption tinymce-editor">
+                            <?php echo $post->getContent(); ?>
+                        </div><span class="icon icon-close"></span>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php
+ endif;

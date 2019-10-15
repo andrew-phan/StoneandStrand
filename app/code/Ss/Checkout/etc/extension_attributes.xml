@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    
+    <extension_attributes for="Magento\Checkout\Api\Data\ShippingInformationInterface">
+        <attribute code="ss_email" type="string"/>
+    </extension_attributes>    
+    
+    <extension_attributes for="Magento\Checkout\Api\Data\ShippingInformationInterface">
+        <attribute code="ss_reason_buy" type="string"/>
+    </extension_attributes>
+    
+    <extension_attributes for="Magento\Checkout\Api\Data\ShippingInformationInterface">
+        <attribute code="ss_shipping_date" type="string"/>
+    </extension_attributes>
+    
+    <extension_attributes for="Magento\Checkout\Api\Data\ShippingInformationInterface">
+        <attribute code="ss_save_default_address" type="string"/>
+    </extension_attributes>
+    
+    <extension_attributes for="Magento\Checkout\Api\Data\ShippingInformationInterface">
+        <attribute code="ss_newsletter" type="string"/>
+    </extension_attributes>
+    
+    
+    <extension_attributes for="Magento\Quote\Api\Data\TotalsItemInterface">
+        <attribute code="designer_name" type="string"/>
+    </extension_attributes>
+    
+    <extension_attributes for="Magento\Quote\Api\Data\TotalsItemInterface">
+        <attribute code="designer_url" type="string"/>
+    </extension_attributes>
+</config>

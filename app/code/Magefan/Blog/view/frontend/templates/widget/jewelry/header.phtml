@@ -1,0 +1,48 @@
+<?php
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+?>
+
+<div class="page-descriptions">
+    <?php
+    if (!$post || $post->getFeaturedImg() == '') :
+        $featureImage = $block->getViewFileUrl('images/upload/img-1000x300.png');
+    else :
+        $featureImage = $media . $post->getFeaturedImg();
+    endif;
+    ?>
+    <div class="banner-top">
+        <div class="thumbnail"><img src="<?php echo $featureImage; ?>" alt="
+            <?php
+            if ($post):
+                echo $post->getTitle();
+            endif;
+            ?>
+            "/>
+        </div>
+    </div>
+    <div class="descriptions">
+        <div class="grid-fluid">
+            <h1 class="title-page">
+                <?php
+                if ($post):
+                    echo $post->getTitle();
+                endif;
+                ?>
+            </h1>
+            <div class="tinymce-editor note">
+                <?php
+                if ($post):
+                    echo $post->getContent();
+                endif;
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

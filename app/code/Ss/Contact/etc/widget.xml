@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Widget/etc/widget.xsd">
+    <widget id="ss_contact_nutshell" class="Ss\Contact\Block\Widget\Nutshell">
+        <label translate="true">SS Contact Nut Shell Widget</label>
+        <description>Ss contact widget : In a nut shell</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" sort_order="10" required="true">
+                <label translate="true">Title</label>
+                <depends>
+                    <parameter name="template" value="widget/contact/nut_shell.phtml,widget/contact/jewelry_contact.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="head_title" xsi:type="text"  visible="true" sort_order="20" required="false">
+                <label translate="true">Head Title</label>
+            </parameter>            
+            <parameter name="link" xsi:type="text"  visible="true" sort_order="30">
+                <label translate="true">Url link</label>
+                <depends>
+                    <parameter name="template" value="widget/contact/nut_shell.phtml,widget/contact/jewelry_contact.phtml,widget/contact/services_contact.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true" sort_order="40">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="contact_nutshell" value="widget/contact/nut_shell.phtml">
+                        <label translate="true">Contact In a nut shell</label>
+                    </option>
+                    <option name="contact_jewelry" value="widget/contact/jewelry_contact.phtml">
+                        <label translate="true">Contact > Jewelry</label>
+                    </option>
+                    <option name="contact_services" value="widget/contact/services_contact.phtml">
+                        <label translate="true">Contact > Services</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="ss_contact_form" class="Ss\Contact\Block\Widget\ContactForm">
+        <label translate="true">SS Contact Form Widget</label>
+        <description>Ss contact widget : Form</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" sort_order="0" required="true">
+                <label translate="true">Title</label>
+                <depends>
+                    <parameter name="template" value="widget/contact/form.phtml,widget/contact/directory.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="header_info" xsi:type="text"  visible="true" sort_order="0" required="true">
+                <label translate="true">Header Info</label>
+                <depends>
+                    <parameter name="template" value="widget/contact/form.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true" sort_order="70">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="contact_form" value="widget/contact/form.phtml">
+                        <label translate="true">Contact Form</label>
+                    </option>
+                    <option name="contact_directory" value="widget/contact/directory.phtml">
+                        <label translate="true">Contact Directory</label>
+                    </option>
+                    <option name="contact_banner" value="widget/contact/banner.phtml">
+                        <label translate="true">Contact Banner</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

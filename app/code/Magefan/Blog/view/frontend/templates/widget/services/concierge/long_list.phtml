@@ -1,0 +1,30 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $lists_post = array();
+    foreach ($postIds as $postId) {
+        $post = $block->getPostById($postId);
+        array_push($lists_post, $post);
+    }
+endif;
+?>
+
+<div class="shop-designers shop-designers-1">
+    <h2 class="shop-designers-title"><?php echo $block->getTitle(); ?></h2>
+    <div class="designers-list">
+        <div data-slick-slider="{&quot;isNotInitDesktop&quot;: true, &quot;isNotHaveImg&quot;: true, &quot;isCenterArrowsMobile&quot;: false}" class="slider">
+            <?php foreach($lists_post as $number => $post_item){ ?>
+                <div class="item">
+                    <div class="designer-item">
+                        <p class="number"><?php echo str_pad($number + 1, 2, 0, STR_PAD_LEFT); ?></p>
+                        <h3 class="title"><?php echo $post_item->getTitle(); ?></h3>
+                        <div class="tinymce-editor">
+                            <?php echo $post_item->getContent(); ?>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>

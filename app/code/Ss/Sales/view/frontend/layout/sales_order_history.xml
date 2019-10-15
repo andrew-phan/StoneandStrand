@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default"/>
+    <body>
+        <attribute name="class" value="order"/>
+    </body>
+    
+    <referenceContainer name="content">
+        
+        <referenceBlock name="account_header">
+            <arguments>
+                <argument name="title" xsi:type="string" translate="true">My Orders</argument>
+            </arguments>
+        </referenceBlock>
+        
+        <referenceBlock name="sales.order.history" template="Ss_Sales::order/history.phtml"/>
+        <referenceBlock name="customer.account.link.back" remove="true"/>
+    </referenceContainer>
+</page>

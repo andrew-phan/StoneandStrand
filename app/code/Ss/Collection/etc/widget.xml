@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Widget/etc/widget.xsd">
+    <widget id="ss_collection" class="Ss\Collection\Block\Widget\Collections">
+        <label translate="true">Ss Collection Widget</label>
+        <description>Ss Collection Widget in Magento2</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" sort_order="0" >
+                <label translate="true">Title</label>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true" sort_order="10" >
+                <label translate="true">Template</label>
+                <options>
+                    <option name="diamond_listing_get_shopping" value="widget/diamond/listing/get_shopping.phtml">
+                        <label translate="true">Diamond > Listing > Get Shopping</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="match_now_title" xsi:type="text"  visible="true" sort_order="20" >
+                <label translate="true">Match Now Title</label>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="match_now_url" xsi:type="text"  visible="true" sort_order="30" >
+                <label translate="true">Match Now Url</label>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="shop_now_title" xsi:type="text"  visible="true" sort_order="40" >
+                <label translate="true">Shop Now Title</label>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="show_now_url" xsi:type="text"  visible="true" sort_order="50" >
+                <label translate="true">Show Now Url</label>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="quantity_description" xsi:type="text"  visible="true" sort_order="60" >
+                <label translate="true">Quantity Description</label>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="price_description" xsi:type="text"  visible="true" sort_order="60" >
+                <label translate="true">Price Description</label>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="collection_url" xsi:type="text"  visible="true" sort_order="60" >
+                <label translate="true">Collection Url</label>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+            <parameter xsi:type="block" name="collection_ids" visible="true" sort_order="70" >
+                <label translate="true">Specify Collection</label>
+                <block class="Ss\Collection\Block\Adminhtml\Widget\Collection\Chooser" />
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/get_shopping.phtml" />
+                </depends>
+            </parameter>
+        </parameters>
+    </widget>
+    
+    <widget id="ss_collection_menu" class="Ss\Collection\Block\Widget\CollectionMenu">
+        <label translate="true">Ss Collection menu Widget</label>
+        <description>Ss Collection Menu Widget in Magento2</description>
+        <parameters>
+            
+            <parameter name="column_number" xsi:type="select" required="true" visible="true">
+                <label translate="true">Column number</label>
+                <options>
+                    <option name="column1" value="1" selected="true">
+                        <label translate="true">1 column</label>
+                    </option>
+                    <option name="column2" value="2">
+                        <label translate="true">2 columns</label>
+                    </option>
+                    <option name="column3" value="3">
+                        <label translate="true">3 columns</label>
+                    </option>
+                    <option name="column4" value="4">
+                        <label translate="true">4 columns</label>
+                    </option>
+                    <option name="column5" value="5">
+                        <label translate="true">5 columns</label>
+                    </option>
+                    <option name="column6" value="6">
+                        <label translate="true">6 columns</label>
+                    </option>
+                    <option name="column7" value="7">
+                        <label translate="true">7 columns</label>
+                    </option>
+                    <option name="column8" value="8">
+                        <label translate="true">8 columns</label>
+                    </option>
+                    <option name="column9" value="9">
+                        <label translate="true">9 columns</label>
+                    </option>
+                    <option name="column10" value="10">
+                        <label translate="true">10 columns</label>
+                    </option>
+                    <option name="column11" value="11">
+                        <label translate="true">11 columns</label>
+                    </option>
+                    <option name="column12" value="12">
+                        <label translate="true">12 columns</label>
+                    </option>
+                </options>
+            </parameter>
+            
+            <parameter xsi:type="block" name="collection_ids" visible="true">
+                <label translate="true">Specify Collection</label>
+                <block class="Ss\Collection\Block\Adminhtml\Widget\Collection\Chooser" />               
+            </parameter>
+            
+            <parameter name="template" xsi:type="select" required="true" visible="true">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="header_menu" value="widget/collection_menu.phtml">
+                        <label translate="true">Header > Menu</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

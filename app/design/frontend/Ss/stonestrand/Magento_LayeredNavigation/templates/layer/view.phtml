@@ -1,0 +1,156 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$designerHelper = $this->helper('Ss\Designer\Helper\Data');
+$isFilterDesignerPage = $block->getRequest()->getParam(\Ss\Theme\Helper\Data::IS_FILTER_DESIGNER_PAGE, FALSE);
+$isFilterSalePage = $block->getRequest()->getParam(\Ss\ProductSale\Helper\Data::PARAM_IS_SALE_PAGE, FALSE);
+$countFilterState = count($block->getLayer()->getState()->getFilters());
+
+$countFilterExist = 0;
+foreach ($block->getFilters() as $filter) {
+    if ($filter->getItems()) {
+        $countFilterExist++;
+    }
+}
+?>
+
+<?php if ($block->canShowBlock() && $countFilterExist > 1): ?>
+    <div data-collapse='{"notRunOn": "desktop"}' id="layered-filter-block">
+        <div class="block filter" data-item>
+            <div class="block-title filter-title" data-item-heading>
+                <strong><?php /* @escapeNotVerified */ echo __('Filters') ?></strong>
+                <?php if ((($isFilterDesignerPage && $countFilterState > 1) || (!$isFilterDesignerPage && $countFilterState > 0)) && (!$isFilterSalePage || ($isFilterSalePage && $countFilterState > 1))): ?>
+                    <div class="block-actions filter-actions">
+                        <a href="<?php /* @escapeNotVerified */ echo $block->getClearUrl() ?>" class="action clear filter-clear"><span><?php /* @escapeNotVerified */ echo __('Reset') ?></span></a>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="block-content filter-content" data-item-body>
+                <?php if ((($isFilterDesignerPage && $countFilterState > 1) || (!$isFilterDesignerPage && $countFilterState > 0)) && (!$isFilterSalePage || ($isFilterSalePage && $countFilterState > 1))): ?>
+                    <div class="block-actions filter-actions filter-mobile">
+                        <a href="<?php /* @escapeNotVerified */ echo $block->getClearUrl() ?>" class="action clear filter-clear"><span><?php /* @escapeNotVerified */ echo __('Reset') ?></span></a>
+                    </div>
+                <?php endif; ?>
+
+                <?php echo $block->getChildHtml('state') ?>
+
+                <?php $wrapOptions = false; ?>
+                <?php foreach ($block->getFilters() as $filter): ?>
+
+                    <?php
+                    $requestVar = $filter->getRequestVar();
+                    $designerItems = [];
+                    $listShowCustom = [];
+                    // Check if this filter is category.
+                    if ($requestVar == \Ss\Designer\Model\Designer::PARAM_FILTER_CATEGORY) {
+                        $listCateItems = $filter->getItems();
+                        $listChildCates = [];
+                        // Foreach child category of current cate.
+                        foreach ($listCateItems as $cateItem) {
+                            $catId = $cateItem->getValue();
+                            $childCates = $objectManager->create('\Magento\Catalog\Model\Category')->load($catId);
+
+                            foreach ($childCates->getChildrenCategories() as $childCateItem) {
+                                if ($childCateItem->getProductCount()) {
+                                    $listChildCates[] = array(
+                                        'id' => $childCateItem->getId(),
+                                        'name' => $childCateItem->getName(),
+                                        'count' => $childCateItem->getProductCount(),
+                                        'url' => (!$isFilterDesignerPage) ? $childCateItem->getUrl() : $designerHelper->getFilterCategoryUrl($requestVar, $childCateItem->getId())
+                                    );
+                                }
+                            }
+                            $listShowCustom[0]['title'] = __('Type');
+                            $listShowCustom[0]['items'] = $listChildCates;
+                        }
+                    } elseif ($requestVar == \Ss\Designer\Model\Designer::ATTRIBUTE_CODE) {
+                        $listDesignerItems = $filter->getItems();
+                        $listDesignerIds = [];
+                        $listDesignerLink = [];
+                        foreach ($listDesignerItems as $designerItem) {
+                            $designerId = $designerItem->getValue();
+                            $listDesignerIds[] = $designerId;
+                            $listDesignerLink[$designerId] = $designerItem->getUrl();
+                        }
+
+                        $designerItems = $listShowCustom = $designerHelper->groupDesignerByType($listDesignerIds, $listDesignerLink);
+                    }elseif($requestVar == \Ss\ProductSale\Helper\Data::PRODUCT_SALE_FILTER){
+                        continue;
+                    }
+                    ?>
+
+                    <?php if (!$wrapOptions): ?>
+                        <div class="filter-options" id="narrow-by-list" data-collapse='{"numItemOpenDefault": [1,2,3,4,5]}'>
+                            <?php
+                            $wrapOptions = true;
+                        endif;
+                        ?>
+                        <?php if ($filter->getItemsCount() && empty($designerItems)): ?>
+                            <div class="filter-options-item collapse" data-item >
+                                <div role="heading" aria-level="3" data-item-heading class="filter-options-title heading-collapse"><?php echo $block->escapeHtml(__($filter->getName())) ?></div>
+                                <div class="filter-options-content content-collapse" data-item-body><?php
+                                    /* @escapeNotVerified */;
+                                    echo $block->getChildBlock('renderer')->render($filter);
+                                    ?></div>
+                            </div>
+                        <?php endif; ?>
+
+
+                        <!-- BEGIN Show Sub Categories && Designer -->
+                        <?php
+                        if ($requestVar == \Ss\Designer\Model\Designer::PARAM_FILTER_CATEGORY || $requestVar == \Ss\Designer\Model\Designer::ATTRIBUTE_CODE && !empty($listShowCustom)) :
+                            foreach ($listShowCustom as $customGroup):
+                                if (count($customGroup['items']) > 0):
+                                    ?>
+                                    <div class="filter-options-item collapse" data-item >
+                                        <div role="heading" aria-level="3" data-item-heading class="filter-options-title heading-collapse"><?php echo $customGroup['title']; ?></div>
+                                        <div class="filter-options-content content-collapse" data-item-body>
+                                            <ol class="items">
+                                                <?php foreach ($customGroup['items'] as $childItem): ?>
+                                                    <li class="item">
+                                                        <a class="am_shopby_filter_item_<?php echo $childItem["id"]; ?>" href="<?php echo $childItem["url"]; ?>">
+                                                            <span><?php echo $childItem["name"]; ?></span>
+
+                                                            <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                                                                <span class="count"><?php echo $childItem["count"]; ?>
+                                                                    <span class="filter-count-label"><?php echo __('items'); ?></span>
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </a>
+                                                    </li>
+                                                    <script type="text/x-magento-init">
+                                                        {
+                                                            ".am_shopby_filter_item_<?php echo $childItem["id"] ?>": {
+                                                                "amShopbyFilterItemDefault": {}
+                                                            }
+                                                        }
+                                                    </script>
+                                                <?php endforeach; ?>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <!-- END Show Sub Categories && Designer -->
+
+                    <?php endforeach; ?>
+                    <?php if ($wrapOptions): ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

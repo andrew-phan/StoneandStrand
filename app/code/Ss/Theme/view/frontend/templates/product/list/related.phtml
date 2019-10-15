@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Catalog\Block\Product\AbstractProduct */
+?>
+
+<?php
+$helper = $block->getDesignerHelper();
+$count = 0;
+$limit = \Ss\Theme\Helper\Data::LIMIT_PRODUCT_RELATED;
+$type = $class = 'related';
+$image = 'related_products_list';
+$isRelatedProductDesigner = FALSE;
+
+/** @var \Magento\Catalog\Block\Product\ProductList\Related $block */
+if ($exist = $block->getItems()->getSize()) {
+    $items = $block->getItems();
+} else {
+    $isRelatedProductDesigner = TRUE;
+    $currentProduct = $block->getProduct();
+    if ($currentProduct->getTypeId() != \Ss\Theme\Helper\Attributes::PRODUCT_TYPE_VIRTUAL) {
+        $items = $helper->getProductsByDesignerId($currentProduct->getSsDesigner(), $currentProduct->getId(), $limit);
+        $exist = (empty($items)) ? 0 : $items->getSize();
+    }
+}
+?>
+
+<?php if ($exist): ?>
+    <div class="related-product-block <?php /* @escapeNotVerified */ echo $class; ?>">
+        <div class="heading">
+            <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('ss_product_related')->toHtml();?>
+        </div>
+        <div data-slick-slider="{&quot;typeSlide&quot;: &quot;otherFavorites&quot;}" class="slider related-slider padding-30">
+            <?php foreach ($items as $_item): ?>
+                <?php
+                if ($count >= $limit) {
+                    break;
+                }
+                if ($isRelatedProductDesigner) {
+                    $_item->setData(\Ss\Designer\Model\Designer::GET_URL_DESIGNER, TRUE);
+                }
+                $count++;
+                $productUrl = $_item->getProductUrl();
+                $productName = $block->escapeHtml($_item->getName());
+                $designerId = $_item->getSsDesigner();
+                $designer = $helper->getDesignerById($designerId);
+                ?>
+                <div class="item">
+                    <div class="thumbnail text-center">
+                        <a href="<?php echo $productUrl ?>" title="<?php echo $productName; ?>" class="image">
+                            <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+                        </a>
+                        <div class="description">
+                            <p class="material">
+                                <a href="<?php echo $productUrl ?>" title="<?php echo $productName; ?>"><?php echo $productName; ?></a>
+                            </p>
+                            <p class="author">
+                                <?php if ($designer): ?>
+                                    <a href="<?php echo $designer->getUrl(); ?>" title="<?php echo $designer->getName(); ?>"><?php echo $designer->getName(); ?></a>
+                                <?php endif; ?>
+                            </p>
+                            <?php /* @escapeNotVerified */ echo $block->getProductPrice($_item); ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <?php
+
+
+
+ endif;

@@ -1,0 +1,44 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $posts = array();
+    $postIds = explode(',', $postIds);
+    foreach ($postIds as $postId) {
+        $posts[] = $block->getPostById($postId);
+    }
+endif;
+?>
+
+<div class="col-md-10 assistance-content">
+    <h2 class="line-title"><span><?php echo __('faqs') ?></span></h2>
+    <div data-collapse="{&quot;isMultiOpen&quot;: false, &quot;numItemOpenDefault&quot;: [1]}" class="care-repair">
+        <?php
+        if (!empty($posts)) :
+            foreach ($posts as $post) :
+                ?>
+
+                <div data-item class="collapse style-2">
+                    <div data-item-heading class="tinymce-editor heading-collapse">
+                        <p>
+                            <?php
+                            if ($post):
+                                echo $post->getTitle();
+                            endif;
+                            ?>
+                        </p>
+                    </div>
+                    <div data-item-body class="tinymce-editor content-collapse">
+                        <?php
+                        if ($post):
+                            echo $post->getContent();
+                        endif;
+                        ?>
+                    </div>
+                </div>
+
+                <?php
+            endforeach;
+        endif;
+        ?>
+    </div>
+</div>

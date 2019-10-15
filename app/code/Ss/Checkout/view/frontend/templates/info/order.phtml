@@ -1,0 +1,59 @@
+<?php
+$_order = $block->getOrder();
+$shippingDate = $_order->getSsShippingDate();
+$promotionCode = $_order->getCouponCode();
+$customizationRequests = '';
+
+foreach ($_order->getStatusHistoryCollection(true) as $_item) {
+    if($_item->getComment() && strpos($_item->getComment(), $block->getPrefixTextOrderComment()) !== false){
+        $customizationRequests = substr($_item->getComment(),strlen($block->getPrefixTextOrderComment()));
+    }
+}
+?>
+
+<aside class="modal-custom opc-sidebar opc-summary-wrapper custom-slide">
+    <div class="modal-inner-wrap">
+        <header class="modal-header">
+            <button type="button" class="action-close"><span><?php echo __("Close") ?></span></button>
+        </header>
+        <div class="modal-content">
+            <div id="opc-sidebar">
+                <div class="opc-block-summary"><span class="title"><?php echo __("Order Summary") ?></span>
+                    <div class="block items-in-cart">
+                        <div class="content minicart-items">
+                            <div class="minicart-items-wrapper overflowed">
+                                <ol class="minicart-items">
+                                    <?php echo $block->getChildHtml('success.order.items') ?>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-shipping-date">
+                        <label><?php echo __("Estimated shipping date") ?>:</label><span class="value"><?php
+                            if ($shippingDate) {
+                                echo $shippingDate;
+                            }
+                            ?></span>
+                    </div>
+                    <div class="block custom-block">
+                        <div class="wapper">
+                            <span class="title-custom"><?php echo __("Additional product information") ?>:</span>
+                            <span class="text">
+                                <?php echo (!empty($customizationRequests)) ? $customizationRequests : __("None"); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="block custom-block">
+                        <div class="wapper">
+                            <span class="title-custom"><?php echo __("Promotional code") ?>:</span>
+                            <span class="text">
+                                <?php echo ($promotionCode != "") ? $promotionCode : __("None"); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <?php echo $block->getChildHtml('order_totals') ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

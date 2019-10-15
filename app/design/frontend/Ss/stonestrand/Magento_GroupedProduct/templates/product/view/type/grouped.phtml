@@ -1,0 +1,150 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/**
+ * Grouped product data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\BaseImage
+ * @var $block \Magento\GroupedProduct\Block\Product\View\Type\Grouped
+ */
+?>
+<?php $block->setPreconfiguredValue(); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $_associatedProducts = $block->getAssociatedProducts(); ?>
+<?php $_hasAssociatedProducts = count($_associatedProducts) > 0; ?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$themeHelper = $this->helper("Ss\Theme\Helper\Data");
+$maxQtyProductShow = $themeHelper->getMaxQtyProduct();
+$stockState = $objectManager->create('\Magento\CatalogInventory\Api\StockStateInterface');
+?>
+
+<div class="table-wrapper grouped">
+    <table class="table data grouped product-group" id="super-product-table" data-total-prices>
+        <tbody>
+            <?php if ($_hasAssociatedProducts): ?>
+                <?php foreach ($_associatedProducts as $_item): ?>
+                    <?php
+                    $qtyChildItem = $stockState->getStockQty($_item->getId(), $_item->getStore()->getWebsiteId());
+                    $maxQty = ($qtyChildItem > $maxQtyProductShow) ? $maxQtyProductShow : $qtyChildItem;
+                    ?>
+
+                    <tr>
+                        <td data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>" class="col item">
+                            <label for="super_group[<?php echo $_item->getId() ?>]" class="product-link"><?php echo $block->escapeHtml($_item->getName()) ?></label>
+                        </td>
+
+                        <td>
+                            <?php if ($block->getCanShowProductPrice($_product)): ?>
+                                <?php if ($block->getCanShowProductPrice($_item)): ?>
+                                    <?php /* @escapeNotVerified */ echo $block->getProductPrice($_item) ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </td>
+
+                        <?php if ($_product->isSaleable()): ?>
+                            <td data-th="<?php echo $block->escapeHtml(__('Qty')); ?>" class="col-product-qty">
+                                <?php if ($_item->isSaleable()) : ?>
+                                    <div class="control qty">                                        
+                                        <div class="product-qty">
+                                            <select class=""
+                                                    name="super_group[<?php echo $_item->getId() ?>]"
+                                                    data-current-qty="0"
+                                                    data-validate="{'validate-diamond-group-qty':'#super-product-table'}"
+                                                    data-errors-message-box="#validation-message-box"
+                                                    >
+                                                        <?php for ($i = 0; $i <= $maxQty; $i++): ?>
+                                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                <?php endfor; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                                        <span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+                                    </div>
+                                <?php endif; ?>
+                            </td>
+                        <?php endif; ?>
+                    </tr>
+
+
+
+                    <?php
+                    if ($block->getCanShowProductPrice($_product) && $block->getCanShowProductPrice($_item) && trim($block->getProductPriceHtml(
+                                $_item, \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                        ))):
+                        ?>
+                        <tr class="row-tier-price">
+                            <td colspan="2">
+                                <?php
+                                echo $block->getProductPriceHtml(
+                                    $_item, \Magento\Catalog\Pricing\Price\TierPrice::PRICE_CODE
+                                )
+                                ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <tr>
+                    <td colspan="2" class="product-link"><?php echo __('Get the Complete Look for'); ?></td>
+                    <td class="col-product-qty">
+                        <div class="product-total-qty">
+                            <input type="text" readonly name="product" data-product-total-qty="">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="price-total-row">
+                        <span data-product-total-price="" class="price-total">$0</span>
+                    </td>
+                </tr>
+            <?php else: ?>
+                <tr>
+                    <td class="unavailable"
+                        colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>">
+                            <?php /* @escapeNotVerified */ echo __('No options of this product are available.') ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+<div id="validation-message-box"></div>
+
+<script type="text/javascript">
+    require([
+        'jquery', // jquery Library
+        'jquery/ui', // Jquery UI Library
+        'jquery/validate', // Jquery Validation Library
+        'mage/translate' // Magento text translate (Validation message translte as per language)
+    ], function ($) {
+        $.validator.addMethod(
+                'validate-diamond-group-qty', function (value, element, params) {
+                    var result = false;
+                    var total = 0;
+                    $(params).find('select[data-validate*="validate-diamond-group-qty"]').each(function (i, e) {
+                        var val = $(e).val();
+                        if (val > 0) {
+                            result = true;
+                            var valInt = parseInt(val, 10) || 0;
+                            if (valInt >= 0) {
+                                total += valInt;
+                            } else {
+                                result = false;
+                                return result;
+                            }
+                        }
+                    });
+                    return result && total > 0;
+                },
+                $.mage.__('Please specify the quantity of product(s).')
+                );
+
+    });
+</script>

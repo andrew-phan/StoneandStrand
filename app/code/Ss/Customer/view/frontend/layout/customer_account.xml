@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Customer My Account (All Pages)" design_abstraction="custom">
+    <body>
+        <attribute name="class" value="account"/>
+    </body>
+    
+    <referenceContainer name="page.top">
+        <referenceBlock name="breadcrumbs" remove="true" />
+    </referenceContainer>
+    
+    <referenceContainer name="columns.top">
+        <referenceBlock name="page.main.title" remove="true" />
+    </referenceContainer>
+    
+    <referenceContainer name="sidebar.main">
+        <referenceBlock name="customer_account_navigation_block" remove="true"/>
+        <referenceBlock name="customer_account_navigation" remove="true"/>
+        <block class="Magento\Framework\View\Element\Html\Links" name="customer_account_navigation_custom" before="-" template="Ss_Customer::account/navigation.phtml">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-custom-order-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">My Orders</argument>
+                    <argument name="path" xsi:type="string">sales/order/history</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-custom-address-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Address Book</argument>
+                    <argument name="path" xsi:type="string">customer/address</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-custom-account-edit-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Account Details</argument>
+                    <argument name="path" xsi:type="string">customer/account/edit</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-custom-preference-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">My Preferences</argument>
+                    <argument name="path" xsi:type="string">newsletter/manage</argument>
+                </arguments>
+            </block>
+        </block>
+    </referenceContainer>
+    
+    <referenceContainer name="content">
+        <block class="Ss\Customer\Block\Header" name="account_header" template="Ss_Customer::account/header.phtml" before="-" />
+        <container htmlTag="div" htmlClass="account-content" name="sidebar.right" after="sidebar.main" />
+    </referenceContainer>
+    <move element="sidebar.main" destination="content" after="account_header"/>
+
+    <referenceContainer name="main">
+        <block class="Magento\Cms\Block\Block" name="ss.customer.contactus" after="-">
+            <arguments>
+                <argument name="block_id" xsi:type="string">ss_account_nutshell</argument>
+            </arguments>
+        </block>
+    </referenceContainer>
+    
+    <referenceContainer name="page.wrapper">
+        <block class="Ss\Customer\Block\Banner" name="ss.customer.banner" template="Ss_Customer::account/banner.phtml" before="footer"/>
+    </referenceContainer>
+</page>

@@ -1,0 +1,135 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$themeHelper = $objectManager->create('\Ss\Theme\Helper\Data');
+$_categoryFactory = $objectManager->create('\Magento\Catalog\Model\Category');
+
+// Get criteo
+$criteo = $objectManager->create('Ss\Theme\Helper\Criteo');
+$criteoIsEnable = $criteo->isEnable();
+if ($criteoIsEnable) {
+    $criteoAccount = $criteo->getAccount();
+    $deviceType = $criteo->getDeviceType();
+}
+
+// Get share a sale
+$shareASale = $objectManager->create('Ss\Theme\Helper\ShareASale');
+$shareASaleIsEnable = $shareASale->isEnable();
+if ($shareASaleIsEnable) {
+    $shareASaleMerchantId = $shareASale->getMerchantId();
+}
+
+// Get customer email
+$customerRepository = $objectManager->get('Magento\Customer\Api\CustomerRepositoryInterface');
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+if ($customerSession->isLoggedIn()) {
+    $customerId = $customerSession->getCustomerId();
+    $customer = $customerRepository->getById($customerId);
+    $customerEmail = $customer->getEmail();
+}
+
+$_order = $block->getOrder();
+$payment = $_order->getPayment();
+
+$transactionId = $payment->getLastTransId();
+$storeName = $themeHelper->getStoreName();
+
+$ecommerceTransaction = [
+    'id' => $transactionId,
+    'affiliation' => $storeName,
+    'revenue' => number_format($_order->getGrandTotal(), 2),
+    'shipping' => number_format($_order->getShippingAmount(), 2),
+    'tax' => number_format($_order->getTaxAmount(), 2)
+];
+$ecommerceItems = [];
+$productIds = [];
+$cretioItems = [];
+?>
+<?php $_items = $_order->getItemsCollection(); ?>
+<?php foreach ($_items as $_item): ?>
+    <?php if ($_item->getParentItem()) {  continue; } ?>
+    <?php
+        $product = $_item->getProduct();
+        $_category = $_categoryFactory->load($product->getCategoryIds()[0]);
+        
+        $ecommerceItems[] = [
+            'id' => $transactionId,
+            'name' => $_item->getName(),
+            'sku' => $_item->getSku(),
+            'category' => $_category->getName(),
+            'price' => number_format($_item->getPrice(), 2),
+            'quantity' => (int) $_item->getQtyOrdered()
+        ];
+        $productIds[] = $product->getId();
+        $cretioItems[] = [
+            'id' => $product->getId(),
+            'price' => number_format($_item->getPrice(), 2),
+            'quantity' => (int) $_item->getQtyOrdered()
+        ];
+    ?>
+    <?php echo $block->getItemHtml($_item) ?>
+<?php endforeach; ?>
+
+
+<!-- Google ecommerce -->
+<script>
+    ga('require', 'ecommerce');
+
+    ga('ecommerce:addTransaction', <?php echo Zend_Json::encode($ecommerceTransaction); ?>);
+
+    <?php foreach ($ecommerceItems as $ecommerceItem): ?>
+        ga('ecommerce:addItem', <?php echo Zend_Json::encode($ecommerceItem); ?>);
+    <?php endforeach; ?>
+        
+    ga('ecommerce:send');
+</script>
+<!-- End Google ecommerce -->
+
+
+<!-- Google Code for Remarketing Tag -->
+    <script type="text/javascript">
+        var google_tag_params = {
+        ecomm_prodid: <?php echo Zend_Json::encode($productIds); ?>,
+        ecomm_pagetype: 'purcharce',
+        ecomm_totalvalue: '<?php echo number_format($_order->getGrandTotal(), 2); ?>',
+        };
+    </script>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 1000433162;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1000433162/?value=0&amp;guid=ON&amp;script=0"/>
+        </div>
+    </noscript>
+<!-- End Google Code for Remarketing Tag -->
+
+<?php if ($criteoIsEnable): ?>
+    <!-- Criteo -->
+        <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
+        <script type="text/javascript">
+            window.criteo_q = window.criteo_q || [];
+            window.criteo_q.push(
+            { event: "setAccount", account: <?php echo $criteoAccount; ?> },
+            { event: "setEmail", email: "<?php echo isset($customerEmail) ? $customerEmail : null; ?>" },
+            { event: "setSiteType", type: "<?php echo $deviceType; ?>" },
+            { event: "trackTransaction", id: "<?php echo $transactionId; ?>", item: <?php echo Zend_Json::encode($cretioItems); ?>}
+            );
+        </script>
+    <!-- End Criteo -->
+<?php endif; ?>
+    
+<?php if ($shareASaleIsEnable): ?>
+    <!-- Share A Sale -->
+        <img src="https://shareasale.com/sale.cfm?amount=<?php echo number_format($_order->getGrandTotal(), 2); ?>&tracking=<?php echo $block->escapeHtml($_order->getIncrementId()); ?>&transtype=sale&merchantID=<?php echo $shareASaleMerchantId; ?>" width="1" height="1">
+        
+        <?php if (isset($customerEmail)): ?>
+            <img src="https://shareasale.com/sale.cfm?amount=<?php echo number_format($_order->getGrandTotal(), 2); ?>&tracking=<?php echo $customerEmail; ?>&transtype=lead&merchantID=<?php echo $shareASaleMerchantId; ?>" width="1" height="1">
+        <?php endif; ?>
+    <!-- End Share A Sale -->
+<?php endif; ?>

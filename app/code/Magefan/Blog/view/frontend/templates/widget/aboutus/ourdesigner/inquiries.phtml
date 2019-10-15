@@ -1,0 +1,24 @@
+<?php
+$strPostIds = $block->getPostIds();
+$email = $block->getEmail();
+if (!empty($strPostIds)) :
+    $postIds = explode(',', $strPostIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+    if ($post):
+        ?>
+        <div class="iniquiries-block">
+            <h2 class="line-title"><span><?php echo $block->getTitle(); ?></span></h2>
+            <div class="content">
+                <div class="tinymce-editor">
+                    <?php echo $post->getContent(); ?>
+                </div>
+                <div class="contact-bottom">
+                    <h3 class="title"><?php echo __("please send a wholesale information to"); ?></h3>
+                    <a href="mailto:<?php echo $email; ?>" title="<?php echo $email; ?>"><?php echo $email; ?></a>
+                </div>
+            </div>
+        </div>
+        <?php
+    endif; 
+endif;

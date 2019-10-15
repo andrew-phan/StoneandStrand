@@ -1,0 +1,65 @@
+<?php
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+$themeHelper = $block->getThemeHelper();
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+
+$phone = $themeHelper->getTelephone();
+$email = $themeHelper->getEmailSupport();
+$urlAssistance = $block->getUrl('assistance/return');
+
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $lists_post = array();
+    foreach ($postIds as $postId) {
+        $post = $block->getPostById($postId);
+        array_push($lists_post, $post);
+    }
+endif;
+?>
+
+<div class="services-block">
+    <h2 class="line-title">
+        <span>
+            <?php
+                echo $block->getTitle();
+            ?>
+        </span>
+    </h2>
+    <div class="list">
+        <?php foreach($lists_post as $number => $post_item){ ?>
+            <?php
+                if ($post_item->getFeaturedImg() == '') :
+                    $featureImage = $media . 'images/upload/img-400x400.png';
+                else :
+                    $featureImage = $media . $post_item->getFeaturedImg();
+                endif;
+            ?>
+            <div class="thumbnail-horizontal <?php echo ($number % 2) ? "inverse-thumb" : "direct-thumb"; ?>"><span class="image"><img src="<?php echo $featureImage; ?>" alt="
+                <?php
+                    echo $post_item->getTitle();
+                ?>
+                "/></span>
+                <div class="description">
+                    <h3 class="title-1"><?php echo $post_item->getTitle(); ?></h3>
+                    <div class="tinymce-editor">
+                        <?php echo $post_item->getContent(); ?>
+                    </div>
+                    <?php switch($post_item->getIdentifier()){
+                        case 'your-personal-shopper': ?>
+                            <a href="mailto:<?php echo $email; ?>" title="<?php echo __("MAKE AN APPOINTMENT"); ?>" class="link-1"><span class="text"><?php echo __("MAKE AN APPOINTMENT"); ?></span><span class="icon-arrow-r icon"></span></a>
+                        <?php break; case 'personalize-it': ?>
+                            <a href="mailto:<?php echo $email; ?>" title="<?php echo __("GET STARTED"); ?>" class="link-1"><span class="text"><?php echo __("GET STARTED"); ?></span><span class="icon-arrow-r icon"></span></a>
+                        <?php break; case 'care-and-repairs': ?>
+                            <ul>
+                                <li class="link-1"><a href="tel:<?php echo str_replace(' ', '', $phone); ?>" title="hotline"><span class="text"><?php echo __("CALL US"); ?> <?php echo $phone; ?></span></a><span class="icon-arrow-r icon"></span></li>
+                                <li><a href="mailto:<?php echo $email; ?>" title="<?php echo __("EMAIL US"); ?>" class="link-1"><span class="text"><?php echo __("EMAIL US"); ?></span><span class="icon-arrow-r icon"></span></a></li>
+                            </ul>
+                        <?php break; case 'effortless-returns': ?>
+                            <a href="<?php echo $urlAssistance; ?>" title="<?php echo __("LEARN MORE"); ?>" class="link-1"><span class="text"><?php echo __("LEARN MORE"); ?></span><span class="icon-arrow-r icon"></span></a>
+                    <?php }?>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</div>

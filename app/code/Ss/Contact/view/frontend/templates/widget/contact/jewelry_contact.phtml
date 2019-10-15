@@ -1,0 +1,36 @@
+<?php
+$themeHelper = $block->getThemeHelper();
+
+$title = $block->getTitle() ? $block->getTitle() : '';
+$headTitle = $block->getHeadTitle() ? $block->getHeadTitle() : '';
+$email = $themeHelper->getSystemConfig(\Ss\Theme\Helper\Data::XML_PATH_EMAIL_GENERAL);
+$url = $block->getLink() ? $block->getUrl($block->getLink()) : '#';
+
+$phone = $themeHelper->getTelephone();
+
+$linkUrl = $themeHelper->getTribecaUrl();
+?>
+<div class="block contact-us-block">
+    <h2 class="line-title"><a href="<?php echo $url; ?>" title="<?php echo $title; ?>">
+        <span><?php echo $title; ?></span></a>
+    </h2>
+    <div class="contact-detail-block">
+        <div class="list-items">
+            <div class="item link-group">
+                <a href="mailto:<?php echo $email; ?>" title="<?php echo __('Email Us'); ?>" class="btn btn-white"><?php echo __('Email Us'); ?></a>
+                <a href="javascript: void(0);" onclick="return SnapEngage.startLink();" title="<?php echo __('Live Chat'); ?>" class="btn btn-white"><?php echo __('Live Chat'); ?></a>
+            </div>
+            <div class="item address">
+                <div class="title-1"><?php echo __('Call or Visit Us'); ?></div>
+                <a target="_blank" href="<?php echo $linkUrl; ?>" title="<?php echo __('S&amp;S tribeca'); ?>" class="location link-icon">
+                    <span class="icon-icon-location icon"></span><span class="text"><?php echo __('S&amp;S tribeca'); ?></span>
+                    <span class="icon-arrow-r icon"></span></a>
+                <p class="phone-number link-icon">
+                    <a href="tel:<?php echo $phone; ?>" title="<?php echo __('S&amp;S tribeca'); ?>" class="link-icon">
+                    <span class="icon-phone icon"></span>
+                    <span class="text"><?php echo $phone; ?></span></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

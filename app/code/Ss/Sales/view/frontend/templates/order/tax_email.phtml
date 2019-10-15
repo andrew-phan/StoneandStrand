@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+$_order = $block->getOrder();
+$_source = $block->getSource();
+$_fullInfo = $this->helper('Magento\Tax\Helper\Data')->getCalculatedTaxes($_source);
+global $taxIter;
+$taxIter++;
+?>
+
+<?php if ($_fullInfo && $block->displayFullSummary()): ?>
+    <?php foreach ($_fullInfo as $info): ?>
+        <?php
+        $percent = $info['percent'];
+        $amount = $info['tax_amount'];
+        $baseAmount = $info['base_tax_amount'];
+        $title = $info['title'];
+        ?>
+        <tr class="totals tax details details-<?php /* @escapeNotVerified */ echo $taxIter; ?> <?php echo($block->getIsPlaneMode()) ? ' plane' : ''; ?>">
+            <td <?php /* @escapeNotVerified */ echo $block->getLabelProperties() ?>>
+                <?php echo $block->escapeHtml($title); ?>
+                <?php if (!is_null($percent)): ?>
+                    (<?php echo (float) $percent; ?>%)
+                <?php endif; ?>
+                <br />
+            </td>
+            <td <?php /* @escapeNotVerified */ echo $block->getValueProperties() ?> rowspan="1">
+                <?php /* @escapeNotVerified */ echo $_order->formatPrice($amount); ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if ($block->displayFullSummary() && $_fullInfo && !$block->getIsPlaneMode()): ?>
+    <tr class="totals-tax-summary">
+    <?php elseif ($block->displayFullSummary() && $_fullInfo && $block->getIsPlaneMode()): ?>
+    <tr class="totals-tax-summary plane">
+    <?php else: ?>
+    <tr class="totals-tax">
+    <?php endif; ?>
+
+    <td align="right" <?php /* @escapeNotVerified */ echo $block->getLabelProperties() ?> scope="row">
+        <p style="color: #8a8a8a;font-size: 11px;font-family: OpenSans-Regular, Verdana, sans-serif;margin: 0;font-weight: bold;letter-spacing: 3px;text-transform: uppercase;">
+            <?php if ($block->displayFullSummary()): ?>
+            <div class="detailed"><?php /* @escapeNotVerified */ echo __('Tax'); ?></div>
+        <?php else: ?>
+            <?php /* @escapeNotVerified */ echo __('Tax'); ?>
+        <?php endif; ?>
+        </p>
+    </td>
+    <td width="37">&nbsp;</td>
+    <td align="right" class="currency" data-th="<?php echo __('Tax'); ?>">
+        <p style="color: #8a8a8a;font-size: 11px;font-family: OpenSans-Regular, Verdana, sans-serif;margin: 0;font-weight: bold;letter-spacing: 3px;text-transform: uppercase;">
+            <?php /* @escapeNotVerified */ echo $block->getCurrencyCode(); ?> <?php /* @escapeNotVerified */ echo $block->currencySymbol(); ?>
+        </p>
+    </td>
+    <td width="18">&nbsp;</td>
+    <td align="right" <?php /* @escapeNotVerified */ echo $block->getValueProperties() ?> data-th="<?php echo $block->escapeHtml(__('Tax')); ?>">
+        <p style="color: #8a8a8a;font-size: 11px;font-family: OpenSans-Regular, Verdana, sans-serif;margin: 0;font-weight: bold;letter-spacing: 3px;text-transform: uppercase;">
+
+        <?php /* @escapeNotVerified */ echo number_format($_source->getTaxAmount(), 2); ?>
+        </p>
+    </td>
+    <td width="23">&nbsp;</td>
+
+</tr>

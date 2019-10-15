@@ -1,0 +1,34 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isDisplayed() -->
+<tr class="grand totals">
+    <td colspan="2">
+        <table class="totals-table">
+            <tr>
+                <th class="mark" scope="row" data-bind="text: title"></th>
+                <td class="amount grandtotal">
+                    <span class="price" data-bind ="text: getValue(), attr:{'data-label': title}"></span>
+                    <!-- ko foreach: elems() -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!-- /ko -->
+                </td>
+            </tr>
+        </table>
+
+    </td>
+
+</tr>
+
+<tr class="payment-due">
+    <th class="mark" scope="row">
+        <strong data-bind="i18n: 'payment due'"></strong>
+    </th>
+    <td data-bind="attr: {'data-th': 'payment due'}" class="amount">
+        <strong><span class="price" data-bind="text: getValue()"></span></strong>
+    </td>
+</tr>
+<!-- /ko -->

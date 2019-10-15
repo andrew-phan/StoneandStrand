@@ -1,0 +1,52 @@
+<?php
+$designerHelper = $this->helper('Ss\Designer\Helper\Data');
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+?>
+
+<?php
+if ($post && $post->getIsActive()):
+    $title = $post->getTitle();
+    if (!$post || $post->getFeaturedImg() == '') :
+        $featureImage = $media . 'images/upload/banner-list.jpg';
+    else :
+        $featureImage = $media . $post->getFeaturedImg();
+    endif;
+    ?>
+    <div class="page-descriptions">
+        <div class="banner-top">
+            <div class="thumbnail">
+                <img src="<?php echo $featureImage; ?>" alt="<?php echo $title; ?>"/>
+            </div>
+        </div>
+        <div class="descriptions">
+            <div class="grid-fluid">
+                <h1 class="title-page"><?php echo $title; ?></h1>
+                <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.content-info&quot;}" class="info-wrapper">
+                    <div class="tinymce-editor note content-info">
+                        <?php echo $post->getContent(); ?>
+                    </div>
+                    <a href="#" title="<?php echo __('...read more'); ?>" class="hidden-md-up read-more-btn"><?php echo __('...read more'); ?></a>
+                </div>
+                <ul class="link-list text-center">
+                    <li>
+                        <a href="mailto:<?php echo $themeHelper->getEmailGeneral(); ?>" title="<?php echo __('Email us'); ?>"><?php echo __('Email us'); ?></a>
+                    </li>
+                    <li>
+                        <span><?php echo __('call'); ?> <?php echo $themeHelper->getTelephone(); ?></span>
+                    </li>
+                    <li>
+                        <a href="<?php echo $designerHelper->getContactUsUrlPage(); ?>" title="<?php echo __('visit us'); ?>"><?php echo __('visit us'); ?></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?php
+ endif;

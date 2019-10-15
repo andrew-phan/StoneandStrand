@@ -1,0 +1,33 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerRepository = $objectManager->get('Magento\Customer\Api\CustomerRepositoryInterface');
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+if ($customerSession->isLoggedIn()) {
+    $customerId = $customerSession->getCustomerId();
+    $customer = $customerRepository->getById($customerId);
+    $customerEmail = $customer->getEmail();
+}
+
+// Get criteo
+$criteo = $objectManager->create('Ss\Theme\Helper\Criteo');
+$criteoIsEnable = $criteo->isEnable();
+if ($criteoIsEnable) {
+    $criteoAccount = $criteo->getAccount();
+    $deviceType = $criteo->getDeviceType();
+}
+?>
+
+<?php if ($criteoIsEnable): ?>
+    <!--Criteo-->
+        <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
+        <script type="text/javascript">
+            window.criteo_q = window.criteo_q || [];
+            window.criteo_q.push(
+            { event: "setAccount", account: <?php echo $criteoAccount; ?> },
+            { event: "setEmail", email: "<?php echo (isset($customerEmail)) ? $customerEmail : ''; ?>" },
+            { event: "setSiteType", type: "<?php echo $deviceType ;?>" },
+            { event: "viewHome" }
+            );
+        </script>
+    <!--End Criteo-->
+<?php endif ;?>

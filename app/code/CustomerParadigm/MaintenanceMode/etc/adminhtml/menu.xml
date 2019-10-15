@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="CustomerParadigm_MaintenanceMode::maintenancemode" title="Maintenance Mode" module="CustomerParadigm_MaintenanceMode" sortOrder="998" parent="Magento_Backend::stores" resource="CustomerParadigm_MaintenanceMode::manage503"/>
+		<add id="CustomerParadigm_MaintenanceMode::maintenancemode_rules" title="Adjust Settings" module="CustomerParadigm_MaintenanceMode" sortOrder="10" parent="CustomerParadigm_MaintenanceMode::maintenancemode" action="maintenancemode/adjustsettings" resource="CustomerParadigm_MaintenanceMode::manage503"/>
+    </menu>
+</config>

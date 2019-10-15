@@ -1,0 +1,24 @@
+<?php
+$collections = $block->getCollections();
+$displayType = $block->getDisplayType();
+$designerHelper = $block->getDesignerHelper();
+?>
+<?php if ($collections->getSize() > 0) : ?>
+    <div class="ms-category">
+        <div class="col-category col-xs-<?php echo $block->getWidth(); ?>">
+            <?php if (!empty($block->getTitle())): ?><strong class="ms-boxtitle form-group"><?php echo $block->getTitle(); ?></strong><?php endif; ?>
+
+            <?php if ($displayType == \Ss\Designer\Block\Widget\Designer::DESIGNER_TYPE): ?>
+                <a class="form-group level2" href="<?php echo $designerHelper->getDesignerListingUrl() ?>"><?php echo __('Designers A - Z'); ?></a>
+            <?php endif; ?>
+
+            <?php foreach ($collections as $item): ?>
+                <a class="form-group level2" href="<?php echo $item->getUrl() ?>"><?php echo $item->getName() ?></a>
+            <?php endforeach; ?>
+
+            <?php if ($displayType == \Ss\Designer\Block\Widget\Designer::TAG_TYPE): ?>
+                <a class="form-group level2" href="<?php echo $designerHelper->getDesignerListingUrl() ?>"><?php echo __('See All...'); ?></a>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

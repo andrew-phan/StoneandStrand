@@ -1,0 +1,44 @@
+<?php
+$designerCollections = $block->getDesignerCollections();
+$tagCollections = $block->getTagCollections();
+$designerHelper = $this->helper('Ss\Designer\Helper\Data');
+if ($designerCollections->getSize() > 0):
+    ?>
+    <div class="designer-modern-block">
+        <h2 class="line-title"><span><?php echo $block->getTitle() ?></span></h2>
+        <div class="list-design">
+            <ul>
+                <?php foreach ($designerCollections as $designer): ?>
+                    <li><a data-designer_id="<?php echo $designer->getDesignerId(); ?>" href="<?php echo $designer->getUrl() ?>"><?php echo $designer->getName(); ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <div class="click-design text-center">
+            <?php if ($tagCollections->getSize() > 0): ?>
+                <p><?php echo __('Click on tags to find the right jewelry designer for you'); ?></p>
+                <div data-collapse class="assistance-wrapper">
+                    <div data-item class="collapse style-4">
+                        <div data-item-heading class="heading-collapse hidden-md-up"><span><?php echo __('select type'); ?></span></div>
+                        <div data-item-body class="content-collapse">
+                            <ul class="list-dropdown">
+                                <?php foreach ($tagCollections as $tag): ?>
+                                    <?php
+                                    $designerIds = $block->getListDesignerIdByTagId($tag->getId());
+                                    ?>
+                                    <li><a href="#" data-tag_id="<?php echo $tag->getId(); ?>" data-designer_ids = "<?php echo $designerIds; ?>"><?php echo $tag->getName(); ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="group-btn text-center">
+                <a href="<?php echo $designerHelper->getJewelryVintageUrlPage(); ?>" title="<?php echo __('Shop all'); ?>" class="btn btn-white"><?php echo __('Shop all'); ?></a>
+            </div>
+        </div>
+    </div>
+    <?php
+
+
+endif;

@@ -1,0 +1,77 @@
+<?php
+$title = $block->getTitle();
+$list = $block->getCollection();
+$mediaUrl = $block->getMediaUrl();
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+/** @var \Magento\Framework\App\ObjectManager $om */
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$postBlock = $om->create('Magefan\Blog\Block\Widget\Post');
+$media = $postBlock->getSrcMediaImage();
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $firstPostId = array_shift($postIds);
+    $firstPost = $postBlock->getPostById($firstPostId);
+endif;
+?>
+<div class="approach-block">
+    <h2 class="line-title"><span><?php echo $title; ?></span></h2>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div data-slick-slider="{&quot;typeSlide&quot;: &quot;ourApproach&quot;}" class="slider banner-slider">
+                <?php
+                foreach ($list as $banner) :
+                    $srcImage = $mediaUrl . $banner->getImage();
+                    ?>
+                    <div class="slider-item">
+                        <a href="<?php echo $banner->getTargetUrl(); ?>" title="<?php echo $banner->getName(); ?>">
+                            <img src="<?php echo $srcImage; ?>" alt="<?php echo $banner->getName(); ?>"/>
+                        </a>
+                    </div>
+                <?php endforeach ?>
+            </div>
+            <div class="text-center desc-text">
+                <?php echo $firstPost->getContent(); ?>
+            </div>
+            <div data-slick-slider="{&quot;isNotInitDesktop&quot;: true}" class="approach-list block-center-2">
+                <?php
+                $i = 0;
+                foreach ($postIds as $postId):
+                    $post = $postBlock->getPostById($postId);
+                    ?>
+                    <div class="item">
+                        <div class="thumbnail-icon">
+                            <?php
+                            if (!$post || $post->getFeaturedImg() == '') :
+                                if ($i == 0 || $i % 2 == 0):
+                                    $defaultImg = 'images/icon-pen.png';
+                                else :
+                                    $defaultImg = 'images/icon-trolly.png';
+                                endif;
+                                $featureImage = $media . $defaultImg;
+                            else :
+                                $featureImage = $media . $post->getFeaturedImg();
+                            endif;
+                            ?>
+                            <img src="<?php echo $featureImage; ?>" alt="img" class="image"/>
+                            <h3 class="title">
+                                <?php
+                                if ($post):
+                                    echo $post->getTitle();
+                                endif;
+                                ?>
+                            </h3>
+                            <?php
+                            if ($post) :
+                                echo $post->getContent();
+                            endif;
+                            ?>
+                        </div>
+                    </div>
+                    <?php
+                    $i++;
+                endforeach;
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<?php
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+?>
+
+<div class="page-descriptions page-descriptions-1">
+    <?php
+    if (!$post || $post->getFeaturedImg() == '') :
+        $featureImage = $block->getViewFileUrl('images/upload/img-1000x300.png');
+    else :
+        $featureImage = $media . $post->getFeaturedImg();
+    endif;
+    ?>
+    <div class="banner-top">
+        <div class="thumbnail"><img src="<?php echo $featureImage; ?>" alt="
+            <?php
+            if ($post):
+                echo $post->getTitle();
+            endif;
+            ?>
+            "/>
+        </div>
+    </div>
+    <div class="descriptions">
+        <div class="grid-fluid">
+            <h1 class="title-page">
+                <?php
+                echo $post->getTitle();
+                ?>
+            </h1>
+            <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.content-info&quot;}" class="info-wrapper term-block">
+                <div class="tinymce-editor note content-info term-info">
+                    <?php
+                    if ($post):
+                        echo $post->getContent();
+                    endif;
+                    ?>
+                </div>
+                <button type="button" name="read-more-1" id="read-more-1" class="read-more-btn hidden-md-up"><?php echo __("...read more"); ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

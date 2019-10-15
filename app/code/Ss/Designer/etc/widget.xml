@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Widget/etc/widget.xsd">
+    <widget id="ss_designer" class="Ss\Designer\Block\Widget\Designer">
+        <label translate="true">Ss Designer menu Widget</label>
+        <description>Ss Designer menu Widget in Magento2</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" sort_order="0" >
+                <label translate="true">Title</label>
+            </parameter>
+
+            <parameter name="display_type" xsi:type="select" required="true" visible="true">
+                <label translate="true">Display Type</label>
+                <description translate="true">Designer - Types</description>
+                <options>
+                    <option name="default" value="designer" selected="true">
+                        <label translate="true">Designer</label>
+                    </option>
+                    <option name="item" value="tag">
+                        <label translate="true">Tag</label>
+                    </option>
+                </options>
+            </parameter>
+
+            <parameter name="width" xsi:type="select" required="true" visible="true">
+                <label translate="true">Width</label>
+                <options>
+                    <option name="column1" value="1">
+                        <label translate="true">1 column</label>
+                    </option>
+                    <option name="column2" value="2">
+                        <label translate="true">2 columns</label>
+                    </option>
+                    <option name="column3" value="3" selected="true">
+                        <label translate="true">3 columns</label>
+                    </option>
+                    <option name="column4" value="4">
+                        <label translate="true">4 columns</label>
+                    </option>
+                    <option name="column5" value="5">
+                        <label translate="true">5 columns</label>
+                    </option>
+                    <option name="column6" value="6">
+                        <label translate="true">6 columns</label>
+                    </option>
+                    <option name="column7" value="7">
+                        <label translate="true">7 columns</label>
+                    </option>
+                    <option name="column8" value="8">
+                        <label translate="true">8 columns</label>
+                    </option>
+                    <option name="column9" value="9">
+                        <label translate="true">9 columns</label>
+                    </option>
+                    <option name="column10" value="10">
+                        <label translate="true">10 columns</label>
+                    </option>
+                    <option name="column11" value="11">
+                        <label translate="true">11 columns</label>
+                    </option>
+                    <option name="column12" value="12">
+                        <label translate="true">12 columns</label>
+                    </option>
+                </options>
+            </parameter>
+
+            <parameter xsi:type="block" name="designer_ids" visible="true">
+                <label translate="true">Specify Designers</label>
+                <depends>
+                    <parameter name="display_type" value="designer" />
+                </depends>
+                <block class="Ss\Designer\Block\Adminhtml\Widget\Designer\Chooser" />
+            </parameter>
+
+            <parameter xsi:type="block" name="tag_ids" visible="true">
+                <label translate="true">Specify Tags</label>
+                <depends>
+                    <parameter name="display_type" value="tag" />
+                </depends>
+                <block class="Ss\Designer\Block\Adminhtml\Widget\Tag\Chooser" />
+            </parameter>
+            <parameter name="cache_lifetime" xsi:type="text" visible="true">
+                <label translate="true">Cache Lifetime (Seconds)</label>
+                <description translate="true">86400 by default, if not set. To refresh instantly, clear the Blocks HTML Output cache.</description>
+            </parameter>
+        </parameters>
+    </widget>
+
+
+    <widget id="ss_designer_category" class="Ss\Designer\Block\Widget\Category">
+        <label translate="true">Ss Category menu Widget</label>
+        <description>Ss Category Menu Widget in Magento2</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" sort_order="0" >
+                <label translate="true">Title</label>
+            </parameter>
+
+            <parameter name="column_number" xsi:type="select" required="true" visible="true">
+                <label translate="true">Column number</label>
+                <options>
+                    <option name="column1" value="1" selected="true">
+                        <label translate="true">1 column</label>
+                    </option>
+                    <option name="column2" value="2">
+                        <label translate="true">2 columns</label>
+                    </option>
+                    <option name="column3" value="3">
+                        <label translate="true">3 columns</label>
+                    </option>
+                    <option name="column4" value="4">
+                        <label translate="true">4 columns</label>
+                    </option>
+                    <option name="column5" value="5">
+                        <label translate="true">5 columns</label>
+                    </option>
+                    <option name="column6" value="6">
+                        <label translate="true">6 columns</label>
+                    </option>
+                    <option name="column7" value="7">
+                        <label translate="true">7 columns</label>
+                    </option>
+                    <option name="column8" value="8">
+                        <label translate="true">8 columns</label>
+                    </option>
+                    <option name="column9" value="9">
+                        <label translate="true">9 columns</label>
+                    </option>
+                    <option name="column10" value="10">
+                        <label translate="true">10 columns</label>
+                    </option>
+                    <option name="column11" value="11">
+                        <label translate="true">11 columns</label>
+                    </option>
+                    <option name="column12" value="12">
+                        <label translate="true">12 columns</label>
+                    </option>
+                </options>
+            </parameter>
+
+            <parameter name="category_ids" xsi:type="multiselect" required="true" source_model="Ss\Designer\Model\Config\Source\Category" visible="true">
+                <label translate="true">Specify Categories</label>
+            </parameter>
+            <parameter name="cache_lifetime" xsi:type="text" visible="true">
+                <label translate="true">Cache Lifetime (Seconds)</label>
+                <description translate="true">86400 by default, if not set. To refresh instantly, clear the Blocks HTML Output cache.</description>
+            </parameter>
+        </parameters>
+    </widget>
+
+
+    <widget id="ss_designer_listing" class="Ss\Designer\Block\Widget\DesignerListing">
+        <label translate="true">Ss Designer listing Widget</label>
+        <description>Ss Designer listing Widget in Magento2</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" required="true">
+                <label translate="true">Title</label>
+            </parameter>
+
+            <parameter name="link" xsi:type="text"  visible="true">
+                <label translate="true">Link</label>
+                <depends>
+                    <parameter name="template" value="widget/designer/listing/featured_designer.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter name="type_id" xsi:type="select" required="true" source_model="Ss\Designer\Model\Config\Source\Type" visible="true">
+                <label translate="true">Specify Type</label>
+                <depends>
+                    <parameter name="template" value="widget/designer/listing/vintage.phtml,widget/designer/listing/modern.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter name="post_ids" xsi:type="block" visible="true" required="true">
+                <label translate="true">Specify Post</label>
+                <block class="Magefan\Blog\Block\Adminhtml\Post\Widget\Chooser"/>
+                <depends>
+                    <parameter name="template" value="widget/designer/listing/vintage.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter xsi:type="block" name="designer_ids" visible="true">
+                <label translate="true">Specify Designers</label>
+                <depends>
+                    <parameter name="template" value="widget/designer/listing/featured_designer.phtml" />
+                </depends>
+                <block class="Ss\Designer\Block\Adminhtml\Widget\Designer\Chooser" />
+            </parameter>
+
+            <parameter name="template" xsi:type="select" required="true" visible="true">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="default" value="widget/designer/listing/modern.phtml" selected="true">
+                        <label translate="true">Designer listing > Modern</label>
+                    </option>
+                    <option name="home_whatwedo" value="widget/designer/listing/vintage.phtml">
+                        <label translate="true">Designer listing > Vintage</label>
+                    </option>
+                    <option name="designer_feature" value="widget/designer/listing/featured_designer.phtml">
+                        <label translate="true">Designer listing > Featured designer</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="cache_lifetime" xsi:type="text" visible="true">
+                <label translate="true">Cache Lifetime (Seconds)</label>
+                <description translate="true">86400 by default, if not set. To refresh instantly, clear the Blocks HTML Output cache.</description>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

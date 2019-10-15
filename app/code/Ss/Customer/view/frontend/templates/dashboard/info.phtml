@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
+?>
+
+
+<div class="page-descriptions style-1">
+    <div class="descriptions">
+        <h1 class="title-page"><span><?php echo __('Your account'); ?></span></h1>
+        <div class="tinymce-editor">
+            <p><?php echo __('Welcome to my account', $block->escapeHtml($block->getCustomer()->getFirstName())); ?></p>
+        </div>
+    </div>
+</div>
+<div class="user-account-block">
+    <ul class="user-account">
+        <?php echo $block->getChildHtml(); ?>
+       
+    </ul>
+    <div class="btn-group"><a href="<?php echo $block->getUrl('customer/account/logout/'); ?>" title="<?php echo __('Sign out'); ?>" class="btn btn-white"><?php echo __('Sign out'); ?></a>
+    </div>
+</div>

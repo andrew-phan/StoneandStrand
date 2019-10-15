@@ -1,0 +1,46 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $posts = array();
+    $postIds = explode(',', $postIds);
+    foreach ($postIds as $postId) {
+        $posts[] = $block->getPostById($postId);
+    }
+endif;
+
+$_filterTemplate = $block->getFilterTemplate();
+$_filterTemplate->setVariables(
+    [
+        'email' => $block->getCustomer()->getEmail(),
+    ]
+);
+?>
+
+<div class="return-success">
+    <h2 class="title-success"><?php echo $block->getTitle(); ?></h2>
+
+    <?php
+    if (!empty($posts)) :
+        foreach ($posts as $post) :
+            ?>
+            <div class="question-block">
+                <h3 class="title-question">
+                    <?php
+                    if ($post):
+                        echo $post->getTitle();
+                    endif;
+                    ?>
+                </h3>
+                <p>
+                    <?php
+                    if ($post):
+                        echo $_filterTemplate->filter($post->getContent());
+                    endif;
+                    ?>
+                </p>
+            </div>
+            <?php
+        endforeach;
+    endif;
+    ?>
+</div>

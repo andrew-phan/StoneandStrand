@@ -1,0 +1,39 @@
+<?php
+$strPostIds = $block->getPostIds();
+$link = $block->getShopAllDesignerUrl();
+if (!empty($strPostIds)) :
+    $postIds = explode(',', $strPostIds);
+    asort($postIds);
+    ?>
+
+    <div class="shop-designers">
+        <h2 class="line-title"><span><?php echo $block->getTitle(); ?></span></h2>
+        <div class="designers-list">
+            <div data-slick-slider="{&quot;isNotInitDesktop&quot;: true, &quot;isNotHaveImg&quot;: true, &quot;isCenterArrowsMobile&quot;: false}" class="slider">
+                <?php
+                $i = 1;
+                foreach ($postIds as $postId):
+                    $post = $block->getPostById($postId);
+                    ?>
+                    <div class="item">
+                        <div class="designer-item">
+                            <?php $num = $i < 10 ? "0{$i}" : $i; ?>
+                            <p class="number"><?php echo $num; ?></p>
+                            <h3 class="title"><?php echo $post->getTitle(); ?></h3>
+                            <div class="tinymce-editor">
+                                <?php echo $post->getContent(); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    $i++;
+                endforeach;
+                ?>
+            </div>
+            <div class="group-btn text-center">
+                <a href="<?php echo $link; ?>" title="<?php echo $block->getTitle(); ?>" class="btn btn-white"><?php echo __("Shop all designers"); ?></a>
+            </div>
+        </div>
+    </div>
+    <?php
+ endif;

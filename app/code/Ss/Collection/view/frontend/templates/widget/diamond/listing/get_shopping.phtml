@@ -1,0 +1,51 @@
+<?php
+
+$ids = $block->getCollectionIds();
+$listId = explode(",", $ids);
+$firstId = array_shift($listId);
+
+$firstCollection = $block->loadCollection($firstId);
+
+$media = $block->getSrcMediaImage();
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+
+?>
+<div class="get-shop-block">
+    <h2 class="line-title"><span><?php echo $block->getTitle(); ?></span></h2>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="shop-1 block-center-2">
+                <div class="item">
+                    <h3 class="title"><?php echo $block->getMatchNowTitle(); ?></h3>
+                    <a href="<?php echo $block->getMatchNowUrl() ? $block->getMatchNowUrl() : "javascript:;"; ?>" title="<?php echo __("Match now"); ?>" class="btn btn-block btn-white"><?php echo __("Match now"); ?></a>
+                </div>
+                <div class="item">
+                    <h3 class="title"><?php echo $block->getShopNowTitle(); ?></h3><a href="<?php echo $block->getShopNowUrl() ? $block->getShopNowUrl() : "javascript:;"; ?>" title="<?php echo __("Shop now"); ?>" class="btn btn-block btn-white"><?php echo __("Shop now"); ?></a>
+                </div>
+            </div>
+            <?php if ($firstCollection) : ?>
+                <div class="shop-2 thumbnail-horizontal">
+                    <span class="image">
+                        <?php $image = $firstCollection->getImage() ? $media.$firstCollection->getImage() : $media.'images/upload/img-400x400.png';
+                            /**
+                             * @Todo get media url
+                             */
+                        ?>
+
+                        <a href="<?php echo $block->getCollectionUrl(); ?>" title="<?php  echo $firstCollection->getName(); ?>" class="link-1"><img src="<?php echo $image; ?>" alt="<?php  echo $firstCollection->getName(); ?>"/></a></span>
+
+                    <div class="description text-center">
+                        <h3 class="title"><?php  echo $firstCollection->getName(); ?></h3>
+                        <div class="tinymce-editor">
+                            <?php echo $firstCollection->getDescription(); ?>
+                        </div>
+                        <p class="quanty"><?php echo $block->getQuantityDescription(); ?></p>
+                        <p class="price"><?php echo $block->getPriceDescription(); ?></p>
+                        <a href="<?php echo $block->getCollectionUrl(); ?>" title="<?php echo __("Click here"); ?>" class="link-1"><?php echo __("Click here"); ?></a>
+                    </div>
+                </div>
+            <?php endif ?>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,103 @@
+<?php
+$_item = $block->getItem();
+
+try {
+    $_product = $block->getProductRepository()->getById($block->getItem()->getProductId());
+} catch (\Magento\Framework\Exception\NoSuchEntityException $noEntityException) {
+    $_product = null;
+}
+
+if( ! empty($_product)) {
+    # Get image proudct
+    $imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+    $featureImage = $imagehelper->init($_product, 'product_small_image')->getUrl();
+
+    #get designer
+    $designer = $block->getDesignerHelper()->getDesignerById($_product->getSsDesigner());
+    $designerName = ($designer) ? $designer->getName() : '';
+
+    # Get product ref
+    $productRef = $_product->getData('reference_number');
+
+    # Get shipping time
+    $itemHelper = $block->getItemHelper();
+    $itemHelper->setProduct($_product);
+    $itemHelper->setOrder($block->getOrder());
+    $shippingTime = $itemHelper->getShipping();
+    $productUrl = $_product->getProductUrl();
+}
+
+# Get image default for product
+$imageDefault = $this->getViewFileUrl('images/upload/img-135x135.png');
+
+# Get order status
+$orderStatus = $block->getOrder()->getStatusLabel();
+?>
+<tr id="order-item-row-<?php /* @escapeNotVerified */ echo $_item->getId(); ?>">
+    <td class="col name" data-th="<?php echo $block->escapeHtml(__('Product')); ?> :">
+        <div class="thumbnail"><img alt="<?php $block->escapeHtml($_item->getName()); ?>" src="<?php echo isset($featureImage) ? $featureImage : ''; ?>"/>
+        </div>
+    </td>
+    <td class="col description" data-th="<?php echo $block->escapeHtml(__('Description')); ?> :">
+        <strong class="product name product-item-name"><a href="<?php echo isset($productUrl) ? $productUrl : '#'; ?>"><?php echo $block->escapeHtml($_item->getName()); ?></a></strong>
+
+        <?php if(isset($designer)): ?>
+        <p class="author">
+            <p class="design-name"><?php echo isset($designerName) ? $designerName : ''; ?></p>
+        </p>
+        <?php endif; ?>
+
+        <?php if ($_options = $block->getItemOptions()): ?>
+        <?php $htmlAttribute = []; ?>
+
+        <?php foreach ($_options as $key => $options) : ?>
+            <?php $htmlAttribute[$key] = ""; ?>
+            <?php foreach ($options as $_option) : ?>
+                <?php  if (isset($symbol)): ?>
+                    <?php $htmlAttribute[$key] .= $symbol; ?>
+                <?php endif; ?>
+                <?php if (isset($_option['option_id'])) { $htmlAttribute[$key] .= $block->escapeHtml($_option['label']) . ": "; } ?>
+                <?php if (!$block->getPrintStatus()): ?>
+                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option); ?>
+                        <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                            <?php /* @escapeNotVerified */ $htmlAttribute[$key] .= $_formatedOptionValue['full_view']; ?>
+                        <?php else: ?>
+                            <?php /* @escapeNotVerified */ $htmlAttribute[$key] .= $_formatedOptionValue['value']; ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?php $htmlAttribute[$key] .= nl2br($block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value']))); ?>
+                <?php endif; ?>
+                <?php $symbol = ", "; ?>
+            <?php endforeach; ?>
+            <?php $htmlAttribute[$key] .= "."; ?>
+            <?php unset($symbol); ?>
+            <p><?php echo $htmlAttribute[$key]; ?></p>
+        <?php endforeach; ?>
+
+        <?php endif; ?>
+
+        <?php if (isset($productRef)): ?><p class="ref"><?php echo __('Ref.'); ?> <?php echo $productRef; ?></p><?php endif; ?>
+        <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addtInfoBlock) : ?>
+            <?php echo $addtInfoBlock->setItem($_item)->toHtml(); ?>
+        <?php endif; ?>
+    </td>
+    <td class="col price" data-th="<?php echo $block->escapeHtml(__('Unit Price')); ?> :">
+        <?php echo $block->getItemRowTotalHtml(); ?>
+    </td>
+    <td class="col qty">
+        <ul class="items-qty">
+            <?php if (isset($shippingTime)) : ?>
+                <li class="item shipping">
+                    <span class="title"><?php /* @escapeNotVerified */ echo __('Shipping Time'); ?>:</span>
+                    <span class="content">
+                        <?php /* @escapeNotVerified */ echo $shippingTime['value']; ?>
+                    </span>
+                </li>
+            <?php endif; ?>
+            <li class="item item-status" data-th="<?php echo $block->escapeHtml(__('Status')); ?> :">
+                <span><?php /* @escapeNotVerified */ echo __($orderStatus); ?></span>
+            </li>
+        </ul>
+    </td>
+</tr>

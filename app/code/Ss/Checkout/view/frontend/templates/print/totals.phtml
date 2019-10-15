@@ -1,0 +1,48 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+$order = $block->getOrder();
+$themeHelper = $this->helper("Ss\Theme\Helper\Data");
+$isIncludeTax = $themeHelper->getIsIncludeTaxInOrderTotal();
+$grandTotalCode = $isIncludeTax ? 'grand_total_incl' : 'grand_total';
+?>
+<table class="data table table-totals">
+    <?php foreach ($block->getTotals() as $_code => $_total): ?>
+    <?php switch ($_code) {
+        case "subtotal" : ?>
+            <tr class="totals sub">
+                <th class="mark"><?php echo __("Subtotal")?></th>
+                <td class="amount"><?php echo $block->formatValue($_total) ?> </td>
+            </tr>
+        <?php break; case "shipping" :?>
+            <tr class="totals shipping excl">
+                <th class="mark"><?php echo __("Shipping")?></th>
+                <td class="amount"><?php echo $block->formatValue($_total) ?> </td>
+            </tr>
+        <?php break; case "discount" :?> 
+            <tr class="totals discount">
+                <th class="mark"><strong><?php echo __("Discount")?></strong></th>
+                <td class="amount"><strong><?php echo $block->formatValue($_total) ?> </strong></td>
+            </tr>
+        <?php break; case "tax" :?> 
+            <?php echo $block->getChildHtml('print.order.tax')?>
+        <?php break; case "$grandTotalCode" :?>
+            <tr class="grand totals"><th class="mark"><strong><?php echo __("Total")?></strong></th><td class="amount"><strong><?php echo $block->formatValue($_total) ?> </strong></td></tr>
+            <tr class="payment-due">
+                <th class="mark"><strong><?php echo __("Paid")?></strong></th>
+                <td class="amount"><strong style="font-size: 2.727em; line-height: 0.9em; font-family: PlayfairDisplay-Regular, Georgia, Times New Roman, Times, serif; font-weight: normal;"><?php echo $block->formatValue($_total) ?></strong></td>
+            </tr>
+        <?php break; default: echo "";?> 
+    <?php }?>
+    <?php endforeach;?>
+</table>
+

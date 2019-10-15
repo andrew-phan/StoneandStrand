@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Widget/etc/widget.xsd">
+    <widget id="ss_slideshow" class="Ss\Slideshow\Block\Widget\Slideshow">
+        <label translate="true">Ss Slideshow Widget</label>
+        <description>Ss slideshow Widget in Magento2</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" sort_order="0" >
+                <label translate="true">Title</label>
+                <depends>
+                    <parameter name="template" value="widget/slideshow.phtml,widget/diamond/listing/our_approach.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true" sort_order="10" >
+                <label translate="true">Template</label>
+                <options>
+                    <option name="homepage_banner_slideshow" value="widget/slideshow.phtml">
+                        <label translate="true">Homepage > Banner Slide Show</label>
+                    </option>
+                    <option name="diamond_listing_our_approach" value="widget/diamond/listing/our_approach.phtml">
+                        <label translate="true">Diamond > Listing > Our Approach</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="banner_type" xsi:type="select"  visible="true" sort_order="20" >
+                <label translate="true">Type</label>
+                <options>
+                    <option name="default" value="homepage" selected="true">
+                        <label translate="true">Homepage</label>
+                    </option>
+                    <option name="item" value="diamond">
+                        <label translate="true">Diamond</label>
+                    </option>
+                </options>
+                <depends>
+                    <parameter name="template" value="widget/slideshow.phtml,widget/diamond/listing/our_approach.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter xsi:type="block" name="banner_ids" visible="true" sort_order="30" >
+                <label translate="true">Specify Banners</label>
+                <block class="Ss\Slideshow\Block\Adminhtml\Widget\Chooser" />
+                <depends>
+                    <parameter name="template" value="widget/slideshow.phtml,widget/diamond/listing/our_approach.phtml" />
+                </depends>
+            </parameter>
+            
+            <parameter name="post_ids" xsi:type="block" visible="true" required="true" sort_order="40">
+                <label translate="true">Specify Post</label>
+                <block class="Magefan\Blog\Block\Adminhtml\Post\Widget\Chooser"/>
+                <depends>
+                    <parameter name="template" value="widget/diamond/listing/our_approach.phtml" />
+                </depends>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

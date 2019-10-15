@@ -1,0 +1,20 @@
+<?php if (!empty($block->getSsReasonBuy()) && !is_null($block->getSsReasonBuy())): ?>
+    <div id="ss-reason-buy"  style="margin-top: 7px;">
+        <strong><?php echo __('How did you hear about us:') ?></strong>
+        <span class="price">&nbsp;&nbsp;&nbsp;<?php echo $block->getSsReasonBuy() ?></span>
+    </div>
+    <script type="text/javascript">
+        require(
+                ['jquery'],
+                function ($) {
+                    var element = $('#ss-reason-buy');
+                    element.remove();
+                    element.insertAfter($(".order-information-table"));
+                }
+        );
+    </script>
+
+    <?php
+
+
+ endif;

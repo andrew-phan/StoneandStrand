@@ -1,0 +1,68 @@
+<?php
+$order = $block->getOrder();
+$payment = $order->getPayment();
+$methodPayment = $payment->getMethod();
+$ccExpMonth = $payment->getCcExpMonth();
+$ccExpYear = $payment->getCcExpYear();
+if($ccExpMonth && $ccExpYear){
+    $ccExpDate = str_pad($ccExpMonth, 2, 0, STR_PAD_LEFT).'/'.$ccExpYear;
+}
+$ccLast4 = $payment->getCcLast4();
+$ccType = $payment->getCcType();
+$methodTitle = $payment->getAdditionalInformation()['method_title'];
+$media = $block->getSrcMediaImage();
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+
+if($block->isInchooStripePayment($methodPayment)){
+    if($ccType){
+        switch($ccType){
+            case \Ss\Sales\Block\Order\Info::CC_TYPE_SO : $imagePayment = $this->getViewFileUrl('images/logo-so.png');break;
+            case \Ss\Sales\Block\Order\Info::CC_TYPE_SM : $imagePayment = $this->getViewFileUrl('images/logo-sm.png');break;
+            case \Ss\Sales\Block\Order\Info::CC_TYPE_VI : $imagePayment = $this->getViewFileUrl('images/logo-vi.png');break;
+            case \Ss\Sales\Block\Order\Info::CC_TYPE_MC : $imagePayment = $this->getViewFileUrl('images/logo-mc.png');break;
+            case \Ss\Sales\Block\Order\Info::CC_TYPE_AE : $imagePayment = $this->getViewFileUrl('images/logo-ae.png');break;
+            case \Ss\Sales\Block\Order\Info::CC_TYPE_DI : $imagePayment = $this->getViewFileUrl('images/logo-di.png');break;
+            case \Ss\Sales\Block\Order\Info::CC_TYPE_JCB: $imagePayment = $this->getViewFileUrl('images/logo-jcb.png');break;
+            default   : $imagePayment = '';break;
+        }
+    }
+}elseif($block->isPaypalExpressPayment($methodPayment)){
+    $imagePayment = $this->getViewFileUrl('images/paypal.png');
+}
+?>
+<div class="shipping-info">
+    <h2 class="title-info"><?php echo __("Shipping address")?></h2>
+    <div class="content-info">
+        <p>
+            <?php
+                if($order){
+                    echo $block->getFormattedAddress($order->getShippingAddress());
+                }
+            ?>
+        </p>
+    </div>
+</div>
+
+
+<div class="payment-info">
+    <h2 class="title-info"><?php echo __("Payment infomation")?></h2>
+    <div class="content-info">
+        <div class="image">
+
+            <?php if(isset($imagePayment) && $imagePayment != '') :?>
+                <img src="<?php echo $imagePayment;?>" alt="img-banner"/>
+            <?php endif;?>
+        </div>
+        <div class="desc">
+            <p><?php echo $methodTitle;?>
+                <?php if($ccLast4):?>
+                    (**** **** <?php echo $ccLast4;?>)
+                <?php endif;?>
+            </p>
+            <?php if(isset($ccExpDate)):?>
+                <strong><?php echo __("Expired on")?> <?php echo $ccExpDate; ?></strong>
+            <?php endif;?>
+        </div>
+    </div>
+</div>
+

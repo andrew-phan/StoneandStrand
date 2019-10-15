@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+?>
+<tr>
+    <td>
+        <table border="0" cellpadding="0" cellspacing="0" align="right">
+            <tbody>
+                <?php foreach ($block->getTotals() as $_code => $_total): ?>
+                    <?php if ($_total->getBlockName()): ?>
+                        <?php echo $block->getChildHtml($_total->getBlockName(), false); ?>
+                    <?php else: ?>
+                        <tr class="<?php /* @escapeNotVerified */ echo $_code ?>">
+                            <td align="right" <?php /* @escapeNotVerified */ echo $block->getLabelProperties() ?> scope="row">
+                                <p style="color: #8a8a8a;font-size: 11px;font-family: OpenSans-Regular, Verdana, sans-serif;margin: 0;font-weight: bold;letter-spacing: 3px;text-transform: uppercase;">
+                                    <?php if ($_total->getStrong()): ?>
+                                    <strong style="color:#1d1d1d"><?php echo $block->escapeHtml($_total->getLabel()); ?></strong>
+                                    <?php else: ?>
+                                        <?php echo $block->escapeHtml($_total->getLabel()); ?>
+                                    <?php endif ?>
+                                </p>
+                            </td>
+                            <td width="37">&nbsp;</td>
+                            <td align="right" class="currency" data-th="<?php echo $block->escapeHtml($_total->getLabel()); ?>">
+                                <p style="color: #8a8a8a;font-size: 11px;font-family: OpenSans-Regular, Verdana, sans-serif;margin: 0;font-weight: bold;letter-spacing: 3px;text-transform: uppercase;">
+                                    <?php if ($_total->getStrong()): ?>
+                                        <strong style="color:#1d1d1d"><?php /* @escapeNotVerified */ echo $_total->getCurrencyCode(); ?> <?php /* @escapeNotVerified */ echo $block->currencySymbol() ?></strong>
+                                    <?php else: ?>
+                                        <?php /* @escapeNotVerified */ echo $block->currencySymbol() ?>
+                                    <?php endif ?>
+                                </p>
+                            </td>
+                            <td width="18">&nbsp;</td>
+                            <td align="right" <?php /* @escapeNotVerified */ echo $block->getValueProperties() ?> data-th="<?php echo $block->escapeHtml($_total->getLabel()); ?>">
+                                <p style="color: #8a8a8a;font-size: 11px;font-family: OpenSans-Regular, Verdana, sans-serif;margin: 0;font-weight: bold;letter-spacing: 3px;text-transform: uppercase;">
+                                    <?php if ($_total->getStrong()): ?>
+                                        <strong style="color:#1d1d1d"><span class="price"><?php /* @escapeNotVerified */ echo number_format($_total->getValue(), 2); ?></span></strong>
+                                    <?php else: ?>
+                                        <span class="price"><?php /* @escapeNotVerified */ echo number_format($_total->getValue(), 2); ?></span>
+                                    <?php endif ?>
+                                </p>
+                            </td>
+                            <td width="23">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td height="2" style="line-height: 0;">&nbsp;</td>
+                            <td height="2" style="line-height: 0;">&nbsp;</td>
+                            <td height="2" style="line-height: 0;">&nbsp;</td>
+                            <td height="2" style="line-height: 0;">&nbsp;</td>
+                            <td height="2" style="line-height: 0;">&nbsp;</td>
+                            <td height="2" style="line-height: 0;">&nbsp;</td>
+                        </tr>
+                    <?php endif ?>
+                <?php endforeach ?>
+            </tbody></table>
+    </td>
+</tr>

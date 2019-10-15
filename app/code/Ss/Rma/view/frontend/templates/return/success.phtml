@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Rma\Block\Returns\Create */
+?>
+<?php 
+$_order =  $block->getOrder();
+
+$orderDate = new \DateTime($_order->getCreatedAt());
+$orderDate = $orderDate->format('m/d/y');
+?>
+<div class="account-content return-exchange-block">
+    <div class="order-details-items ordered">
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a class="action back" href="<?php /* @escapeNotVerified */ echo $block->getBackUrl(); ?>">
+                    <?php /* @escapeNotVerified */ echo __('Back to my order'); ?>
+                </a>
+            </div>
+        </div>
+        <div class="order-head">
+            <div class="order-title">
+                    <p><strong><?php /* @escapeNotVerified */ echo __('Order Number'); ?>:</strong><?php /* @escapeNotVerified */ echo $_order->getIncrementId(); ?></p>
+                    <p><strong><?php /* @escapeNotVerified */ echo __('Order Date'); ?>:</strong><?php /* @escapeNotVerified */ echo $orderDate; ?></p>
+            </div>
+            <div class="return-step">
+                <p><?php /* @escapeNotVerified */ echo __('Step 1'); ?></p>
+                <span class="line-arrow"></span>
+                <p><strong><?php /* @escapeNotVerified */ echo __('Step 2'); ?></strong></p>
+            </div>
+            <?php echo $block->getChildHtml('ss.rma.success.message') ?>
+        </div>
+        <div class="actions-toolbar group-bottom">
+            <div class="primary">
+                <a class="action shopping-link btn btn-black" href="<?php /* @escapeNotVerified */ echo $block->getUrl(); ?>">
+                    <?php /* @escapeNotVerified */ echo __('Shop now'); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

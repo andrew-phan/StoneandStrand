@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="login"/>
+    </body>
+    <referenceContainer name="page.top">
+        <referenceBlock name="breadcrumbs" remove="true" />
+    </referenceContainer>
+    
+    <referenceBlock name="account_header" remove="true" />
+    <referenceBlock name="ss.contactus.nutshell" remove="true" />
+    
+    <referenceContainer name="customer.login.container" htmlClass="row login-form">
+        <container name="customer.login.container.col" label="Customer Login Container col" htmlTag="div" htmlClass="col-md-10 col-md-offset-1">
+
+            <block class="Magento\Customer\Block\Form\Register" name="customer_form_register" template="Ss_Customer::form/register.phtml" before="-">
+                <container name="form.additional.info" as="form_additional_info"/>
+                <container name="customer.form.register.fields.before" as="form_fields_before" label="Form Fields Before" htmlTag="div" htmlClass="customer-form-before"/>
+            </block>
+            <block class="Magento\Customer\Block\Form\Login" name="customer_form_login" template="Ss_Customer::form/login.phtml" cacheable="false">
+                <container name="form.additional.info" as="form_additional_info"/>
+            </block>
+            <referenceBlock name="customer.new" remove="true" />
+        </container>
+    </referenceContainer>
+</page>

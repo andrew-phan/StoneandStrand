@@ -1,0 +1,72 @@
+<?php
+$columnNumber = $block->getColumnNumber();
+$collection = $block->getCollections();
+
+if ($collection->getSize() && $collection->getSize() < $columnNumber) {
+    $columnNumber = $collection->getSize();
+} elseif ($columnNumber > 12) {
+    $columnNumber = 12;
+}
+
+
+$col_index = floor(12 / $columnNumber);
+switch ($columnNumber) {
+    case 5:$col_index = 24;
+        break;
+    case 7:$col_index = 14;
+        break;
+    case 8:$col_index = 125;
+        break;
+    case 9:$col_index = 111;
+        break;
+    case 10:$col_index = 100;
+        break;
+    case 11:$col_index = 909;
+        break;
+    default:
+        break;
+}
+?>
+
+<?php if ($collection->getSize()): ?>
+    <div class='wrapper-product-feature'>
+        <?php
+        $i = 1;
+        foreach ($collection as $item):
+            if ($item->getUrlMenu()) {
+                $urlFilter = $item->getUrlMenu();
+            } else {
+                $urlFilter = $item->getMenuUrl();
+            }
+            $name = $block->escapeHtml($item->getName());
+            ?>
+            <div class="f-category col-sm-<?php echo $col_index ?> col-xs-<?php
+            if ($columnNumber != 1) {
+                if ($col_index > 4) {
+                    echo '6';
+                } else {
+                    echo '4';
+                }
+            } else {
+                echo '12';
+            }
+            ?> col-tn-<?php
+                 if ($columnNumber != 1) {
+                     echo '6';
+                 } else {
+                     echo '12';
+                 }
+                 ?>">
+                <a class="product-image text-center form-group" href="<?php echo $urlFilter; ?>">
+                    <img title="<?php echo $name; ?>" alt="<?php echo $name; ?>" src="<?php echo $item->getFeatureImageUrl(); ?>" width="275"/>
+                </a>
+                <a class="product-name form-group" href="<?php echo $urlFilter; ?>"><?php echo $item->getName(); ?></a>
+                <p><strong><?php echo $block->limitString($item->getShortDescription(), 200); ?></strong></p>
+
+            </div>
+            <?php
+            $i++;
+        endforeach;
+        ?>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,54 @@
+<?php
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+$themeHelper = $block->getThemeHelper();
+$phone = $themeHelper->getTelephone();
+
+$ssthemeHelper = $this->helper("\Ss\Theme\Helper\Data");
+$emailUs = $ssthemeHelper->getEmailGeneral();
+
+$linkUrl = $block->getVisitUsUrl() ? $block->getVisitUsUrl() : 'mailto:' . $ssthemeHelper->getEmailToLink();
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+if ($post) :
+    ?>
+    <div class="page-descriptions page-descriptions-1">
+        <?php
+        if ($post->getFeaturedImg() == '') :
+            $featureImage = $block->getViewFileUrl('images/upload/img-1000x300.png');
+        else :
+            $featureImage = $media . $post->getFeaturedImg();
+        endif;
+        ?>
+        <div class="banner-top">
+            <div class="thumbnail"><img src="<?php echo $featureImage; ?>" alt="<?php echo $post->getTitle(); ?>">
+            </div>
+        </div>
+        <div class="descriptions">
+            <div class="grid-fluid">
+                <h1 class="title-page"><span><?php echo $block->getTitle(); ?></span><?php echo $post->getTitle(); ?>
+                </h1>
+                <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.content-info&quot;}" class="info-wrapper term-block">
+                    <div class="tinymce-editor note content-info term-info">
+                        <?php echo $post->getContent(); ?>
+                    </div>
+                    <button type="button" name="read-more-1" id="read-more-1" class="read-more-btn hidden-md-up"><?php echo __("...read more"); ?>
+                    </button>
+                </div>
+                <ul class="link-list text-center">
+                    <li><a href="mailto:<?php echo $emailUs; ?>" title="<?php echo __("Email us"); ?>"><?php echo __("Email us"); ?></a>
+                    </li>
+                    <li><a href="tel:<?php echo str_replace(' ', '', $phone); ?>" title="hotline"><?php echo __("call") ?> <?php echo $phone; ?></a>
+                    </li>
+                    <li><a href="<?php echo $linkUrl; ?>" title="<?php echo __("visit us"); ?>"><?php echo __("visit us"); ?></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?php
+ endif;

@@ -1,0 +1,89 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject Header @-->
+<!--@vars {
+"var logo_height":"Email Logo Image Height",
+"var logo_width":"Email Logo Image Width",
+"var template_styles|raw":"Template CSS"
+} @-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="format-detection" content="telephone=no"/>
+        <style type="text/css">
+            a {
+                color: #1d1d1d !important;
+                text-decoration: none !important;
+            }
+            
+            {{css file="css/email.css"}}
+        </style>
+    </head>
+    <body style="margin: 0; padding: 0;">
+        {{inlinecss file="css/email-inline.css"}}
+        <table border="0" cellpadding="0" cellspacing="0" width="600" align="center">
+            <tbody>
+                <tr>
+                    <td>
+                        <table width="600" align="center" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                    <td>
+                                        <table border="0" cellpadding="0" width="600" cellspacing="0">
+                                            <tbody><tr>
+                                                    <td bgcolor="#ede1df" align="center" height="56">
+                                                        <p style="font-size: 13px; font-family: OpenSans-Regular, Arial, sans-serif; margin-bottom: 0"><a href="{{var link_top_message}}">{{trans "%top_message" top_message=$top_message}}</a></p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" height="84" style="line-height: 0;">
+                                                        <a href="{{store url=""}}">
+                                                            <img
+                                                                {{if logo_width}}
+                                                                width="{{var logo_width}}"
+                                                                {{else}}
+                                                                width="180"
+                                                                {{/if}}
+
+                                                                {{if logo_height}}
+                                                                height="{{var logo_height}}"
+                                                                {{else}}
+                                                                height="52"
+                                                                {{/if}}
+
+                                                                src="{{var logo_url}}"
+                                                                alt="{{var logo_alt}}"
+                                                                border="0"
+                                                                />
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr bgcolor="#1d1d1d" height="31" align="center">
+                                                <td valign="middle" align="center">
+                                                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                                        <tbody><tr>
+                                                                <td width="15">&nbsp;</td>
+                                                                <td valign="middle" align="center" height="31" style="padding: 0 15px"><a href="{{var link_menu_1}}" title="{{trans "%title_menu_1" title_menu_1=$title_menu_1}}" style="text-decoration: none"><span style="text-transform: uppercase;color: #ffffff; text-decoration: none; font-size: 11px; font-family: OpenSans-Regular, Arial, sans-serif; font-weight: bold; letter-spacing: 2px">{{trans "%title_menu_1" title_menu_1=$title_menu_1}}</span></a></td>
+                                                                <td valign="middle" align="center" height="31" style="padding: 0 15px"><a href="{{var link_menu_2}}" title="{{trans "%title_menu_2" title_menu_2=$title_menu_2}}" style="text-decoration: none; color: #ffffff"><span style="text-transform: uppercase;color: #ffffff; text-decoration: none; font-size: 11px; font-family: OpenSans-Regular, Arial, sans-serif; font-weight: bold; letter-spacing: 2px">{{trans "%title_menu_2" title_menu_2=$title_menu_2}}</span></a></td>
+                                                                <td valign="middle" align="center" height="31" style="padding: 0 15px"><a href="{{var link_menu_3}}" title="{{trans "%title_menu_3" title_menu_3=$title_menu_3}}" style="text-decoration: none; color: #ffffff"><span style="text-transform: uppercase;color: #ffffff; text-decoration: none; font-size: 11px; font-family: OpenSans-Regular, Arial, sans-serif; font-weight: bold; letter-spacing: 2px">{{trans "%title_menu_3" title_menu_3=$title_menu_3}}</span></a></td>
+                                                                <td valign="middle" align="center" height="31" style="padding: 0 15px"><a href="{{var link_menu_4}}" title="{{trans "%title_menu_4" title_menu_4=$title_menu_4}}" style="text-decoration: none; color: #ffffff"><span style="text-transform: uppercase;color: #ffffff; text-decoration: none; font-size: 11px; font-family: OpenSans-Regular, Arial, sans-serif; font-weight: bold; letter-spacing: 2px">{{trans "%title_menu_4" title_menu_4=$title_menu_4}}</span></a></td>
+                                                                <td valign="middle" align="center" height="31" style="padding: 0 15px"><a href="{{var link_menu_5}}" title="{{trans "%title_menu_5" title_menu_5=$title_menu_5}}" style="text-decoration: none; color: #ffffff"><span style="text-transform: uppercase;color: #ffffff; text-decoration: none; font-size: 11px; font-family: OpenSans-Regular, Arial, sans-serif; font-weight: bold; letter-spacing: 2px">{{trans "%title_menu_5" title_menu_5=$title_menu_5}}</span></a></td>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                </td>
+                                            </tr>
+                                        </tbody></table>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                </td>
+            </tr>
+

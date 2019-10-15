@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Widget/etc/widget.xsd">
+    <widget id="ss_blog" class="Magefan\Blog\Block\Widget\Post">
+        <label translate="true">Ss Blog Widget</label>
+        <description>Ss blog Widget in Magento2</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" sort_order="0" required="true">
+                <label translate="true">Title</label>
+                <depends>
+                    <parameter name="template" value="widget/homepage/what_we_do.phtml,widget/homepage/service.phtml,widget/homepage/come_hang_with_us.phtml,widget/newsletter/thankyou.phtml,widget/homepage/shop_jewelry.phtml,widget/company/terms.phtml,widget/company/privacy.phtml,widget/diamond/header.phtml,widget/diamond/challenge.phtml,widget/diamond/packaging.phtml,widget/aboutus/ourdesigner/header.phtml,widget/aboutus/ourdesigner/an_inside_peek.phtml,widget/aboutus/ourdesigner/inquiries.phtml,widget/diamond_stud/what_we_do.phtml,widget/diamond_stud/shop.phtml,widget/services/concierge/list_service.phtml,widget/services/concierge/long_list.phtml,widget/aboutus/ourdesigner/shop_all_designer.phtml,widget/jewelry/search_header.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter name="link" xsi:type="text"  visible="true" sort_order="0" >
+                <label translate="true">Url link</label>
+                <depends>
+                    <parameter name="template" value="widget/homepage/what_we_do.phtml,widget/homepage/service.phtml,widget/newsletter/thankyou.phtml,widget/homepage/shop_jewelry.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter name="youtube_id" xsi:type="text"  visible="true" sort_order="0"  required="true">
+                <label translate="true">Youtube ID</label>
+                <depends>
+                    <parameter name="template" value="widget/homepage/come_hang_with_us.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter name="image" xsi:type="block" required="false" visible="true" sort_order="1">
+                <label translate="true">Youtube Image</label>
+                <block class="Magefan\Blog\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+                <depends>
+                    <parameter name="template" value="widget/homepage/come_hang_with_us.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter name="post_ids" xsi:type="block" visible="true" required="true">
+                <label translate="true">Specify Post</label>
+                <block class="Magefan\Blog\Block\Adminhtml\Post\Widget\Chooser"/>
+                <depends>
+                    <parameter name="template" value="widget/homepage/what_we_do.phtml,widget/homepage/service.phtml,widget/homepage/come_hang_with_us.phtml,widget/newsletter/thankyou.phtml,widget/homepage/shop_jewelry.phtml,widget/newsletter/popup_newsletter.phtml,widget/designer/listing/header.phtml,widget/designer/listing/give_back.phtml,widget/company/terms.phtml,widget/company/privacy.phtml,widget/jewelry/header.phtml,widget/diamond/header.phtml,widget/diamond/challenge.phtml,widget/diamond/packaging.phtml,widget/aboutus/ourdesigner/header.phtml,widget/aboutus/ourdesigner/shop_all_designer.phtml,widget/aboutus/ourdesigner/an_inside_peek.phtml,widget/aboutus/ourdesigner/inquiries.phtml,widget/diamond_stud/header.phtml,widget/diamond_stud/shop.phtml,widget/diamond_stud/what_we_do.phtml,widget/diamond_stud/picture.phtml,widget/assistance/header.phtml,widget/assistance/care/faqs.phtml,widget/assistance/faq/my_orders.phtml,widget/assistance/return/our_policy.phtml,widget/assistance/shipping/faqs.phtml,widget/assistance/warranty/our_policy.phtml,widget/services/concierge/header.phtml,widget/services/concierge/list_service.phtml,widget/services/concierge/long_list.phtml,widget/category/description.phtml,widget/jewelry/search_header.phtml,widget/product/related.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter name="category_ids" xsi:type="multiselect" required="true" source_model="Ss\Designer\Model\Config\Source\Category" visible="true">
+                <label translate="true">Specify Categories</label>
+                <depends>
+                    <parameter name="template" value="widget/homepage/shop_jewelry.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="jewelry_category_id" xsi:type="select" required="true" source_model="Ss\Designer\Model\Config\Source\Category" visible="true">
+                <label translate="true">Specify Categories</label>
+                <depends>
+                    <parameter name="template" value="widget/jewelry/category.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="term_condition_url" xsi:type="text"  visible="true" sort_order="0" required="true">
+                <label translate="true">Terms &amp; Conditions Url</label>
+                <depends>
+                    <parameter name="template" value="widget/newsletter/thankyou.phtml" />
+                </depends>
+            </parameter>
+
+            <parameter name="visit_us_url" xsi:type="text"  visible="true" sort_order="0" required="false">
+                <label translate="true">Visit Us Url</label>
+                <depends>
+                    <parameter name="template" value="widget/aboutus/ourdesigner/header.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="shop_all_designer_url" xsi:type="text"  visible="true" sort_order="0" required="true">
+                <label translate="true">Shop All Designer Url</label>
+                <depends>
+                    <parameter name="template" value="widget/aboutus/ourdesigner/shop_all_designer.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="policy_url" xsi:type="text"  visible="true" sort_order="0">
+                <label translate="true">Url Policy</label>
+                <depends>
+                    <parameter name="template" value="widget/assistance/header.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="care_url" xsi:type="text"  visible="true" sort_order="0">
+                <label translate="true">Url Care and Repair</label>
+                <depends>
+                    <parameter name="template" value="widget/assistance/sidebar.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="exchange_url" xsi:type="text"  visible="true" sort_order="0">
+                <label translate="true">Url Return &amp; Exchanges</label>
+                <depends>
+                    <parameter name="template" value="widget/assistance/sidebar.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="shipping_url" xsi:type="text"  visible="true" sort_order="0">
+                <label translate="true">Url Shipping</label>
+                <depends>
+                    <parameter name="template" value="widget/assistance/sidebar.phtml,widget/assistance/header.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="warranty_url" xsi:type="text"  visible="true" sort_order="0">
+                <label translate="true">Url lifetime Warranty</label>
+                <depends>
+                    <parameter name="template" value="widget/assistance/sidebar.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="faq_url" xsi:type="text"  visible="true" sort_order="0">
+                <label translate="true">Url Faq</label>
+                <depends>
+                    <parameter name="template" value="widget/assistance/sidebar.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="shopall_url" xsi:type="text" required="false" visible="true">
+                <label translate="true">Shop All Url</label>
+                <depends>
+                    <parameter name="template" value="widget/jewelry/category.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="bestseller_url" xsi:type="text" required="false" visible="true">
+                <label translate="true">Best seller Url</label>
+                <depends>
+                    <parameter name="template" value="widget/jewelry/category.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="home_whatwedo" value="widget/homepage/what_we_do.phtml">
+                        <label translate="true">Home > What we do</label>
+                    </option>
+
+                    <option name="home_service" value="widget/homepage/service.phtml">
+                        <label translate="true">Home > Service</label>
+                    </option>
+
+                    <option name="home_comehangwithus" value="widget/homepage/come_hang_with_us.phtml">
+                        <label translate="true">Home > Come hang with us</label>
+                    </option>
+
+                    <option name="home_shopjewelry" value="widget/homepage/shop_jewelry.phtml">
+                        <label translate="true">Home > Shop Jewelry</label>
+                    </option>
+
+                    <option name="home_criteo" value="widget/homepage/criteo.phtml">
+                        <label translate="true">Home > Criteo</label>
+                    </option>
+
+                    <option name="newsletter_thankyou" value="widget/newsletter/thankyou.phtml">
+                        <label translate="true">Newsletter > Thank you</label>
+                    </option>
+
+                    <option name="designer_header" value="widget/designer/listing/header.phtml">
+                        <label translate="true">Designer > Listing > Header</label>
+                    </option>
+
+                    <option name="newsletter_popup" value="widget/newsletter/popup_newsletter.phtml">
+                        <label translate="true">Popup > Newsletter</label>
+                    </option>
+
+                    <option name="designer_giveback" value="widget/designer/listing/give_back.phtml">
+                        <label translate="true">Designer > Listing > Give back</label>
+                    </option>
+
+                    <option name="our_company_terms" value="widget/company/terms.phtml">
+                        <label translate="true">Our Company > Terms</label>
+                    </option>
+
+                    <option name="our_company_privacy" value="widget/company/privacy.phtml">
+                        <label translate="true">Our Company > Privacy</label>
+                    </option>
+
+                    <option name="jewelry_header" value="widget/jewelry/header.phtml">
+                        <label translate="true">Jewelry > Header</label>
+                    </option>
+
+                    <option name="jewelry_category" value="widget/jewelry/category.phtml">
+                        <label translate="true">Jewelry > Category</label>
+                    </option>
+
+                    <option name="jewelry_banner" value="widget/jewelry/banner.phtml">
+                        <label translate="true">Jewelry > Banner</label>
+                    </option>
+
+                    <option name="diamond_header" value="widget/diamond/header.phtml">
+                        <label translate="true">Diamond > Header</label>
+                    </option>
+
+                    <option name="diamond_packaging" value="widget/diamond/packaging.phtml">
+                        <label translate="true">Diamond > Packaging</label>
+                    </option>
+
+                    <option name="diamond_challenge" value="widget/diamond/challenge.phtml">
+                        <label translate="true">Diamond > Challenge</label>
+                    </option>
+
+                    <option name="aboutus_header" value="widget/aboutus/ourdesigner/header.phtml">
+                        <label translate="true">About Us > Our Designer > Header</label>
+                    </option>
+
+                    <option name="aboutus_shop_all_designer" value="widget/aboutus/ourdesigner/shop_all_designer.phtml">
+                        <label translate="true">About Us > Our Designer > Shop All Desinger</label>
+                    </option>
+
+                    <option name="aboutus_an_inside_peek" value="widget/aboutus/ourdesigner/an_inside_peek.phtml">
+                        <label translate="true">About Us > Our Designer > An Inside Peek</label>
+                    </option>
+
+                    <option name="aboutus_inquiries" value="widget/aboutus/ourdesigner/inquiries.phtml">
+                        <label translate="true">About Us > Our Designer > Inquiries</label>
+                    </option>
+
+                    <option name="diamondstud_header" value="widget/diamond_stud/header.phtml">
+                        <label translate="true">Diamond stud > Header</label>
+                    </option>
+
+                    <option name="diamondstud_shop" value="widget/diamond_stud/shop.phtml">
+                        <label translate="true">Diamond stud > Shop</label>
+                    </option>
+
+                    <option name="diamondstud_whatwedo" value="widget/diamond_stud/what_we_do.phtml">
+                        <label translate="true">Diamond stud > What we do</label>
+                    </option>
+
+                    <option name="diamondstud_picture" value="widget/diamond_stud/picture.phtml">
+                        <label translate="true">Diamond stud > Picture</label>
+                    </option>
+
+                    <option name="assistance_header" value="widget/assistance/header.phtml">
+                        <label translate="true">Assistance > Header</label>
+                    </option>
+
+                    <option name="assistance_sidebar" value="widget/assistance/sidebar.phtml">
+                        <label translate="true">Assistance > sidebar</label>
+                    </option>
+
+                    <option name="assistance_banner" value="widget/assistance/banner.phtml">
+                        <label translate="true">Assistance > Banner</label>
+                    </option>
+
+                    <option name="assistance_care_faqs" value="widget/assistance/care/faqs.phtml">
+                        <label translate="true">Assistance > Care > Faqs</label>
+                    </option>
+
+                    <option name="assistance_faq_my_orders" value="widget/assistance/faq/my_orders.phtml">
+                        <label translate="true">Assistance > faq > My orders</label>
+                    </option>
+
+                    <option name="assistance_return" value="widget/assistance/return/our_policy.phtml">
+                        <label translate="true">Assistance > return</label>
+                    </option>
+
+                    <option name="assistance_shipping_faqs" value="widget/assistance/shipping/faqs.phtml">
+                        <label translate="true">Assistance > Shipping > Faqs</label>
+                    </option>
+
+                    <option name="assistance_warranty" value="widget/assistance/warranty/our_policy.phtml">
+                        <label translate="true">Assistance > Warranty</label>
+                    </option>
+
+                    <option name="service_header" value="widget/services/concierge/header.phtml">
+                        <label translate="true">Services > Header</label>
+                    </option>
+
+                    <option name="service_list" value="widget/services/concierge/list_service.phtml">
+                        <label translate="true">Services > List</label>
+                    </option>
+
+                    <option name="service_longlist" value="widget/services/concierge/long_list.phtml">
+                        <label translate="true">Services > Long List</label>
+                    </option>
+
+                    <option name="service_bottom_slider" value="widget/services/concierge/bottom_slider.phtml">
+                        <label translate="true">Services > Bottom Slider</label>
+                    </option>
+
+                    <option name="category_description" value="widget/category/description.phtml">
+                        <label translate="true">Jewelry > New/Sale Product</label>
+                    </option>
+
+                    <option name="jewelry_search_header" value="widget/jewelry/search_header.phtml">
+                        <label translate="true">Jewelry > Search Header</label>
+                    </option>
+
+                    <option name="product_related" value="widget/product/related.phtml">
+                        <label translate="true">Product > Related</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
+

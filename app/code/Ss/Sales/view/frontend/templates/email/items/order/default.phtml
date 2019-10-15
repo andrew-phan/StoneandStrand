@@ -1,0 +1,199 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items\DefaultItems */
+/** @var $_item \Magento\Sales\Model\Order\Item */
+$_item = $block->getItem();
+$_order = $_item->getOrder();
+$designerHelper = $this->helper('Ss\Designer\Helper\Data');
+$productHelper = $this->helper('Plumrocket\Estimateddelivery\Helper\Product');
+$itemHelper = $this->helper('Ss\Sales\Helper\Item');
+$itemHelper->setOrder($_order);
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->create('Magento\Catalog\Model\Product')->load($_item->getProductId());
+$productHelper->setProduct($product);
+$imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+$productImage = $imagehelper->init($product, 'order_confirm_image')->getUrl();
+$_reference_number = $product->getResource()->getAttribute('reference_number')->getFrontend()->getValue($product);
+$designer = $designerHelper->getDesignerById($_item->getProduct()->getSsDesigner());
+
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+$_attributeValue = $product->getResource()->getAttribute('diamond_final_sale')->getFrontend()->getValue($product);
+?>
+
+<tr>
+    <td>
+        <table width="525" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#f0f0f0">
+            <tbody><tr>
+                    <td height="15" style="line-height: 0">&nbsp;</td>
+                    <td height="15" style="line-height: 0">&nbsp;</td>
+                    <td height="15" style="line-height: 0">&nbsp;</td>
+                    <td height="15" style="line-height: 0">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="20">&nbsp;</td>
+                    <td width="160"><img src="<?php echo $productImage; ?>" alt="stone&amp;strand" height="160" width="160"></td>
+                    <td width="37">&nbsp;</td>
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tbody><tr>
+                                    <td>
+                                        <p style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px"><?php echo $block->escapeHtml($_item->getName()); ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="7" style="line-height: 0">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="color: #1d1d1d; font-size: 11px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; font-weight: bold; text-transform: uppercase; letter-spacing: 2px"><?php echo ($designer) ? $designer->getName() : ''; ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="4" style="line-height: 0">&nbsp;</td>
+                                </tr>
+                                <?php if ($_options = $block->getItemOptions()): ?>
+                                    <tr>
+                                        <td>
+                                            <?php $htmlAttribute = []; ?>
+
+                                            <?php foreach ($_options as $key => $options) : ?>
+                                                <?php $htmlAttribute[$key] = ""; ?>
+                                                <?php foreach ($options as $_option) : ?>
+                                                    <?php if (isset($symbol)): ?>
+                                                        <?php $htmlAttribute[$key] .= $symbol; ?>
+                                                    <?php endif; ?>
+                                                    <?php if (isset($_option['option_id'])) {
+                                                        $htmlAttribute[$key] .= $block->escapeHtml($_option['label']) . ": ";
+                                                    } ?>
+                                                    <?php $htmlAttribute[$key] .= nl2br($block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value']))); ?>
+                                                    <?php $symbol = ", "; ?>
+                                                <?php endforeach; ?>
+                                                    <?php $htmlAttribute[$key] .= "."; ?>
+                                                    <?php unset($symbol); ?>
+                                                <p style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">
+                                                <?php echo $htmlAttribute[$key]; ?>
+                                                </p>
+                                    <?php endforeach; ?>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php
+                                    if ($_attributeValue == "Yes" && $product->getAttributeSetId() == $themeHelper->getConfigAttributeSetDiamond()):
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <p style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">
+        <?php echo __('Final sale.'); ?>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    endif;
+                                ?>
+                                <tr>
+                                    <td height="2" style="line-height: 0">&nbsp;</td>
+                                </tr>
+<?php if (!empty($_reference_number)) : ?>
+                                    <tr>
+                                        <td>
+                                            <p style="color: #bcbdbd; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">Ref. <?php echo $block->escapeHtml($_reference_number); ?></p>
+                                        </td>
+                                    </tr>
+<?php endif; ?>
+                                <tr>
+                                    <td height="2" style="line-height: 0">&nbsp;</td>
+                                </tr>
+<?php if ($productHelper->hasDeliveryDate()) : ?>
+                                    <tr>
+                                        <td>
+                                            <p style="color: #bcbdbd; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 1px">
+                                                <?php
+                                                echo __('Expected shipping date') . ': ';
+                                                if ($productHelper->formatDeliveryDate() == 'date') {
+                                                    echo $itemHelper->specialFormatDate($productHelper->getDeliveryFromTime(), $product->getEstimatedDeliveryEnable(), false);
+
+                                                    if ($productHelper->getDeliveryToTime() && ($productHelper->getDeliveryToTime() != $productHelper->getDeliveryFromTime())) {
+                                                        echo ' - ' . $itemHelper->specialFormatDate($productHelper->getDeliveryToTime(), $product->getEstimatedDeliveryEnable(), false);
+                                                    }
+                                                } else {
+                                                    echo $itemHelper->getDeliveryText();
+                                                }
+                                                ?></p>
+                                        </td>
+                                    </tr>
+<?php endif; ?>
+                                <tr>
+                                    <td height="7" style="line-height: 0">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+<?php if ($_item->getOriginalPrice() > $_item->getPrice()): ?>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <p style="color: #1d1d1d; font-size: 11px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; font-weight: bold; letter-spacing: 1px">UNIT PRICE:<span>&nbsp;</span><span style="color: #b22f34; font-size: 14px; font-family: OpenSans-Regular, Verdana, sans-serif; font-weight: bold"><?php echo $_order->formatPrice($_item->getPrice()); ?></span></p>
+                                                        </td>
+                                                        <td width="22">&nbsp;</td>
+                                                        <td valign="top"><span style="color: #1d1d1d; font-size: 14px; font-family: OpenSans-Regular, Verdana, sans-serif; font-weight: bold; text-decoration: line-through"><?php echo $_order->formatPrice($_item->getOriginalPrice()); ?></span></td>
+                                                        <td>&nbsp;&nbsp;</td>
+                                                    </tr>
+<?php else: ?>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <p style="color: #1d1d1d; font-size: 11px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; font-weight: bold; letter-spacing: 1px">UNIT PRICE:<span>&nbsp;</span><span style="color: #1d1d1d; font-size: 14px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; font-weight: bold"><?php echo $_order->formatPrice($_item->getPrice()); ?></span></p>
+                                                        </td>
+                                                        <td width="22">&nbsp;</td>
+                                                        <td valign="top">&nbsp;</td>
+                                                        <td>&nbsp;&nbsp;</td>
+                                                    </tr>
+<?php endif; ?>
+                                                <tr>
+                                                    <td valign="top">
+                                                        <p style="color: #1d1d1d; font-size: 11px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; font-weight: bold; letter-spacing: 1px">QUANTITY:<span>&nbsp;</span><span style="color: #1d1d1d; font-size: 14px; font-family: OpenSans-Regular, Verdana, sans-serif; font-weight: bold"><?php echo $_item->getQtyOrdered() * 1; ?></span></p>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="15" style="line-height: 0">&nbsp;</td>
+                    <td height="15" style="line-height: 0">&nbsp;</td>
+                    <td height="15" style="line-height: 0">&nbsp;</td>
+                    <td height="15" style="line-height: 0">&nbsp;</td>
+                </tr>
+            </tbody></table>
+    </td>
+</tr>
+<tr>
+    <td height="45">&nbsp;</td>
+</tr>
+<?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessage($_item->getGiftMessageId())): ?>
+    <tr>
+        <td colspan="3" class="item-extra">
+            <table class="message-gift">
+                <tr>
+                    <td>
+                        <h3><?php echo __('Gift Message'); ?></h3>
+                        <strong><?php echo __('From'); ?>:</strong> <?php echo $block->escapeHtml($_giftMessage->getSender()); ?>
+                        <br /><strong><?php echo __('To'); ?>:</strong> <?php echo $block->escapeHtml($_giftMessage->getRecipient()); ?>
+                        <br /><strong><?php echo __('Message'); ?>:</strong>
+                        <br /><?php echo $block->escapeHtml($_giftMessage->getMessage()); ?>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+<?php endif; ?>

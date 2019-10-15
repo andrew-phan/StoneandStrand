@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Ss_Designer::designer" title="Designer" sortOrder="10">
+                    <resource id="Ss_Designer::designer_designer" title="Manage Designer" sortOrder="10">
+                    </resource>
+
+                    <resource id="Ss_Designer::designer_tag" title="Manage Tags" sortOrder="10">
+                    </resource>
+
+                    <resource id="Ss_Designer::designer_type" title="Manage Type" sortOrder="10">
+                    </resource>
+                </resource>
+
+            </resource>
+        </resources>
+    </acl>
+</config>

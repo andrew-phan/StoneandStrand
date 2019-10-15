@@ -1,0 +1,27 @@
+<div class="page-descriptions">
+    <div class="descriptions">
+        <?php
+        $postIds = $block->getPostIds();
+        if (!empty($postIds)) :
+            $postIds = explode(',', $postIds);
+            $postId = array_shift($postIds);
+            $post = $block->getPostById($postId);
+            ?>
+            <h1 class="title-page"><span><?php echo $block->getTitle(); ?></span> <?php
+                if ($post) :
+                    echo $post->getTitle();
+                endif;
+                ?></h1>
+        <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.content-info&quot;}" class="info-wrapper">
+            <div class="tinymce-editor note content-info">
+                <?php
+                if ($post) :
+                    echo $post->getContent();
+                endif;
+                ?>
+            </div><a href="#" title="<?php echo __("...read more");?>" class="hidden-md-up read-more-btn" style="display: none;"><?php echo __("...read more");?></a>
+        </div>    
+        <?php endif; ?>
+        <p class="link-tems text-center"><a href="<?php echo $block->getTermsConditionUrl(); ?>" title="<?php echo __("Terms &amp; Conditions"); ?>"><?php echo __("Terms &amp; Conditions"); ?></a></p>
+    </div>
+</div>

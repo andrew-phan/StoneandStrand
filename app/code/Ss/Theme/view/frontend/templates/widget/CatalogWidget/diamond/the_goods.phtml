@@ -1,0 +1,50 @@
+<?php 
+if ($block->getProductCollection() && $block->getProductCollection()->getSize()): ?>
+    <?php
+    $type = 'widget-product-grid';
+
+    $mode = 'grid';
+
+    $image = 'new_products_content_widget_grid';
+    $title = $block->getTitle() ? __($block->getTitle()) : '';
+    $items = $block->getProductCollection()->getItems();
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+    $description = false;
+    ?>
+
+    <div class="goods-block">
+        <?php if ($title): ?>
+            <h2 class="line-title"><span><?php echo $title; ?></span></h2>
+        <?php endif ?>
+        
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div data-slick-slider="{&quot;typeSlide&quot;: &quot;theGoods&quot;}" class="slider related-slider padding block-center-3">
+                    <?php foreach ($items as $_item): ?>
+                    <?php
+                    $productUrl = $block->getProductUrl($_item);
+                    $productName = $block->escapeHtml($_item->getName());
+                    $shape = $_item->getResource()->getAttribute('diamond_shape')->getFrontend()->getValue($_item);
+                    ?>
+                    <div class="thumbnail">
+                        <a href="<?php echo $productUrl; ?>" class="image">
+                            <?php echo $block->getImage($_item, 'homepage_product_new')->toHtml(); ?>
+                        </a>
+                        <div class="description">
+                            <p class="name"><a href="<?php echo $productUrl; ?>" title="<?php echo $productName ?>"><?php echo $productName ?></a>
+                            </p>
+                            <p class="shape"><a href="<?php echo $productUrl; ?>" title="<?php echo $shape; ?>"><?php echo $shape; ?></a>
+                            </p>
+                            <?php echo $block->getProductPriceHtml($_item, $type); ?>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;

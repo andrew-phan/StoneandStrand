@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+$_option = $block->getOption();
+$class = ($_option->getIsRequire()) ? ' required' : '';
+$_product = $block->getProduct();
+$_attributeValue = $_product->getResource()->getAttribute('is_personalize')->getFrontend()->getValue($_product);
+if($_attributeValue == "Yes"){
+?>
+<div class="field<?php if ($_option->getType() == \Magento\Catalog\Model\Product\Option::OPTION_TYPE_AREA) {
+    echo ' textarea';
+} ?><?php /* @escapeNotVerified */ echo $class ?>">
+  <div class="personalize-block" data-collapse>
+    <div class="collapse" data-item>
+      <div class="heading-collapse" data-item-heading>
+        <label class="label" for="options_<?php /* @escapeNotVerified */ echo $_option->getId() ?>_text">
+            <span><?php echo $block->escapeHtml($_option->getTitle()) ?></span>
+            <?php /* @escapeNotVerified */ echo $block->getFormatedPrice() ?>
+        </label>
+      </div>
+      <div class="content-collapse" data-item-body>
+        <div class="control">
+            <?php if ($_option->getType() == \Magento\Catalog\Model\Product\Option::OPTION_TYPE_FIELD): ?>
+                <?php $_textValidate = null;
+                if ($_option->getIsRequire()) {
+                    $_textValidate['required'] = true;
+                }
+                if ($_option->getMaxCharacters()) {
+                    $_textValidate['maxlength'] = $_option->getMaxCharacters();
+                }
+                ?>
+                <input type="text"
+						data-toggle-personalize
+                       id="options_<?php /* @escapeNotVerified */ echo $_option->getId() ?>_text"
+                       class="input-text product-custom-option input-1"
+                       <?php if (!empty($_textValidate)) {?>
+                       data-validate="<?php echo  $block->escapeHtml(json_encode($_textValidate));?>"
+                       <?php } ?>
+                       placeholder="<?php echo __('Enter information here') ?>"
+                       name="options[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                       value="<?php echo $block->escapeHtml($block->getDefaultValue()) ?>">
+                <p class="personalize-message hidden"><?php echo __('Customized items cannot be returned or exchanged') ?></p>
+            <?php elseif ($_option->getType() == \Magento\Catalog\Model\Product\Option::OPTION_TYPE_AREA): ?>
+                <?php $_textAreaValidate = null;
+                if ($_option->getIsRequire()) {
+                    $_textAreaValidate['required'] = true;
+                }
+                if ($_option->getMaxCharacters()) {
+                    $_textAreaValidate['maxlength'] = $_option->getMaxCharacters();
+                }
+                ?>
+                <textarea id="options_<?php /* @escapeNotVerified */ echo $_option->getId() ?>_text"
+                          class="product-custom-option"
+                        <?php if (!empty($_textAreaValidate)) {?>
+                            data-validate="<?php echo $block->escapeHtml(json_encode($_textAreaValidate));?>"
+                        <?php } ?>
+                          name="options[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                          rows="5"
+                          cols="25"><?php echo $block->escapeHtml($block->getDefaultValue()) ?></textarea>
+            <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php } ?>
+

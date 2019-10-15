@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default"/>
+    <body>
+        <attribute name="class" value="order-detail"/>
+        
+        <referenceContainer name="page.main.title" remove="true" />
+        <referenceContainer name="sales.order.info.buttons" remove="true" />
+        
+        <referenceBlock name="customer-account-navigation-custom-order-link">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+        
+        <referenceContainer name="content">
+            <referenceBlock name="account_header">
+                <arguments>
+                    <argument name="title" xsi:type="string" translate="true">Order Details</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock name="sales.order.view" template="Ss_Sales::order/view.phtml"/>
+            <referenceBlock name="order_totals" template="order/order_totals.phtml">
+                <arguments>
+                    <argument name="label_properties" xsi:type="string">colspan="2" class="mark"</argument>
+                    <argument name="value_properties" xsi:type="string">class="amount"</argument>
+                </arguments>
+            </referenceBlock>
+
+            <referenceBlock name="order.comments" remove="true"/>
+            <referenceBlock name="sales.order.info.links" remove="true"/>
+        </referenceContainer>
+        <referenceBlock name="additional.product.info" remove="true"/>
+    </body>
+    
+    <move element="sales.order.view" destination="sidebar.right"/>
+    <move element="sales.order.info"  destination="sidebar.right" after="sales.order.view"/>
+</page>

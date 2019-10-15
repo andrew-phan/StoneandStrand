@@ -1,0 +1,52 @@
+<div class="account-content">
+    <?php $_orders = $block->getOrders(); ?>
+    <?php echo $block->getChildHtml('info'); ?>
+    <?php if ($_orders && count($_orders)): ?>
+        <div class="table-wrapper orders-history">
+            <table class="data table table-order-items history" id="my-orders-table">
+                <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Manage Your Orders'); ?></caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Order Number'); ?></th>
+                        <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Date'); ?></th>
+                        <th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Total'); ?></th>
+                        <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Status'); ?></th>
+                        <th scope="col" class="col actions">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $rmaHelper = $this->helper('Magento\Rma\Helper\Data');
+                    
+                    foreach ($_orders as $_order):
+                        $createdAt = new \DateTime($_order->getCreatedAt());
+                        $createdAt = $createdAt->format('m/d/y');
+                        ?>
+                        <tr>
+                            <td data-th="<?php echo $block->escapeHtml(__('Order Number')); ?>" class="col id"><p><?php /* @escapeNotVerified */ echo $_order->getRealOrderId(); ?></p></td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Date')); ?>" class="col date"><p><?php /* @escapeNotVerified */ echo $createdAt; ?></p></td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Total')); ?>" class="col total"><p><?php /* @escapeNotVerified */ echo $_order->formatPrice($_order->getGrandTotal()); ?></p></td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Status')); ?>" class="col status"><p><span><?php /* @escapeNotVerified */ echo __($_order->getStatusLabel()); ?></span><?php /* @escapeNotVerified */ echo $_order->getSsShippingDate(); ?></p></td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Actions')); ?>" class="col actions">
+                                <a href="<?php /* @escapeNotVerified */ echo $block->getViewUrl($_order); ?>" class="action view btn btn-black">
+                                    <?php /* @escapeNotVerified */ echo __('View Order'); ?>
+                                </a>
+                                
+                                <?php if ($rmaHelper->canCreateRma($_order)): ?>
+                                    <a href="<?php /* @escapeNotVerified */ echo $rmaHelper->getReturnCreateUrl($_order) ?>" class="action view link">
+                                        <?php /* @escapeNotVerified */ echo __('Return / Exchange'); ?>
+                                    </a>                                
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+        <?php endif; ?>
+    <?php else: ?>
+        <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have placed no orders.'); ?></span></div>
+    <?php endif; ?>
+</div>

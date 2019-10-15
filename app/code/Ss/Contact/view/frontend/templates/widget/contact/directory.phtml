@@ -1,0 +1,47 @@
+<?php
+$title = $block->getTitle() ? __($block->getTitle()) : '';
+/** @var \Magento\Framework\App\ObjectManager $om */
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$directoryBlock = $om->create('Ss\Contact\Block\Widget\Directory');
+$helper = $directoryBlock->getThemeHelper();
+
+$careersEmail = $helper->getSystemConfig(\Ss\Theme\Helper\Data::XML_PATH_EMAIL_CAREERS);
+$servicesEmail = $helper->getSystemConfig(\Ss\Theme\Helper\Data::XML_PATH_EMAIL_CUSTOMERS);
+$designersEmail = $helper->getSystemConfig(\Ss\Theme\Helper\Data::XML_PATH_EMAIL_DESIGNERS);
+$generalInquiryEmail = $helper->getSystemConfig(\Ss\Theme\Helper\Data::XML_PATH_EMAIL_GENERAL);
+$pressEmail = $helper->getSystemConfig(\Ss\Theme\Helper\Data::XML_PATH_EMAIL_PRESS);
+$tribecaEmail = $helper->getSystemConfig(\Ss\Theme\Helper\Data::XML_PATH_EMAIL_TRIBECA);
+?>
+<div class="contact-director">
+    <h2 class="line-title"><span><?php echo $title; ?></span></a></h2>
+    <div class="row list-director">
+        <div class="col-md-6 item">
+            <div class="email-group">
+                <h3 class="title"><?php echo __('Careers'); ?></h3>
+                <a href="mailto:<?php echo $careersEmail; ?>" title="<?php echo $careersEmail; ?>"><?php echo $careersEmail; ?></a>
+            </div>
+            <div class="email-group">
+                <h3 class="title"><?php echo __('Customer Service'); ?></h3>
+                <a href="mailto:<?php echo $servicesEmail; ?>" title="<?php echo $servicesEmail; ?>"><?php echo $servicesEmail; ?></a>
+            </div>
+            <div class="email-group">
+                <h3 class="title"><?php echo __('Designers'); ?></h3>
+                <a href="mailto:<?php echo $designersEmail; ?>" title="<?php echo $designersEmail; ?>"><?php echo $designersEmail; ?></a>
+            </div>
+        </div>
+        <div class="col-md-6 item">
+            <div class="email-group">
+                <h3 class="title"><?php echo __('General Inquiry'); ?></h3>
+                <a href="mailto:<?php echo $generalInquiryEmail; ?>" title="<?php echo $generalInquiryEmail; ?>"><?php echo $generalInquiryEmail; ?></a>
+            </div>
+            <div class="email-group">
+                <h3 class="title"><?php echo __('Press'); ?></h3>
+                <a href="mailto:<?php echo $pressEmail; ?>" title="<?php echo $pressEmail; ?>"><?php echo $pressEmail; ?></a>
+            </div>
+            <div class="email-group">
+                <h3 class="title"><?php echo __('S&amp;s tribeca'); ?></h3>
+                <a href="mailto:<?php echo $tribecaEmail; ?>" title="<?php echo $tribecaEmail; ?>"><?php echo $tribecaEmail; ?></a>
+            </div>
+        </div>
+    </div>
+</div>

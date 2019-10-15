@@ -1,0 +1,68 @@
+<?php
+$categoryCollections = $block->getCategoryCollection('jewelry');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+
+$shopAllUrl = $block->getAllShopUrl();
+$bestsellerUrl = $block->getBestsellerUrl();
+
+foreach ($categoryCollections as $mainCategory):
+    $hasThumbClass = 0;
+    $media = $block->getSrcMediaImage();
+    $mainCategoryName = $mainCategory->getName();
+    $categories = $mainCategory->getChildrenCategories();
+    ?>
+    <div class="jewelry-type-block">
+        <h2 class="line-title"><span><?php echo $mainCategoryName; ?></span></h2>
+        <div class="list">
+            <?php
+            foreach ($categories as $category):
+                $category = $objectManager->create('\Magento\Catalog\Model\Category')->load($category->getId());
+                $cateName = $category->getName();
+                $cateUrl = $category->getUrl();
+                $cateImage = $category->getData(\Ss\Catalog\Helper\Data::ATTRIBUTE_THUMBNAIL_IMAGE);
+                $cateDescription = $category->getDescription();
+
+                if ($cateImage == '') :
+                    $cateImage = $media.'images/upload/img-425x425.png';
+                else :
+                    $cateImage = $media . \Ss\Catalog\Helper\Data::FOLDER_IMAGE_CATEGORY . $cateImage ;
+                endif;
+
+                ?>
+                <div class="thumbnail-horizontal <?php if ($hasThumbClass == 0 || $hasThumbClass % 2 == 0): ?>inverse-thumb<?php endif; ?>"><span class="image">
+                        <img src="<?php echo $cateImage; ?>" alt="image"/></span>
+                    <div class="description">
+                        <h3 class="title-1"><a href="<?php echo $cateUrl; ?>" title="<?php echo $cateName; ?>"><?php echo $cateName; ?></a>
+                        </h3>
+                        <div class="tinymce-editor">
+                            <?php echo $cateDescription; ?>
+                        </div>
+                        <div data-collapse class="assistance-wrapper">
+                            <div data-item class="collapse style-4">
+                                <div data-item-heading class="heading-collapse hidden-md-up"><span><?php echo __("type"); ?></span></div>
+                                <div data-item-body class="content-collapse">
+                                    <ul class="list-dropdown">
+                                        <?php
+                                        $childrenCat = $category->getChildrenCategories();
+                                        foreach ($childrenCat as $sub) :
+                                            ?>
+                                            <li><a href="<?php echo $sub->getUrl(); ?>"><?php echo $sub->getName(); ?></a></li>
+                                        <?php endforeach; ?>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                $hasThumbClass++;
+            endforeach;
+            ?>
+        </div>
+        <div class="group-btn text-center"><a href="<?php echo $shopAllUrl ? $shopAllUrl : 'javascript:;'; ?>" title="<?php echo __("Shop all"); ?>" class="btn btn-white"><?php echo __("Shop all"); ?></a>
+            <a href="<?php echo $bestsellerUrl ? $bestsellerUrl : 'javascript:;'; ?>" title="<?php echo __("Shop best sellers"); ?>" class="btn btn-white"><?php echo __("Shop best sellers"); ?></a>
+        </div>
+    </div>
+<?php endforeach; ?>

@@ -1,0 +1,18 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) {
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+}
+
+if ($post && $post->getIsActive()) :
+    ?>
+    <div class="title-block">
+        <div class="line-title"><span><?php echo $block->getTitle(); ?></span></div>
+        <div class="tinymce-editor">
+            <?php echo $post->getContent(); ?>
+        </div>
+    </div>
+    <?php
+ endif;

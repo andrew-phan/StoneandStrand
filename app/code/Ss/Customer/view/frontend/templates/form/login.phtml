@@ -1,0 +1,18 @@
+<div class="col col-2">
+    <h2 class="title"><?php echo __('Oh Hay Again! Sign In.') ?></h2>
+    <form action="<?php /* @escapeNotVerified */ echo $block->getPostActionUrl() ?>" method="post" name="sign-up-form" data-validate-form="" class="sign-up-form" novalidate="" id="login-form" data-mage-init='{"validation":{}}'>
+        <?php echo $block->getBlockHtml('formkey'); ?>
+        <div class="form-group">
+            <label><?php /* @escapeNotVerified */ echo __('Email address') ?></label>
+            <input type="email" id="email" name="login[username]" maxlength="125" class="input-1" placeholder="<?php /* @escapeNotVerified */ echo __('Email address') ?>" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> value="<?php echo $block->escapeHtml($block->getUsername()) ?>" title="<?php /* @escapeNotVerified */ echo __('Email address') ?>" required="" data-parsley-maxlength-message="<?php echo __("This value is too long. It should have %s characters or fewer."); ?>" data-parsley-required-message="<?php echo __("You can't leave this empty."); ?>">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="pass" name="login[password]" maxlength="30" class="input-1" <?php if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php endif; ?> placeholder="<?php /* @escapeNotVerified */ echo __('Password') ?>" required="" data-parsley-maxlength-message="<?php echo __("This value is too long. It should have %s characters or fewer."); ?>" data-parsley-required-message="<?php echo __("You can't leave this empty."); ?>">
+        </div>
+        <div class="btn-group">
+            <button type="submit" name="send" id="send2" class="btn btn-block btn-black"><?php /* @escapeNotVerified */ echo __('Sign in') ?></button>
+            <a href="<?php /* @escapeNotVerified */ echo $block->getForgotPasswordUrl() ?>" title="<?php /* @escapeNotVerified */ echo __('Forgot your password?') ?>" class="link-1"><?php /* @escapeNotVerified */ echo __('Forgot your password?') ?></a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+<?php
+$product = $block->getProduct();
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+if($product->getAttributeSetId() == $themeHelper->getConfigAttributeSetNormal()){
+?>
+
+<div class="text-link-block">
+    <div class="grid-fluid">
+        <div class="item">
+            <h3 class="title"><?php echo __('Complimentary delivery'); ?></h3>
+            <p><?php echo __('It’s always on us. And always speedy.'); ?></p>
+            <p class="link"><a href="<?php echo $block->getUrl('assistance/shipping') ?>" title="<?php echo __('Find out more'); ?>"><?php echo __('Find out more'); ?></a>
+            </p>
+        </div>
+        <div class="item">
+            <h3 class="title"><?php echo __('Stress-free returns'); ?></h3>
+            <p><?php echo __('Again, always on us. You have 100 days to return any piece from Stone & Strand.'); ?></p>
+            <p class="link"><a href="<?php echo $block->getUrl('assistance/return') ?>" title="<?php echo __('Find out more'); ?>"><?php echo __('Find out more'); ?></a>
+            </p>
+        </div>
+        <div class="item">
+            <h3 class="title"><?php echo __('Help &amp; advice'); ?></h3>
+            <p><?php echo __('Our cracker-jack team of jewelry pros is here to help with styling, personalization, and our white glove services.'); ?></p>
+            <p class="link"><a href="<?php echo $block->getUrl('assistance/faq') ?>" title="<?php echo __('Email us'); ?>"><?php echo __('Email us'); ?></a>
+            </p>
+        </div>
+    </div>
+</div>
+<?php }elseif($product->getAttributeSetId() == $themeHelper->getConfigAttributeSetDiamond()){
+    ?>
+    <div class="block-banner banner-e style-1">
+        <div class="grid-fluid">
+            <div class="thumbnail"><a href="#" title="Never Boring. Totally Reliable." class="image"><img src="<?php echo $this->getViewFileUrl('images/upload/BannerE-Ampersand.jpg'); ?>" alt="image"/></a>
+            </div>
+            <h2 class="banner-title"><a href="#" title="Never Boring. Totally Reliable.">Never Boring. Totally Reliable.</a>
+            </h2>
+        </div>
+    </div>
+<?php
+}

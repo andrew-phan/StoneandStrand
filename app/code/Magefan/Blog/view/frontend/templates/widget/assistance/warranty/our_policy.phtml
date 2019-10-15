@@ -1,0 +1,30 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+?>
+
+<div class="col-md-10 assistance-content">
+    <h2 class="line-title">
+        <span>
+            <?php
+            if ($post):
+                echo $post->getTitle();
+            endif;
+            ?>
+        </span>
+    </h2>
+    <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.content-info&quot;}" class="info-wrapper term-block term-block-1">
+        <div class="tinymce-editor main-content note content-info term-info">
+            <?php
+            if ($post):
+                echo $post->getContent();
+            endif;
+            ?>
+        </div>
+        <button type="button" name="read-more-1" id="read-more-1" class="read-more-btn hidden-md-up"><?php echo __("...read more") ?></button>
+    </div>
+</div>

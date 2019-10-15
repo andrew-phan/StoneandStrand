@@ -1,0 +1,17 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="opc-block-summary" data-bind="blockLoader: isLoading">
+    <span data-bind="i18n: 'Order Summary'" class="title"></span>
+    <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>
+
+<div class="block-bottom-logo">
+    <p class="logo-verified"><img data-bind="attr:{ src: '/static/frontend/Ss/stonestrand/en_US/images/logo-verified.jpg'}" title="Verified" /></p>
+    <p class="logo-stripe"><a href="https://stripe.com/" target="_blank" title="Stripe"><img data-bind="attr:{ src: '/static/frontend/Ss/stonestrand/en_US/images/logo-stripe.jpg'}" title="Stripe" /></a></p>
+</div>

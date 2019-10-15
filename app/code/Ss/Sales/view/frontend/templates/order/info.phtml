@@ -1,0 +1,55 @@
+<?php
+/** @var $block \Magento\Sales\Block\Order\Info */
+$_order = $block->getOrder();
+
+# Get payment method
+$payment = $_order->getPayment();
+$methodPayment = $payment->getMethod();
+
+# Get credit card
+$paymentLastFourNum = $payment->getCcLast4();
+$paymentCreditCard = $payment->getCcType();
+
+# Get image paypal
+$media = $block->getSrcMediaImage();
+$imagePaypal = $this->getViewFileUrl('images/paypal.png');
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <h2><?php /* @escapeNotVerified */ echo __('Payment Summary') ?></h2>
+        <?php if ($paymentCreditCard && $paymentLastFourNum): ?>
+            <p class="method-pill"><?php /* @escapeNotVerified */ echo __('Method') ?></p>
+        <?php endif; ?>
+    </div>
+    <div class="block-content">
+        <div class="box box-order-billing-method">
+            <div class="box-title">
+                <div class="box-left">
+                    <?php if ($paymentCreditCard && $paymentLastFourNum):
+                        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                        $ccConfig = $objectManager->create('Magento\Payment\Model\CcConfig');
+                        $ccType = $ccConfig->getCcAvailableTypes();
+                        $paymentCreditCard = $ccType[$paymentCreditCard];
+                    ?>
+                        <p><span class="title"><?php /* @escapeNotVerified */ echo __('Card Type') ?>:</span> <span class="desc"><?php echo $paymentCreditCard; ?></span></p>
+                        <p><span class="title"><?php /* @escapeNotVerified */ echo __('Last Four Digits') ?>:</span> <span class="desc"><?php echo $paymentLastFourNum; ?></span></p>
+                    <?php endif; ?>
+
+                    <?php if ($methodPayment == 'paypal_express'): ?>
+                        <div class="image">
+                            <img src="<?php echo $imagePaypal; ?>" alt="img-banner"/>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="box-right">
+                    <span class="currency"><?php echo $block->currencySymbol() ?></span>
+                    <span class="price"><?php /* @escapeNotVerified */ echo number_format($_order->getGrandTotal(), 2); ?></span>
+                </div>
+            </div>
+            <div class="box-content">
+                <?php /* @escapeNotVerified */ echo __('Content Payment Summary') ?>
+            </div>
+        </div>
+    </div>
+</div>

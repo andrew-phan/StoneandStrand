@@ -1,0 +1,48 @@
+<?php
+$columnNumber = $block->getColumnNumber();
+
+if ($columnNumber > 12) {
+    $columnNumber = 12;
+}
+
+$data = $block->getAllCategories();
+
+$totalData = count($data);
+if ($totalData < $columnNumber) {
+    $columnNumber = $totalData;
+} elseif ($columnNumber > 12) {
+    $columnNumber = 12;
+}
+
+$col_index = floor(12 / $columnNumber);
+switch ($columnNumber) {
+    case 5:$col_index = 24;
+        break;
+    case 7:$col_index = 14;
+        break;
+    case 8:$col_index = 125;
+        break;
+    case 9:$col_index = 111;
+        break;
+    case 10:$col_index = 100;
+        break;
+    case 11:$col_index = 909;
+        break;
+    default:
+        break;
+}
+?>
+
+<?php if ( ! empty($data)): ?>
+    <div class="row ms-category">
+        <?php if (!empty($block->getTitle())): ?><strong class="ms-boxtitle form-group col-xs-12"><?php echo $block->getTitle(); ?></strong><?php endif; ?>
+        <?php foreach ($data as $categories): ?>
+            <div class="col-category col-xs-<?php echo $col_index ?>">
+                <?php foreach ($categories as $category): ?>
+                    <a class="form-group <?php echo $block->getLevel($category->getLevel()); ?>" href="<?php echo str_replace(\Ss\Designer\Helper\Designer::SECURITY_PROTOCOL, \Ss\Designer\Helper\Designer::UNSECURITY_PROTOCOL,$category->getUrl()); ?>"><?php echo $category->getName() ?></a>
+                <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+

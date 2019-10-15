@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default"/>
+    <body>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="account_header" remove="true"/>
+        <referenceContainer name="sidebar.main" remove="true"/>
+        <referenceContainer name="content">
+            <referenceBlock name="customer_account_dashboard_top" remove="true"/>
+            <referenceBlock name="customer_account_dashboard_address" remove="true"/>
+            <referenceBlock name="customer_account_dashboard_info" as="info" template="Ss_Customer::dashboard/info.phtml" cacheable="false">    
+                <block class="Ss\Customer\Block\View\Element\Html\Link\Current" name="customer-account-order-link">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Orders</argument>
+                        <argument name="path" xsi:type="string">sales/order/history</argument>
+                        <argument name="description" xsi:type="string" translate="true"><![CDATA[Return or exchange items, track your deliveries and view your order history.]]></argument>
+                    </arguments>
+                </block>
+                <block class="Ss\Customer\Block\View\Element\Html\Link\Current" name="customer-account-address-link">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Address Book</argument>
+                        <argument name="path" xsi:type="string">customer/address</argument>
+                        <argument name="description" xsi:type="string" translate="true"><![CDATA[Add or edit billing and shipping addresses.]]></argument>
+                    </arguments>
+                </block>
+                <block class="Ss\Customer\Block\View\Element\Html\Link\Current" name="customer-account-account-edit-link">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">Account Details</argument>
+                        <argument name="path" xsi:type="string">customer/account/edit</argument>
+                        <argument name="description" xsi:type="string" translate="true"><![CDATA[View or change your sign in information.]]></argument>
+                    </arguments>
+                </block>
+                <block class="Ss\Customer\Block\View\Element\Html\Link\Current" name="customer-account-preference-link">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Preferences</argument>
+                        <argument name="path" xsi:type="string">newsletter/manage</argument>
+                        <argument name="description" xsi:type="string" translate="true"><![CDATA[Store your ring sizes & other details for yourself (or gift-givers!).]]></argument>
+                    </arguments>
+                </block>
+                
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

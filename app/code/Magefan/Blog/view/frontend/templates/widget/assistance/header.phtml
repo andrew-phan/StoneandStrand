@@ -1,0 +1,65 @@
+<?php
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+
+$urlOurPolicy = $block->getUrlPolicy() ? $block->getUrlPolicy() : $block->getUrl() . "our-company-policy.html";
+$urlShipping = $block->getUrlShipping() ? $block->getUrlShipping() : $block->getUrl() . "shipping.html";
+$themeHelper = $block->getThemeHelper();
+$phone = $themeHelper->getTelephone();
+$email = $themeHelper->getEmailSupport();
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+?>
+
+<div class="page-descriptions">
+    <?php
+    if (!$post || $post->getFeaturedImg() == '') :
+        $featureImage = $media . 'images/upload/img-1000x300.png';
+    else :
+        $featureImage = $media . $post->getFeaturedImg();
+    endif;
+    ?>
+    <div class="banner-top visible-md-up">
+        <div class="thumbnail"><img src="<?php echo $featureImage; ?>" alt="
+            <?php
+            if ($post):
+                echo $post->getTitle();
+            endif;
+            ?>
+            "/>
+        </div>
+    </div>
+    <p class="title-page-2 visible-sm visible-xs"><?php if ($post): echo $post->getTitle(); endif; ?></p>
+    <div class="descriptions">
+        <div class="grid-fluid">
+            <h1 class="title-page">
+                <?php
+                if ($post):
+                    echo $post->getTitle();
+                endif;
+                ?>
+            </h1>
+            <ul class="contact-list visible-md-up">
+                <li><span><?php echo __("questions")?>? <a href="tel:<?php echo str_replace(' ', '', $phone); ?>" title="hotline"><?php echo __("call") ?> <?php echo $phone; ?></a></span>
+                </li>
+                <li><a href="mailto:<?php echo $email ?>" title="<?php echo __("mail to customer services") ?>"><?php echo __("email customer care") ?></a>
+                </li>
+                <li><a href="<?php echo $urlShipping ?>" title="<?php echo __("shipping information") ?>"><?php echo __("shipping information") ?></a>
+                </li>
+                <li><a href="<?php echo $urlOurPolicy ?>" title="<?php echo __("policy page") ?>"><?php echo __("return policy") ?></a>
+                </li>
+            </ul>
+            <div class="tinymce-editor note">
+                <?php
+                if ($post):
+                    echo $post->getContent();
+                endif;
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

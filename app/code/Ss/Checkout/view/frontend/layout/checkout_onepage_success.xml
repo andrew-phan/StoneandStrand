@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_order_item_price"/>
+    <referenceBlock name="page.main.title" remove="true"/>
+    <referenceBlock name="checkout.registration" remove="true"/>
+    <referenceBlock name="checkout.success">
+        <block class="Magento\Sales\Block\Order\Info" name="success.customer.info" template="Ss_Checkout::info/customer.phtml"/>
+        <block class="Magento\Sales\Block\Order\Info" name="success.order.info" template="Ss_Checkout::info/order.phtml" after="-">
+            <block class="Magento\Sales\Block\Order\Items" name="success.order.items" template="Ss_Checkout::order/items/list.phtml">
+                <block class="Magento\Framework\View\Element\RendererList" name="success.order.items.renderers" as="renderer.list">
+                    <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" as="default" template="Ss_Checkout::order/items/default.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\Sales\Block\Order\Totals" name="success.order.totals" as="order_totals" template="Ss_Checkout::order/totals.phtml">
+                <block class="Magento\Tax\Block\Sales\Order\Tax" name="success.order.tax" template="Ss_Checkout::order/tax.phtml"/>
+            </block>
+        </block>
+    </referenceBlock>
+</page>

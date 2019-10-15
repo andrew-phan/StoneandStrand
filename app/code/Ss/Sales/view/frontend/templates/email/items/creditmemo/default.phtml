@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php $_item = $block->getItem() ?>
+<?php $_order = $block->getItem()->getOrder(); ?>
+
+<tr>
+    <td align="left">
+        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">
+            <?php
+                echo '- ' . $block->escapeHtml($_item->getName());
+                if ($block->getItemOptions()){
+                    echo ' - ';
+                    $count = count($block->getItemOptions());
+                    foreach ($block->getItemOptions() as $key => $option){
+                        if ($key != $count - 1){
+                            echo $option['label'] . ' ' . $option['value'] . ', ';
+                        }else{
+                            echo $option['label'] . ' ' . $option['value'];
+                        }
+                    }
+                }
+            ?>
+        </p>
+    </td>
+</tr>

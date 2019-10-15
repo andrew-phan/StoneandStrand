@@ -1,0 +1,42 @@
+<?php
+$_order = $block->getOrder();
+$shippingDate = $_order->getSsShippingDate();
+$promotionCode = $_order->getCouponCode();
+$customizationRequests = '';
+foreach ($_order->getStatusHistoryCollection(true) as $_item) {
+    if($_item->getComment() && strpos($_item->getComment(), $block->getPrefixTextOrderComment()) !== false){
+        $customizationRequests = substr($_item->getComment(),strlen($block->getPrefixTextOrderComment()));
+    }
+}
+?>
+<div class="opc-sidebar">
+    <div class="opc-block-summary">
+        <div class="title">
+            <span><?php echo __("Order Summary")?></span>
+            <p class="order-id"><?php echo __("ORDER")?> #<?php echo $block->escapeHtml($_order->getIncrementId())?></p>
+        </div>
+        <ol class="minicart-items">
+            <?php echo $block->getChildHtml('print.order.items') ?>
+        </ol>
+        <div class="block-shipping-date">
+            <span class="title"><?php echo __("Estimated shipping date")?>: </span><span class="value"><?php if($shippingDate) { echo $shippingDate ; }?></span>
+        </div>
+        <div class="block custom-block">
+            <div class="wapper">
+                <span class="title-custom"><?php echo __("Additional product information")?>: </span>
+                <span class="text">
+                    <?php echo (!empty($customizationRequests)) ?  $customizationRequests : __("None");?>
+                </span>
+            </div>
+        </div>
+        <div class="block custom-block">
+            <div class="wapper">
+                <span class="title-custom"><?php echo __("Promotional code")?>: </span>
+                <span class="text">
+                    <?php echo ($promotionCode != "") ? $promotionCode : __("None") ;?>
+                </span>
+            </div>
+        </div>
+        <?php echo $block->getChildHtml('order_totals') ?>
+    </div>
+</div>

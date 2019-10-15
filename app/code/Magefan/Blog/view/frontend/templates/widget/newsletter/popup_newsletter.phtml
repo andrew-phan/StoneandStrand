@@ -1,0 +1,59 @@
+<?php
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+/** @var \Magento\Framework\App\ObjectManager $om */
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$newsletterBlock = $om->create('Ss\Newsletter\Block\Subscribe');
+$newsletterBlock->setTemplate('Ss_Newsletter::subscribe_popup.phtml');
+
+/** @var \Magento\Framework\App\Http\Context $context */
+$context = $om->get('Magento\Framework\App\Http\Context');
+/** @var bool $isLoggedIn */
+$isLoggedIn = $context->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
+$isLoggedInText = $isLoggedIn ? "true" : "false";
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerRepository = $objectManager->get('Magento\Customer\Api\CustomerRepositoryInterface');
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+if ($customerSession->isLoggedIn()) {
+    $customerId = $customerSession->getCustomerId();
+    $customer = $customerRepository->getById($customerId);
+    $subscriberType = $customer->getCustomAttribute(\Ss\Newsletter\Controller\Manage\Save::ATTRIBUTE_CODE_SUBSCRIBER);
+    $subscriber = explode(',', $subscriberType->getValue());
+    $countSubscriber = count($subscriber);
+}
+if (!(isset($countSubscriber) && $countSubscriber == 3)) :
+?>
+
+<div class="popup popup-signup hidden" data-login="<?php echo $isLoggedInText; ?>">
+    <div class="popup-content">
+        <?php
+        if ($post) :
+            $featureImage = $post->getFeatureImageUrl();
+        else :
+            $featureImage = '';
+        endif;
+        ?>
+        <div class="image-wrapper"><span style="background-image: url(<?php echo $featureImage; ?>)" class="image"></span></div>
+        <div class="description"><strong class="title"><?php
+        if ($post) :
+            echo $post->getTitle();
+        endif;
+        ?></strong>
+                <?php
+            if ($post) :
+                echo $post->getContent();
+            endif;
+            ?>
+            <?php echo $newsletterBlock->toHtml(); ?>
+            <a href="javascript:;" title="<?php echo __("No thanks, I don't like stylish jewelry");?>" class="link-close" data-close><?php echo __("No thanks, I don't like stylish jewelry");?></a>
+            <?php /* <p class="purchases-text">Eligible for use on purchases above $200</p> */ ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>

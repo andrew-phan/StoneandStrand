@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="sstheme" translate="label" sortOrder="100">
+            <label>Ss Theme</label>
+        </tab>
+
+        <section id="sstheme" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>General</label>
+            <tab>sstheme</tab>
+            <resource>Ss_Theme::config_sstheme</resource>
+            <group id="sstheme_page" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Social settings</label>
+
+                <field id="social_instagram" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instagram url</label>
+                </field>
+
+                <field id="social_facebook" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook url</label>
+                </field>
+
+                <field id="social_twitter" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Twitter url</label>
+                </field>
+
+                <field id="social_pin" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pinterest url</label>
+                </field>
+
+            </group>
+
+            <group id="sstheme_header" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Header settings</label>
+
+                <field id="placeholder_image" translate="label" type="image" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Placeholder image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+            </group>
+
+            <group id="sstheme_customer_vip" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Vip settings</label>
+
+                <field id="customer_group" translate="label" type="select" sortOrder="1"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer group vip</label>
+                    <source_model>Ss\Theme\Model\System\Config\CustomerGroup</source_model>
+                    <comment>This is how Content of Menu will be shown.</comment>
+                </field>
+
+                <field id="customer_logo" translate="label" type="image" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Logo customer Vip</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+            </group>
+
+            <group id="sstheme_catalog_product" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Catalog Product settings</label>
+                <field id="catalog_max_qty" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum qty</label>
+                    <comment></comment>
+                </field>
+            </group>
+            <group id="email_config" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email settings</label>
+                <field id="careers_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Careers</label>
+                    <comment></comment>
+                </field>
+                <field id="customer_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customers Sevice</label>
+                    <comment></comment>
+                </field>
+                <field id="designers_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Designers</label>
+                    <comment></comment>
+                </field>
+                <field id="general_name" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>General Name</label>
+                    <comment></comment>
+                </field>
+                <field id="general_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>General</label>
+                    <comment></comment>
+                </field>
+                <field id="press_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Press</label>
+                    <comment></comment>
+                </field>
+                <field id="tribeca_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>S&amp;S Tribeca</label>
+                    <comment></comment>
+                </field>
+            </group>
+
+            <group id="sstheme_contact" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Contact settings</label>
+                <field id="tribeca_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>S&amp;S Tribeca URL</label>
+                    <comment></comment>
+                </field>
+            </group>
+
+            <group id="sstheme_designer" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Designer page settings</label>
+                <field id="root_category" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select root category</label>
+                    <source_model>Ss\Designer\Model\Config\Source\Category</source_model>
+                    <comment>This category will filter product in designer page</comment>
+                </field>
+                
+                <field id="page_title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Page Title</label>
+                </field>
+                
+                <field id="keyword" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Meta Keyword</label>
+                </field>
+                
+                <field id="description" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Meta Description</label>
+                </field>
+            </group>
+
+            <group id="sstheme_diamond" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Attribute Set settings</label>
+                <field id="attribute_set_diamond" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select attribute set diamond</label>
+                    <source_model>Magento\Catalog\Model\Product\AttributeSet\Options</source_model>
+                </field>
+                <field id="attribute_set_normal" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select attribute set normal</label>
+                    <source_model>Magento\Catalog\Model\Product\AttributeSet\Options</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="email" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Email Template</label>
+            <tab>sstheme</tab>
+            <resource>Ss_Theme::config_sstheme</resource>
+            <group id="email_header" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Header</label>
+                <field id="top_message_link" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Top Message Link</label>
+                </field>
+                <field id="top_message" translate="label" type="textarea" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Top Message</label>
+                </field>
+                <field id="menu_1_title" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 1 Title</label>
+                </field>
+                <field id="menu_1_link" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 1 Link</label>
+                </field>
+                <field id="menu_2_title" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 2 Title</label>
+                </field>
+                <field id="menu_2_link" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 2 Link</label>
+                </field>
+                <field id="menu_3_title" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 3 Title</label>
+                </field>
+                <field id="menu_3_link" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 3 Link</label>
+                </field>
+                <field id="menu_4_title" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 4 Title</label>
+                </field>
+                <field id="menu_4_link" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 4 Link</label>
+                </field>
+                <field id="menu_5_title" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 5 Title</label>
+                </field>
+                <field id="menu_5_link" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Menu 5 Link</label>
+                </field>
+                <field id="sign_up_banner" translate="label" type="image" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sign Up Banner Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+            </group>
+<!--            <group id="email_footer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Footer</label>
+            </group>-->
+            <group id="email_banner" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Banner</label>
+                <field id="designer_po" translate="label" type="image" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Designer PO Bottom Banner</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+                <field id="order_confirmation" translate="label" type="image" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Confirmation Bottom Banner</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+                <field id="sent_a_hint" translate="label" type="image" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sent a Hint Bottom Banner</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+                <field id="return_information" translate="label" type="image" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Return Information Bottom Banner</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+                <field id="return_processed" translate="label" type="image" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Return Processed Bottom Banner</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+                <field id="sign_up_welcome" translate="label" type="image" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sign Up Welcome Bottom Banner</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo</upload_dir>
+                    <base_url type="media" scope_info="1">logo</base_url>
+                    <comment><![CDATA[Allowed file types: jpeg, gif, png.]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="criteo" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Criteo</label>
+            <tab>sstheme</tab>
+            <resource>Ss_Theme::config_sstheme</resource>
+            <group id="config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Config</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="account" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account Number</label>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="shareasale" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Share A Sale</label>
+            <tab>sstheme</tab>
+            <resource>Ss_Theme::config_sstheme</resource>
+            <group id="config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Config</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="merchantid" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merchant ID</label>
+                    <depends>
+                        <field id="*/*/enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,113 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/** @var Ss\Customer\Block\Form $block */
+?>
+<div class="account-content">
+    <form class="form form-edit-account" action="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost'); ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields'); ?>" autocomplete="off" data-validate-form='{"urlRemoteValidate": "<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost'); ?>", "typeRemoteValidate": {"name": "accountDetail", "type":"email"}, "imgLoading": "<?php echo $block->getViewFileUrl('images/ripple-loading.svg'); ?>"}'>
+        <?php echo $block->getBlockHtml('formkey'); ?>
+
+        <div class="fieldset email">
+            <h2 class="title"><?php /* @escapeNotVerified */ echo __('Change Your Email'); ?></h2>
+            <p class="success-remote-msg hidden"></p>
+            <ul class="list-remote-error hidden"></ul>
+            <div class="inner">
+                <div class="field email current required">
+                    <label class="label" for="current-email"><?php /* @escapeNotVerified */ echo __('Current email'); ?>:</label>
+                    <p><?php echo $block->escapeHtml($block->getCustomer()->getEmail()) ?></p>
+                    <input type="hidden" class="input-text" name="current_email" id="current-email" value="<?php echo $block->getCustomer()->getEmail(); ?>"/>
+                </div>
+                <div class="field new email required">
+                    <label class="label" for="new_email"><?php /* @escapeNotVerified */ echo __('New email'); ?>:</label>
+                    <div class="control">
+                        <input type="text" data-name-new-email="new_email" class="input-text" name="new_email" id="new_email" maxlength="125" required data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Please enter new email."); ?></p>" data-parsley-validate-email data-parsley-validate-email-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Email format is incorrect. Only these characters are allowed: letters, numbers, and some special characters '@', '.', '_'"); ?></p>" data-parsley-maxlength-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("This value is too long. It should have %s characters or fewer."); ?></p>"/>
+                    </div>
+                </div>
+                <div class="field confirm email required">
+                    <label class="label" for="email-confirmation"><?php /* @escapeNotVerified */ echo __('Confirm new email'); ?>:</label>
+                    <div class="control">
+                        <input type="text" class="input-text" name="email_confirmation" id="email-confirmation" maxlength="125" required data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Please confirm new email."); ?></p>" data-parsley-maxlength-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("This value is too long. It should have %s characters or fewer."); ?></p>" data-parsley-equalto="#new_email" data-parsley-equalto-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("These email don't match. Try again?"); ?></p>" data-parsley-validate-email data-parsley-validate-email-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Email format is incorrect. Only these characters are allowed: letters, numbers, and some special characters '@', '.', '_'"); ?></p>"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action save primary btn btn-white" name="submit" value="email" title="<?php /* @escapeNotVerified */ echo __('Save Changes') ?>"><span><?php /* @escapeNotVerified */ echo __('Save changes') ?></span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <form class="form form-edit-account" action="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost'); ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields'); ?>" autocomplete="off" data-validate-form='{"urlRemoteValidate": "<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost'); ?>", "typeRemoteValidate": {"name": "accountDetail", "type":"password"}, "imgLoading": "<?php echo $block->getViewFileUrl('images/ripple-loading.svg'); ?>"}'>
+        <?php echo $block->getBlockHtml('formkey'); ?>
+
+        <div class="fieldset password">
+            <h2 class="title"><?php /* @escapeNotVerified */ echo __('Change Your Password') ?></h2>
+            <p class="success-remote-msg hidden"></p>
+            <ul class="list-remote-error hidden"></ul>
+            <div class="inner">
+                <div class="field password current required">
+                    <label class="label" for="current-password"><?php /* @escapeNotVerified */ echo __('Current password') ?>:</label>
+                    <div class="control">
+                        <input type="password" class="input-text" name="current_password" id="current-password" data-parsley-minlength="8" maxlength="30" required data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Please enter current password."); ?></p>" data-parsley-maxlength-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("This value is too long. It should have %s characters or fewer."); ?></p>" data-parsley-minlength-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Short passwords are easy to guess. Try one with at least %s characters."); ?></p>"/>
+                    </div>
+                </div>
+                <div class="field new password required">
+                    <label class="label" for="password"><?php /* @escapeNotVerified */ echo __('New password') ?>:</label>
+                    <div class="control">
+                        <input type="password" class="input-text" name="password" id="password" data-parsley-minlength="8" maxlength="30" required data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Please enter new password."); ?></p>" data-parsley-maxlength-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("This value is too long. It should have %s characters or fewer."); ?></p>" data-parsley-minlength-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Short passwords are easy to guess. Try one with at least %s characters."); ?></p>"/>
+                    </div>
+                </div>
+                <div class="field confirm password required">
+                    <label class="label" for="password-confirmation"><?php /* @escapeNotVerified */ echo __('Confirm new password') ?>:</label>
+                    <div class="control">
+                        <input type="password" class="input-text" name="password_confirmation" id="password-confirmation" maxlength="30" required data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("Please confirm new password."); ?></p>" data-parsley-equalto="#password" data-parsley-equalto-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("These passwords don't match. Try again?"); ?></p>"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action save primary btn btn-white" name="submit" value="password" title="<?php /* @escapeNotVerified */ echo __('Save Changes') ?>"><span><?php /* @escapeNotVerified */ echo __('Save changes') ?></span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <form class="form form-edit-account" action="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost'); ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields'); ?>" autocomplete="off" data-validate-form='{"urlRemoteValidate": "<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/editPost'); ?>", "typeRemoteValidate": {"name": "accountDetail", "type":"info"}, "imgLoading": "<?php echo $block->getViewFileUrl('images/ripple-loading.svg'); ?>"}'>
+        <?php echo $block->getBlockHtml('formkey'); ?>
+
+        <div class="fieldset info">
+            <h2 class="title"><?php /* @escapeNotVerified */ echo __('Change Your Name') ?></h2>
+            <p class="success-remote-msg hidden"></p>
+            <ul class="list-remote-error hidden"></ul>
+            <div class="inner">
+                <?php echo $block->getLayout()->createBlock('Ss\Customer\Block\Widget\Account\Name')->setObject($block->getCustomer())->toHtml() ?>
+            
+                <?php $_dob = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Dob') ?>
+                <?php $_taxvat = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Taxvat') ?>
+                <?php $_gender = $block->getLayout()->createBlock('Magento\Customer\Block\Widget\Gender') ?>
+                <?php if ($_dob->isEnabled()): ?>
+                    <?php echo $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
+                <?php endif ?>
+                <?php if ($_taxvat->isEnabled()): ?>
+                    <?php echo $_taxvat->setTaxvat($block->getCustomer()->getTaxvat())->toHtml() ?>
+                <?php endif ?>
+                <?php if ($_gender->isEnabled()): ?>
+                    <?php echo $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
+                <?php endif ?>
+            </div>
+
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action save primary  btn btn-white" name="submit" value="info" title="<?php /* @escapeNotVerified */ echo __('Save Changes') ?>"><span><?php /* @escapeNotVerified */ echo __('Save changes') ?></span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

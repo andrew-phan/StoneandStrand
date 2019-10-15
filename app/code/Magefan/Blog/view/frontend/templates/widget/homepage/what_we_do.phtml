@@ -1,0 +1,24 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+    ?>
+    <?php if ($post && $post->getIsActive()) : ?>
+        <div class="col-md-8">
+            <div class="what-do-block">
+                <h2 class="line-title">
+                    <a href="<?php echo $block->getLink(); ?>" title="<?php echo $block->getTitle(); ?>"><span><?php echo $block->getTitle(); ?></span></a>
+                </h2>
+
+                <h3 class="title-1"><?php echo $post->getTitle(); ?></h3>
+                <div class="tinymce-editor text-center">
+                    <?php echo $post->getContent(); ?>
+                </div>
+
+            </div>
+        </div>
+    <?php
+    endif;
+endif;

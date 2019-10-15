@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="RMA Return Create" design_abstraction="custom">
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="magento_rma_item_form_template">
+                <referenceBlock name="magento_rma_item_form_template_text" template="Ss_Rma::form/renderer/text.phtml"/>
+                <referenceBlock name="magento_rma_item_form_template_boolean" template="Ss_Rma::form/renderer/boolean.phtml"/>
+                <referenceBlock name="magento_rma_item_form_template_textarea" template="Ss_Rma::form/renderer/textarea.phtml"/>
+                <referenceBlock name="magento_rma_item_form_template_select" template="Ss_Rma::form/renderer/select.phtml" cacheable="false"/>
+                <referenceBlock name="magento_rma_item_form_template_image" template="Ss_Rma::form/renderer/image.phtml"/>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

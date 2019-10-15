@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ss_Designer::designer" title="Designer" 
+             module="Ss_Designer" sortOrder="10" 
+             resource="Ss_Designer::designer" 
+             parent="Magento_Backend::content"/>
+
+
+        <add id="Ss_Designer::designer_designer" title="Manage Designers" 
+             module="Ss_Designer" sortOrder="10" 
+             parent="Ss_Designer::designer" 
+             action="stone_designer/designer" 
+             resource="Ss_Designer::designer_designer"/>
+
+        
+        <add id="Ss_Designer::designer_tag" title="Manage Tags" 
+             module="Ss_Designer" sortOrder="10" 
+             parent="Ss_Designer::designer" 
+             action="stone_designer/tags" 
+             resource="Ss_Designer::designer_tags"/>
+        
+        <add id="Ss_Designer::designer_type" title="Manage Type" 
+             module="Ss_Designer" sortOrder="10" 
+             parent="Ss_Designer::designer" 
+             action="stone_designer/type" 
+             resource="Ss_Designer::designer_type"/>
+        
+
+    </menu>
+</config>

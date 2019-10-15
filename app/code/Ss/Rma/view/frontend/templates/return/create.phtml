@@ -1,0 +1,221 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Rma\Block\Returns\Create */
+?>
+<?php
+$_order =  $block->getOrder();
+
+$orderDate = new \DateTime($_order->getCreatedAt());
+$orderDate = $orderDate->format('m/d/y');
+
+$_data = $block->getFormData();
+
+$_items = $block->getItems();
+
+$totalAvlQty = 0;
+?>
+<script id="template-registrant" type="text/x-magento-template">
+    <div class="actions-toolbar">
+        <div class="secondary" id="delete<%- data._index_ %>">
+            <button type="button" class="action remove delete"><span><?php /* @escapeNotVerified */ echo __('Remove') ?></span></button>
+        </div>
+    </div>
+    <fieldset class="fieldset">
+        <div class="field item required">
+            <label for="items:item<%- data._index_ %>" class="label"><span><?php /* @escapeNotVerified */ echo __('Item') ?></span><span class="mandatory-field">*</span></label>
+            <div class="control">
+                <?php $bundleID     = 0; ?>
+                <?php $firstItemId = $i = $productType = $availableQty = 0; ?>
+                <?php $html         = []; ?>
+                <select name="items[<%- data._index_ %>][order_item_id]" class="select" id="items:item<%- data._index_ %>" data-args='{"index":<%- data._index_ %>}'>
+                    <?php foreach ($_items as $_item): ?>
+                        <?php $totalAvlQty += $block->getAvailableQty($_item); ?>
+                    <?php if ($i == 0): ?>
+                        <?php
+                        $firstItemId = $_item->getId();
+                        $productType = $_item->getProductType();
+                        $availableQty = $block->getAvailableQty($_item);
+                        $i = 1;
+                        ?>
+                        <?php endif; ?>
+                    <?php if ($_item->getProductType() == \Magento\Catalog\Model\Product\Type::TYPE_BUNDLE): ?>
+                        <?php $bundleID = $_item->getId(); ?>
+                        <?php endif; ?>
+                    <?php if (!$_item->getParentItemId() || $_item->getParentItemId() != $bundleID): ?>
+                        <option value="<?php /* @escapeNotVerified */ echo $_item->getId()?>" id="item:order_item_id<%- data._index_ %>_<?php /* @escapeNotVerified */ echo $_item->getId() ?>" rel="<?php /* @escapeNotVerified */ echo $_item->getProductType()?>_<?php /* @escapeNotVerified */ echo $block->getAvailableQty($_item); ?>"><?php echo $block->escapeHtml($_item->getName())?></option>
+                        <?php endif; ?>
+                    <?php if ($_item->getParentItemId() != null && $_item->getParentItemId() == $bundleID): ?>
+                        <?php if ($_item->getIsOrdered()): ?>
+                            <?php
+                            $html[$bundleID][] = [
+                                $_item->getId(),
+                                $block->escapeHtml($_item->getName()),
+                                $block->getAvailableQty($_item),
+                                1,
+                            ];
+                            ?>
+                            <?php else: ?>
+                            <?php
+                            $html[$bundleID][] = [
+                                $_item->getId(),
+                                $block->escapeHtml($_item->getName()),
+                                $block->getAvailableQty($_item),
+                                0,
+                            ];
+                            ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            <?php if (!empty($html)): ?>
+            <?php foreach ($html as $bundleID => $node): ?>
+                <div class="nested">
+                    <div id="radio:item<%- data._index_ %>_<?php /* @escapeNotVerified */ echo $bundleID?>">
+                        <div class="table-wrapper">
+                            <table class="data table table-return-items" id="return-items-table-<?php /* @escapeNotVerified */ echo $bundleID?>">
+                                <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Return items'); ?></caption>
+                                <thead>
+                                    <tr>
+                                        <th class="col product" scope="col"><?php /* @escapeNotVerified */ echo __('Sub-items') ?></th>
+                                        <th class="col remaining qty" scope="col"><?php /* @escapeNotVerified */ echo __('Remaining Qty') ?></th>
+                                        <th class="col qty" scope="col"><?php /* @escapeNotVerified */ echo __('Qty') ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($node as $item): ?>
+                                    <tr>
+                                        <td data-th="<?php echo $block->escapeHtml(__('Product')) ?>" class="col product">
+                                            <?php if ($item[3]): ?>
+                                                <input type="checkbox" disabled>
+                                            <?php else: ?>
+                                                <input id="items[<%- data._index_ %>][<?php /* @escapeNotVerified */ echo $bundleID ?>][checkbox][item][<?php /* @escapeNotVerified */ echo $item[0]?>]" data-validate="{'validate-one-required-by-name':true}"  data-args='{"item" :<?php /* @escapeNotVerified */ echo $item[0]?>, "bundleId" : <?php /* @escapeNotVerified */ echo $bundleID?>, "index" :<%- data._index_ %>}' type="checkbox" value="<?php /* @escapeNotVerified */ echo $item[0]?>" class="checkbox change-container-classname" name="validate-one-checkbox-<?php /* @escapeNotVerified */ echo $bundleID ?>-<%- data._index_ %>" />
+                                            <?php endif; ?>
+                                            <label for="items[<%- data._index_ %>][<?php /* @escapeNotVerified */ echo $bundleID ?>][checkbox][item][<?php /* @escapeNotVerified */ echo $item[0]?>]" class="label <?php echo($item[3]) ? 'disabled' : ''?>"><?php /* @escapeNotVerified */ echo $item[1]?></label>
+                                        </td>
+                                        <td data-th="<?php echo $block->escapeHtml(__('Remaining Qty')) ?>" class="col remaining qty"><?php /* @escapeNotVerified */ echo $item[2] ?></td>
+                                        <td data-th="<?php echo $block->escapeHtml(__('Qty')) ?>" class="col qty">
+                                            <?php if (!$item[3]): ?>
+                                                <input id="items[<%- data._index_ %>][<?php /* @escapeNotVerified */ echo $bundleID ?>][checkbox][qty][<?php /* @escapeNotVerified */ echo $item[0]?>]" name="items[<%- data._index_ %>][items][<?php /* @escapeNotVerified */ echo $item[0]?>]" size="7" data-validate="{'validate-greater-than-zero':true,'required-number':true}" type="number" style="display:none" disabled class="input-text">
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </div>
+        </div>
+        <div class="field qty required" id="qty_requested_block_<%- data._index_ %>">
+            <label for="items:qty_requested<%- data._index_ %>" class="label"><span><?php /* @escapeNotVerified */ echo __('Quantity Return') ?></span><span class="mandatory-field">*</span></label>
+            <div class="control">
+                <input type="text" class="input-text" placeholder="<?php /* @escapeNotVerified */ echo __('Quantity Return') ?>" required data-parsley-pattern="/^[0-9]+$/" data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("You can't leave this empty."); ?></p>" data-parsley-pattern-message="<span class='img-icon icon-error' data-toggle-error> </span><p class='hidden'><?php echo __("Quantity format is incorrect."); ?></p>" value="" name="items[<%- data._index_ %>][qty_requested]" id="items:qty_requested<%- data._index_ %>">
+                <div class="note" id="remaining_quantity_block_<%- data._index_ %>">
+                    <?php /* @escapeNotVerified */ echo __('Remaining Quantity') ?>:&nbsp;<span id="remaining_quantity_<%- data._index_ %>" class="qty remaining"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <?php foreach ($block->getAttributes() as $attribute):?>
+        <?php $attributeContent = $block->getAttributeHtml($attribute);?>
+        <?php if ($attributeContent): ?>
+            <?php /* @escapeNotVerified */ echo $attributeContent;?>
+        <?php endif;?>
+        <?php endforeach;?>
+    </fieldset>
+</script>
+<div class="account-content return-exchange-block">
+    <div class="order-details-items ordered">
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a class="action back" href="<?php /* @escapeNotVerified */ echo $block->getBackUrl(); ?>">
+                    <?php /* @escapeNotVerified */ echo __('Back to my order'); ?>
+                </a>
+            </div>
+        </div>
+        <div class="order-head">
+            <div class="order-title">
+                    <p><strong><?php /* @escapeNotVerified */ echo __('Order Number'); ?>:</strong> <?php /* @escapeNotVerified */ echo $_order->getIncrementId(); ?></p>
+                    <p><strong><?php /* @escapeNotVerified */ echo __('Order Date'); ?>:</strong> <?php /* @escapeNotVerified */ echo $orderDate; ?></p>
+            </div>
+            <div class="return-step">
+                <p><strong><?php /* @escapeNotVerified */ echo __('Step 1'); ?></strong></p>
+                <span class="line-arrow"></span>
+                <p><?php /* @escapeNotVerified */ echo __('Step 2'); ?></p>
+            </div>
+            <div class="return-warning">
+                <p><?php echo __('Return Message Warning') ?></p>
+            </div>
+        </div>
+        <?php echo $block->getChildHtml('rma.order.items'); ?>
+    </div>
+
+    <form id="rma_create_form" method="post" enctype="multipart/form-data" class="form form-create-return" data-validate-form='{"hasErrorLabel": true}'>
+        <script type="text/x-magento-init">
+            {
+                "#rma_create_form": {
+                    "fileElement": {},
+                    "rmaCreate": {
+                        <?php $i = 0; ?>
+                        <?php if ($_data): ?>
+                        <?php $formDataPost = $_data->getItems(); ?>
+                        <?php if (is_array($formDataPost)): ?>
+                        "formDataPost": <?php /* @escapeNotVerified */ echo json_encode($formDataPost); ?>,
+                        <?php endif; ?>
+                        <?php endif; ?>
+                        "templateRegistrant": "#template-registrant",
+                        "registrantOptions": "#registrant-options",
+                        "addItemToReturn": "add-item-to-return",
+                        "btnRemove": "delete",
+                        "row": "#row",
+                        "addRow": "additional",
+                        "qtyReqBlock": "#qty_requested_block",
+                        "remQtyBlock": "#remaining_quantity_block",
+                        "remQty": "#remaining_quantity",
+                        "reasonOtherRow": "#reason_other",
+                        "reasonOtherInput": "#items:reason_other",
+                        "radioItem": "#radio:item",
+                        "orderItemId": "#item:order_item_id",
+                        "itemsItem": "items:item",
+                        "itemsReason": "items:reason",
+                        "totalAvlQty": "<?php /* @escapeNotVerified */ echo($totalAvlQty) ? $totalAvlQty : 0 ?>",
+                        "firstItemId": "<?php /* @escapeNotVerified */ echo $firstItemId; ?>",
+                        "productType": "<?php /* @escapeNotVerified */ echo $productType?>",
+                        "availableQuantity": "<?php /* @escapeNotVerified */ echo($availableQty) ? $availableQty : 0 ?>",
+                        "prodTypeBundle": "<?php /* @escapeNotVerified */ echo \Magento\Catalog\Model\Product\Type::TYPE_BUNDLE ?>"
+                    },
+                    "validation": {
+                         "ignore": ":hidden:not(input[id$='_value'])"
+                    }
+                }
+            }
+        </script>
+        <input type="hidden" name="customer_custom_email" id="email" value="<?php /* @escapeNotVerified */ echo $_order->getCustomerEmail()?>">
+        <fieldset class="fieldset">
+            <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Return Items Information') ?></span></legend>
+            <div id="registrant-options" class="registrant-options"></div> <?php /* fields of the form are inserted here */ ?>
+            <div class="actions-toolbar">
+                <div class="secondary">
+                    <button type="button" id="add-item-to-return" class="action add add-item-to-return">
+                        <span><?php /* @escapeNotVerified */ echo __('Add Item To Return') ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary btn btn-black" id="submit.save" title="<?php /* @escapeNotVerified */ echo __('Save') ?>"><span><?php /* @escapeNotVerified */ echo __('Continue') ?></span></button>
+            </div>
+        </div>
+    </form>
+</div>

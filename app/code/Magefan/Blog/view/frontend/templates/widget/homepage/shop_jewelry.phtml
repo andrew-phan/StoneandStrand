@@ -1,0 +1,56 @@
+<?php
+$postIds = $block->getPostIds();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+    $mediaUrl = $block->getSrcMediaImage();
+    $themeHelper = $block->getThemeHelper();
+
+    $categoryCollections = $block->getCategoryCollection();
+    ?>
+
+    <div class="block shop-jewelry-block">
+        <h2 class="line-title">
+            <a href="<?php echo $block->getLink(); ?>" title="<?php echo $block->getTitle(); ?>"><span><?php echo $block->getTitle(); ?></span></a>
+        </h2>
+        <div class="heading">
+            <?php if ($post && $post->getIsActive()): ?>
+                <h3 class="title-1"><?php echo $post->getTitle(); ?></h3>
+                <div class="tinymce-editor">
+                    <?php echo $post->getContent(); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="block-center-4">
+            <?php
+            foreach ($categoryCollections as $category):
+                $cateName = $category->getName();
+                $cateUrl = $category->getUrl();
+                $cateImage = $category->getData(\Ss\Catalog\Helper\Data::ATTRIBUTE_THUMBNAIL_IMAGE);
+                if (!empty($cateImage)) {
+                    $cateImage = $mediaUrl . \Ss\Catalog\Helper\Data::FOLDER_IMAGE_CATEGORY . $cateImage;
+                } else {
+                    $cateImage = $themeHelper->getPlaceHolderImage();
+                }
+                ?>
+                <div class="item">
+                    <div class="thumbnail text-center style-1">
+                        <a href="<?php echo $cateUrl; ?>" title="<?php echo $cateName; ?>" class="image">
+                            <img src="<?php echo $cateImage; ?>" alt="image"/>
+                        </a>
+                        <div class="description">
+                            <p class="category">
+                                <a href="<?php echo $cateUrl; ?>" title="<?php echo $cateName; ?>"><?php echo $cateName; ?></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            endforeach;
+            ?>
+        </div>
+    </div>
+    <?php
+
+endif;

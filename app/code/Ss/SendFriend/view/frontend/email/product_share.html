@@ -1,0 +1,273 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<!--@subject You've been sent a hint from Stone & Strand @-->
+<!--@vars {
+"var product_name":"Product name",
+"var email":"Recipient Email address",
+"var name":"Recipient name",
+"var message|raw":"Sender custom message",
+"var sender_email":"Sender email",
+"var sender_name":"Sender name",
+"var product_url":"URL for Product",
+"var product_image":"URL for product small image (75 px)"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<tr>
+        <td>
+          <table width="600" align="center" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td height="48">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <p style="color: #1d1d1d; font-size: 30px; font-family: PlayfairDisplay-Regular, Arial, sans-serif; margin: 0">{{var senthint_title}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td height="30">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <p style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0">{{trans "Psssst! %sender_name " sender_name=$sender_name}}{{var senthint_content}}</p>
+              </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <p style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; line-height: 24px; text-decoration: none"><span style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; line-height: 24px; text-decoration: none">www.stoneandstrand.com</span></p>
+                </td>
+            </tr>
+            <tr>
+              <td height="48">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center"><a href="{{var product_url}}" title="Image"><img src="{{var product_image}}" alt="stone&amp;strand" width="280" height="280"></a></td>
+            </tr>
+            <tr>
+              <td height="30">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <p style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; letter-spacing: 2px">{{var product_name}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td height="5">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <p style="color: #1d1d1d; font-size: 13px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; letter-spacing: 2px; font-weight: bold">{{var designer_name}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td height="9">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <p style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0">{{var product_price}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td height="36">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <table align="center" border="0" cellpadding="0" cellspacing="0">
+                  <tbody><tr>
+                    <td align="center" width="225" height="40"><a href="{{var product_url}}" title="SHOP THIS HINT"><img src="{{view url=images/upload/newsletter/shop-this-hint-button.jpg}}" alt="stone&amp;strand" height="40" width="225"></a></td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+            <tr>
+              <td height="23">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <table align="center" border="0" cellpadding="0" cellspacing="0">
+                  <tbody><tr>
+                    <td style="padding-right: 5px"><a href="mailto:{{var email_config}}" title="email" style="color: #1d1d1d"><span style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0">{{trans "View in Person"}}</span></a></td>
+                    <td><span style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; text-decoration: none">{{trans "or Call %telephone_config" telephone_config=$telephone_config}}</span></td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+            <tr>
+              <td height="92">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0" width="600" height="12">
+                  <tbody><tr>
+                    <td align="right" valign="middle" style="line-height: 12px"><img src="{{view url=images/upload/newsletter/Line-3.jpg}}" alt="stone&amp;strand" height="11" width="197" style="width: 197px; height: 11px; display: block"></td>
+                    <td align="center" valign="middle" height="12" style="padding: 0 14px"><a href="{{store url=""}}about-us" title="About Us" style="color: #1d1d1d; text-decoration: none"><span style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; letter-spacing: 3px; font-weight: bold; text-decoration: none">{{trans "ABOUT US"}}</span></a></td>
+                    <td align="left" valign="middle" style="line-height: 12px"><img src="{{view url=images/upload/newsletter/Line-3.jpg}}" alt="stone&amp;strand" height="11" width="197" style="width: 197px; height: 11px; display: block"></td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+            <tr>
+              <td height="58">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center"><img src="{{var aboutus_image}}" alt="stone&amp;strand" height="325" width="526"></td>
+            </tr>
+            <tr>
+              <td height="35">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="515">
+                  <tbody><tr>
+                    <td align="center">
+                      <p style="color: #1d1d1d; font-size: 16px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; line-height: 24px; letter-spacing: 1px">{{trans "%aboutus_content" aboutus_content=$aboutus_content}}</p>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+            <tr>
+              <td height="76">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <p style="color: #1d1d1d; font-size: 30px; font-family: PlayfairDisplay-Regular, Arial, sans-serif; margin: 0">{{trans "Why We’re Different:"}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td height="40">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="480" height="40">
+                  <tbody><tr>
+                    <td width="225" height="40" align="center"><a href="{{store url=""}}jewelry?product_list_order=newest&product_list_dir=desc" title="{{trans "SHOP NEW"}}"><img src="{{view url=images/upload/newsletter/shop-new-button.jpg}}" alt="stone&amp;strand" height="40" width="225"></a></td>
+                    <td>&nbsp;</td>
+                    <td width="225" height="40" align="center"><a href="{{store url=""}}jewelry?product_list_dir=desc&product_list_order=bestsellers" title="{{trans "SHOP BESTSELLERS"}}"><img src="{{view url=images/upload/newsletter/shop-bestsellers-button.jpg}}" alt="stone&amp;strand" height="40" width="225"></a></td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+            <tr>
+              <td height="88">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0" width="600">
+                  <tbody><tr>
+                    <td>
+                      <table border="0" cellpadding="0" cellspacing="0" width="600" height="12">
+                        <tbody><tr>
+                          <td align="right" valign="middle" style="line-height: 12px"><img src="{{view url=images/upload/newsletter/Line-2.jpg}}" alt="stone&amp;strand" height="11" width="187" style="width: 187px; height: 11px; display: block"></td>
+                          <td align="center" valign="middle" height="12" style="padding: 0 14px"><span style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; letter-spacing: 3px; font-weight: bold">{{trans "CONTACT US"}}</span></td>
+                          <td align="left" valign="middle" style="line-height: 12px"><img src="{{view url=images/upload/newsletter/Line-2.jpg}}" alt="stone&amp;strand" height="11" width="187" style="width: 187px; height: 11px; display: block"></td>
+                        </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" height="155">
+                      <table border="0" cellpadding="0" cellspacing="0" width="500">
+                        <tbody><tr>
+                          <td width="260" align="center">
+                            <table width="250" cellpadding="0" cellspacing="0" style="border-right: 1px solid #b2b2b2; text-align: center">
+                              <tbody><tr>
+                                <td height="58" align="center">
+                                  <p style="font-size: 28px; color: #1d1d1d; font-family: PlayfairDisplay-Regular, Arial, sans-serif; margin: 0">{{trans "Call or Visit Us"}}</p>
+                                </td>
+                              </tr>
+                            </tbody></table>
+                          </td>
+                          <td width="30"></td>
+                          <td width="220" align="left">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                              <tbody><tr>
+                                <td height="17">
+                                  <table border="0" cellpadding="0" cellspacing="0" height="17">
+                                    <tbody><tr height="17">
+                                      <td valign="middle" style="line-height: 14px" width="24"><img src="{{view url=images/upload/newsletter/icon-map.jpg}}" alt="stone & strand" width="8" height="13" style="width: 8px; height: 13px; display: block"></td>
+                                      <td valign="middle" align="left" height="17"><a href="{{var Tribeca_Url}}" title="New" style="text-decoration: none"><span style="color: #1d1d1d; font-size: 10px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; font-weight: bold; letter-spacing: 2px;text-transform: uppercase;">{{trans "S&S TRIBECA"}}</span></a></td>
+                                      <td valign="middle" style="line-height: 17px; padding-left: 7px"><img src="{{view url=images/upload/newsletter/icon-arrow.jpg}}" alt="stone & strand" width="5" height="14" style="width: 5px; height: 14px; display: block"></td>
+                                    </tr>
+                                  </tbody></table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td height="17"></td>
+                              </tr>
+                              <tr>
+                                <td height="14">
+                                  <table border="0" cellpadding="0" cellspacing="0" width="200" height="14">
+                                    <tbody><tr height="14">
+                                      <td valign="middle" style="line-height: 14px" width="24"><img src="{{view url=images/upload/newsletter/icon-phone.jpg}}" alt="stone & strand" width="10" height="14" style="width: 10px; height: 14px; display: block"></td>
+                                      <td valign="middle" align="left" height="14">
+                                        <p style="color: #1d1d1d; font-size: 10px; font-family: OpenSans-Regular, Arial, sans-serif; margin: 0; font-weight: bold; letter-spacing: 2px">{{config path="general/store_information/phone"}}</p>
+                                      </td>
+                                    </tr>
+                                  </tbody></table>
+                                </td>
+                              </tr>
+                            </tbody></table>
+                          </td>
+                        </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table border="0" cellpadding="0" cellspacing="0" width="600" align="center">
+                  <tbody><tr>
+                    <td height="45">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table border="0" cellpadding="0" cellspacing="0" width="600" bgcolor="#ede1df" style="text-align: center">
+                        <tbody><tr>
+                          <td width="60">&nbsp;</td>
+                          <td>
+                            <table border="0" cellpadding="0" cellspacing="0" style="text-align: center">
+                              <tbody><tr>
+                                <td height="50">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td height="150"><a href="#" title="BannerB-Ampersand.jpg"><img src="{{view url=images/upload/newsletter/BannerB-Ampersand.jpg}}" alt="stone&amp;strand" height="150" width="150"></a></td>
+                              </tr>
+                              <tr>
+                                <td height="35">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td><a href="#" title="You do you. We do the rest." style="text-decoration: none; color: #1d1d1d"><span style="color: #1d1d1d; font-size: 38px; font-family: PlayfairDisplay-Regular, Verdana, sans-serif; text-decoration: none">You do you. We do the rest.</span></a></td>
+                              </tr>
+                              <tr>
+                                <td height="20">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td><a href="#" title="Content" style="text-decoration: none; color: #1d1d1d"><span style="color: #1d1d1d; font-size: 13px; line-height: 18px; font-family: OpenSans-Regular, Verdana, sans-serif; text-decoration: none">Experience Expertly-Selected jewelry, 100-Day Returns, and Anything-But-Basic Designers, all at Stone &amp; Strand.</span></a></td>
+                              </tr>
+                            </tbody></table>
+                          </td>
+                          <td width="60">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td height="70">&nbsp;</td>
+                        </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </td>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+
+{{template config_path="design/email/footer_template"}}

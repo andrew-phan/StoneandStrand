@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="magento_rma_returns_create_handle"/>
+    <update handle="sales_order_item_price"/>
+    <body>
+        
+        <referenceBlock name="customer-account-navigation-custom-order-link">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+        
+        <referenceContainer name="content">
+            <referenceBlock name="account_header">
+                <arguments>
+                    <argument name="title" xsi:type="string" translate="true">Return or Exchange an Item</argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock name="rma.returns.create" template="Ss_Rma::return/create.phtml">
+                <block class="Magento\Sales\Block\Order\Items" name="rma.order.items" template="Ss_Rma::order/items/list.phtml" cacheable="false">
+                    <block class="Magento\Framework\View\Element\RendererList" name="rma.order.items.renderers" as="renderer.list">
+                        <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" as="default" template="Ss_Rma::order/items/renderer/default.phtml" cacheable="false"/>
+                    </block>
+                </block>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

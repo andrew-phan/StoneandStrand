@@ -1,0 +1,46 @@
+<div class="required">
+  <div class="field current <?php /* @escapeNotVerified */ echo $block->getFieldId('firstname'); ?>">
+    <label class="label" for="<?php /* @escapeNotVerified */ echo __('Current') . ' ' . $block->getFieldId('firstname'); ?>">
+        <?php /* @escapeNotVerified */ echo __('Current') . ' ' . $block->getStoreLabel('firstname'); ?>:
+    </label>
+    <p><?php echo $block->escapeHtml($block->getObject()->getFirstname()); ?></p>
+  </div>
+    
+  <div class="field">
+    <label class="label" for="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname'); ?>">
+        <?php /* @escapeNotVerified */ echo __('New') . ' ' . $block->getStoreLabel('firstname'); ?>:
+    </label>
+      
+    <div class="control">
+      <input type="text" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('firstname'); ?>"
+        name="<?php /* @escapeNotVerified */ echo $block->getFieldName('firstname'); ?>"
+        value=""
+        data-name-new-firstname="<?php /* @escapeNotVerified */ echo $block->getFieldName('firstname'); ?>"
+        maxlength="125"
+        required data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("You can't leave this empty."); ?></p>" data-parsley-maxlength-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("This value is too long. It should have %s characters or fewer."); ?></p>">
+    </div>
+  </div>
+    
+  <div class="field current <?php /* @escapeNotVerified */ echo $block->getFieldId('lastname'); ?>">
+    <label class="label" for="<?php /* @escapeNotVerified */ echo __('Current') . ' ' . $block->getFieldId('lastname'); ?>">
+        <?php /* @escapeNotVerified */ echo __('Current') . ' ' . $block->getStoreLabel('lastname'); ?>:
+    </label>
+      
+    <p><?php echo $block->escapeHtml($block->getObject()->getLastname()); ?></p>
+  </div>
+    
+  <div class="field">
+    <label class="label" for="<?php /* @escapeNotVerified */ echo $block->getFieldId('lastname'); ?>">
+        <?php /* @escapeNotVerified */ echo __('New') . ' ' . $block->getStoreLabel('lastname'); ?>:
+    </label>
+      
+    <div class="control">
+      <input type="text" id="<?php /* @escapeNotVerified */ echo $block->getFieldId('lastname'); ?>"
+        name="<?php /* @escapeNotVerified */ echo $block->getFieldName('lastname'); ?>"
+        value=""
+        maxlength="125"
+        data-name-new-lastname="<?php /* @escapeNotVerified */ echo $block->getFieldName('lastname'); ?>"
+        required data-parsley-required-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("You can't leave this empty."); ?></p>" data-parsley-maxlength-message="<span class='img-icon icon-error' data-toggle-error>&nbsp;</span><p class='hidden'><?php echo __("This value is too long. It should have %s characters or fewer."); ?></p>">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<?php
+$searchHelper = $this->helper('Magento\Search\Helper\Data');
+$designerHelper = $this->helper('Ss\Designer\Helper\Data');
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+$postIds = $block->getPostIds();
+$media = $block->getSrcMediaImage();
+if (!empty($postIds)) :
+    $postIds = explode(',', $postIds);
+    $postId = array_shift($postIds);
+    $post = $block->getPostById($postId);
+endif;
+?>
+
+<?php
+if ($post && $post->getIsActive()):
+    $title = $post->getTitle();
+    if (!$post || $post->getFeaturedImg() == '') :
+        $featureImage = $media . 'images/upload/banner-list.jpg';
+    else :
+        $featureImage = $media . $post->getFeaturedImg();
+    endif;
+    ?>
+    <div class="page-descriptions">
+        <div class="banner-top">
+            <div class="thumbnail">
+                <img src="<?php echo $featureImage; ?>" alt="<?php echo $title; ?>"/>
+            </div>
+        </div>
+        <div class="descriptions">
+            <div class="grid-fluid">
+                <h1 class="title-page"><span><?php echo $block->getTitle(); ?></span><?php echo $title; ?></h1>
+                <p class="title-search"><?php echo __('Search results for \'%1\'', $searchHelper->getEscapedQueryText()); ?></p>
+            </div>
+        </div>
+    </div>
+    <?php
+ endif;

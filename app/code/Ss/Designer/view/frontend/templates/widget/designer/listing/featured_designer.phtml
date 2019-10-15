@@ -1,0 +1,35 @@
+<?php
+$designerCollection = $block->getDesignerCollections();
+if ($designerCollection->getSize() > 0):
+    ?>
+
+    <div class="jewelry-pick-block">
+        <h2 class="line-title"><span><?php echo $block->getTitle(); ?></span></h2>
+        <div data-slick-slider="{&quot;slidesToShow&quot;: 3, &quot;responsive&quot;: [{&quot;breakpoint&quot;: 992, &quot;settings&quot;: {&quot;slidesToShow&quot;: 1}}]}" class="slider feature-slider block-center-3">
+            <?php foreach ($designerCollection as $designer) : ?>
+                <?php
+                $name = $designer->getName();
+                $url = $designer->getUrl();
+                ?>
+                <div class="item">
+                    <div class="thumbnail">
+                        <a href="<?php echo $url; ?>" title="<?php echo $name; ?>" class="image">
+                            <img src="<?php echo $designer->getImageProductUrl(); ?>" alt="image"/>
+                        </a>
+                        <div class="description">
+                            <p class="title">
+                                <a href="<?php echo $url; ?>" title="<?php echo $name; ?>"><?php echo $name; ?></a>
+                            </p>
+                            <div class="tinymce-editor">
+                                <?php echo $designer->getDescription(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php
+
+
+endif;

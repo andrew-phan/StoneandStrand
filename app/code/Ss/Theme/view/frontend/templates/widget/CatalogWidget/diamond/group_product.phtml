@@ -1,0 +1,191 @@
+<?php
+if ($block->getProductCollection() && $block->getProductCollection()->getSize()):
+    $totalItems = $block->getProductCollection()->getSize();
+    $_imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+    $themeHelper = $this->helper("Ss\Theme\Helper\Data");
+    $facebookUrl = $themeHelper->getUrlSocialFacebook();
+    $pinUrl = $themeHelper->getUrlSocialPin();
+    $maxQtyProductShow = $themeHelper->getMaxQtyProduct();
+    $groupItems = $block->getProductCollection()->getItems();
+    ?>
+    <div class="wear-block">
+        <h2 class="line-title"><span><?php echo $block->getTitle(); ?></span></h2>
+        <div class="row">
+            <div class="col-md-11">
+                <div data-slick-slider class="slider wear-slider">
+                    <?php
+                    $count = 1;
+                    foreach ($groupItems as $_groupItem):
+                        // Check if this product is group.
+                        if ($_groupItem->getTypeId() == \Ss\Theme\Helper\Attributes::TYPE_GROUP_PRODUCT):
+                            $productUrl = $block->getProductUrl($_groupItem);
+                            $productName = $block->escapeHtml($_groupItem->getName());
+                            $shortDescription = $_groupItem->getShortDescription();
+                            $imageUrlPopup = $_imagehelper->init($_groupItem, 'dimond_group_product_popup')->constrainOnly(TRUE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->getUrl();
+
+                            $_associatedProducts = $_groupItem->getTypeInstance()->getAssociatedProducts($_groupItem);
+                            $_hasAssociatedProducts = count($_associatedProducts) > 0;
+                            if ($_groupItem->isSaleable() && $_hasAssociatedProducts):
+                                ?>
+                                <div class="item">
+                                    <form action="<?php /* @escapeNotVerified */ echo $block->getSubmitUrl($_groupItem) ?>" method="post"
+                                          id="product_addtocart_form-<?php echo $count; ?>" <?php echo ($_groupItem->getOptions()) ? 'enctype="multipart/form-data"' : ''?>>
+                                        <input type="hidden" name="product" value="<?php /* @escapeNotVerified */ echo $_groupItem->getId() ?>" />
+                                        <?php echo $block->getBlockHtml('formkey') ?>
+
+                                        <div class="img-wear">
+                                            <a href="javascript:;" title="<?php echo $productName; ?>" class="image" data-popup="{&quot;target&quot;: &quot;.popup&quot;, &quot;urlImgZoom&quot;: &quot;<?php echo $imageUrlPopup; ?>&quot;}">
+                                                <?php echo $block->getImage($_groupItem, 'dimond_group_product', ['height' => 'auto'])->toHtml(); ?>
+                                            </a>
+                                            <div class="group-btn text-center">
+                                                <button type="submit"
+                                                        title="<?php echo __('Buy this ear'); ?>"
+                                                        class="action primary tocart btn btn-white"
+                                                        id="product-addtocart-button">
+                                                    <span><?php echo __('Buy this ear'); ?></span>
+                                                </button>                                                
+                                            </div>
+                                            <ul class="socials-icon">
+                                                <li><a target="_blank" href="<?php echo $facebookUrl; ?>" title="<?php echo __("Facebook"); ?>" class="icon icon-facebook"></a>
+                                                </li>
+                                                <li><a target="_blank" href="<?php echo $pinUrl; ?>" title="<?php echo __("Pinterest"); ?>" class="icon icon-pinterest"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="detail-wear">
+                                            <p class="total-item">
+                                                <span class="current"><?php echo ($count < 10) ? sprintf('0%d', $count) : $count; ?></span>
+                                                <span class="sum"><?php echo ($totalItems < 10) ? sprintf('0%d', $totalItems) : $totalItems; ?></span>
+                                            </p>
+                                            <h3 class="title"><?php echo $productName; ?></h3>
+                                            <div class="desc">
+                                                <?php echo $shortDescription; ?>
+
+                                                <table class="product-group" id="super-product-table-<?php echo $count; ?>" data-total-prices>
+                                                    <?php
+                                                    foreach ($_associatedProducts as $_childItem):
+                                                        if ($_childItem->isSaleable()):
+                                                            $childName = $block->escapeHtml($_childItem->getName());
+                                                            $qtyChildItem = $block->getQtyProduct($_childItem);
+                                                            $maxQty = ($qtyChildItem > $maxQtyProductShow) ? $maxQtyProductShow : $qtyChildItem;
+                                                            ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <label for="product-1" class="product-link"><?php echo $childName ?></label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <?php if ($block->getCanShowProductPrice($_groupItem)): ?>
+                                                                        <?php if ($block->getCanShowProductPrice($_childItem)): ?>
+                                                                            <?php echo $block->getProductPrice($_childItem) ?>
+                                                                        <?php endif; ?>
+                                                                    <?php endif; ?>
+                                                                </td>
+                                                                <td class="col-product-qty">
+                                                                    <div class="product-qty">
+                                                                        <select class=""
+                                                                                name="super_group[<?php echo $_childItem->getId() ?>]"
+                                                                                data-current-qty="0"
+                                                                                data-validate="{'validate-diamond-group-qty':'#super-product-table-<?php echo $count; ?>'}"
+                                                                                data-errors-message-box="#validation-message-box-<?php echo $count; ?>"
+                                                                                >
+                                                                                    <?php for ($i = 0; $i <= $maxQty; $i++): ?>
+                                                                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                                            <?php endfor; ?>
+                                                                        </select>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <?php
+                                                        endif;
+                                                    endforeach;
+                                                    ?>
+
+                                                    <tr>
+                                                        <td colspan="2" class="product-link"><?php echo __('Get the Complete Look for'); ?></td>
+                                                        <td class="col-product-qty">
+                                                            <div class="product-total-qty">
+                                                                <input type="text" readonly name="product" disabled data-product-total-qty="">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4" class="price-total-row">
+                                                            <span data-product-total-price="" class="price-total">$0</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <div id="validation-message-box-<?php echo $count; ?>"></div>
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            require([
+                                                'jquery',
+                                                'mage/mage',
+                                                'Magento_Catalog/product/view/validation',
+                                                'Magento_Catalog/js/catalog-add-to-cart'
+                                            ], function ($) {
+                                                'use strict';
+
+                                                $('#product_addtocart_form-<?php echo $count; ?>').mage('validation', {
+                                                    radioCheckboxClosest: '.nested',
+                                                    submitHandler: function (form) {
+                                                        var widget = $(form).catalogAddToCart({
+                                                            bindSubmit: false
+                                                        });
+
+                                                        widget.catalogAddToCart('submitForm', $(form));
+
+                                                        return false;
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    </form>
+                                </div>
+                                <?php
+                                $count++;
+                            endif;
+                        endif;                        
+                    endforeach;
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+endif;
+?>
+<script type="text/javascript">
+    require([
+        'jquery', // jquery Library
+        'jquery/ui', // Jquery UI Library
+        'jquery/validate', // Jquery Validation Library
+        'mage/translate' // Magento text translate (Validation message translte as per language)
+    ], function ($) {
+        $.validator.addMethod(
+                'validate-diamond-group-qty', function (value, element, params) {
+                    var result = false;
+                    var total = 0;
+                    $(params).find('select[data-validate*="validate-diamond-group-qty"]').each(function (i, e) {
+                        var val = $(e).val();
+                        if (val > 0) {
+                            result = true;
+                            var valInt = parseInt(val, 10) || 0;
+                            if (valInt >= 0) {
+                                total += valInt;
+                            } else {
+                                result = false;
+                                return result;
+                            }
+                        }
+                    });
+                    return result && total > 0;
+                },
+                $.mage.__('Please specify the quantity of product(s).')
+                );
+
+    });
+</script>

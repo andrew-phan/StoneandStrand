@@ -1,0 +1,68 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+?>
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$designerHelper = $this->helper('Ss\Designer\Helper\Data');
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+$_category = $block->getCurrentCategory();
+$_imgUrl = $_category->getImageUrl();
+$cateName = $block->escapeHtml($_category->getName());
+$_description = $_category->getDescription();
+
+if (!$_imgUrl) {
+    $_imgUrl = $designerHelper->getDefaultImageCategory();
+}
+$cateImageMobile = $_imgUrl;
+$mediaUrl = $designerHelper->getSrcMediaImage();
+$imageMobileUrl = $_category->getData(\Ss\Catalog\Helper\Data::ATTRIBUTE_IMAGE_MOBILE);
+if (!empty($imageMobileUrl) && $imageMobileUrl != '1') {
+    $cateImageMobile = $mediaUrl . \Ss\Catalog\Helper\Data::FOLDER_IMAGE_CATEGORY . $imageMobileUrl;
+} else {
+    $cateImageMobile = $block->getViewFileUrl('images/upload/img-770x450.png');
+}
+?>
+
+<div class="page-descriptions">
+    <div class="banner-top">
+        <div class="thumbnail hidden-xs">
+            <img src="<?php echo $_imgUrl; ?>" alt="<?php echo $cateName; ?>"/>
+        </div>
+        <div class="thumbnail hidden-sm-up">
+            <img src="<?php echo $cateImageMobile; ?>" alt="<?php echo $cateName; ?>"/>
+        </div>
+    </div>
+    <div class="descriptions">
+        <div class="grid-fluid">
+            <h1 class="title-page"><?php echo $cateName; ?></h1>
+            <div data-more-text="{&quot;triggerEle&quot;: &quot;.read-more-btn&quot;, &quot;contentEle&quot;: &quot;.content-info&quot;}" class="info-wrapper">
+                <div class="tinymce-editor note content-info">
+                    <?php /* @escapeNotVerified */ echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+                </div>
+                <a href="#" title="<?php echo __('...read more'); ?>" class="hidden-md-up read-more-btn"><?php echo __('...read more'); ?></a>
+            </div>
+            <ul class="link-list text-center">
+                <li>
+                    <a href="mailto:<?php echo $themeHelper->getEmailGeneral(); ?>" title="<?php echo __('Email us'); ?>"><?php echo __('Email us'); ?></a>
+                </li>
+                <li>
+                    <a href="tel:<?php echo str_replace(' ', '', $themeHelper->getTelephone()); ?>"><?php echo __('call'); ?> <?php echo $themeHelper->getTelephone(); ?></a>
+                </li>
+                <li>
+                    <a href="<?php echo $designerHelper->getContactUsUrlPage(); ?>" title="<?php echo __('visit us'); ?>"><?php echo __('visit us'); ?></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

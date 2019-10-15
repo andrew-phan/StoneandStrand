@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Widget/etc/widget.xsd">
+    <widget id="ss_return" class="Ss\Rma\Block\Widget\Post">
+        <label translate="true">Ss return/exchange</label>
+        <description>Ss return/exchange in Magento2</description>
+        <parameters>
+            <parameter name="title" xsi:type="text"  visible="true" sort_order="0" required="true">
+                <label translate="true">Title</label>
+                <depends>
+                    <parameter name="template" value="widget/success.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="post_ids" xsi:type="block" visible="true" required="true">
+                <label translate="true">Specify Post</label>
+                <block class="Magefan\Blog\Block\Adminhtml\Post\Widget\Chooser"/>
+                <depends>
+                    <parameter name="template" value="widget/success.phtml" />
+                </depends>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="return_success" value="widget/success.phtml">
+                        <label translate="true">Success</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
+

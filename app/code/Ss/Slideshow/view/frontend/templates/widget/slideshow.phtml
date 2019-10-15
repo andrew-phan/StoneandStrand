@@ -1,0 +1,18 @@
+<?php
+$list = $block->getCollection();
+$mediaUrl = $block->getMediaUrl();
+$designerHelper = $this->helper("\Ss\Designer\Helper\Data");
+?>
+
+<div data-slick-slider="{&quot;typeSlide&quot;: &quot;homeBanner&quot;}" class="slider banner-slider">
+    <?php
+    foreach ($list as $banner) :
+        $srcImage = $mediaUrl . $banner->getImage();
+        ?>
+        <div class="slider-item text-center">
+            <a href="<?php echo $banner->getTargetUrl(); ?>" title="<?php echo $banner->getName(); ?>">
+                <img src="<?php echo $srcImage; ?>" alt="banner-stone-strand"/>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>

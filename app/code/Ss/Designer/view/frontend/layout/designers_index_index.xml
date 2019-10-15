@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="designer-list-page"/>
+        
+        <referenceBlock name="breadcrumbs" remove="true" />
+        <referenceBlock name="page.main.title" remove="true" />
+
+        <referenceContainer name="page.wrapper">
+            <container name="ss.footer-banner-container" before="footer">
+                <block class="Magento\Framework\View\Element\Template" name="ss.block.thankyou.banner" template="Ss_Theme::homepage/footer_banner.phtml"/>
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="main">
+
+            <block class="Magento\Cms\Block\Block" name="ss.designer.header">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">ss_designerlisting_header</argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Cms\Block\Block" name="ss.designer.modern">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">ss_designerlisting_modern</argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Cms\Block\Block" name="ss.designer.vintage">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">ss_designerlisting_vintage</argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Cms\Block\Block" name="ss.designer.feature">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">ss_designerlisting_featuredesigner</argument>
+                </arguments>
+            </block>
+
+            <block class="Magento\Cms\Block\Block" name="ss.designer.giveback">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">ss_designerlisting_giveback</argument>
+                </arguments>
+            </block>
+
+        </referenceContainer>
+    </body>
+</page>

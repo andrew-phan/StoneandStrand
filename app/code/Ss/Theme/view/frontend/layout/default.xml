@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="ss.header.logo">
+            <arguments>
+                <argument name="logo_file" xsi:type="string">images/logo.png</argument>
+            </arguments>
+        </referenceBlock>
+
+
+
+        <referenceContainer name="header.container">
+            <referenceContainer name="header.panel" remove="true"/>
+            <referenceContainer name="header-wrapper" remove="true"/>
+
+            <container name="ss.header.top" htmlClass="header-top" htmlTag="div" before="-">
+                <block class="Magento\Theme\Block\Html\Header" name="ss.header.block.top" before="-" template="Ss_Theme::header/header_top.phtml">
+                    <arguments>
+                        <argument name="show_part" xsi:type="string">welcome</argument>
+                    </arguments>
+                    <block class="Magento\Theme\Block\Html\Header\Logo" name="ss.header.logo"></block>
+                </block>
+            </container>
+
+        </referenceContainer>
+
+        <move element="header.panel" destination="header.panel.wrapper"/>
+        <move element="top.links" destination="header.panel" after="-"/>
+        <move element="catalog.topnav" destination="store.menu" before="-"/>
+
+        <referenceContainer name ="page.wrapper">
+
+            <container name="ss.header.message" htmlClass="new-info" htmlTag="div" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="ss.block.header.message" before="-" template="Ss_Theme::header/header_message.phtml">
+                    <block class="Magento\Cms\Block\Block" name="ss.block.header.message.static">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_header_message</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="page.top">
+
+        </referenceContainer>
+
+
+
+        <referenceContainer name="footer-container">
+            <referenceContainer name="footer" remove="true" />
+            <container name="ss.page.footer" htmlClass="grid-fluid" htmlTag="div" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="ss.footer" before="-" template="Ss_Theme::footer/footer.phtml">
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.aboutUs">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_aboutUs</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.information">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_information</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.contactUs">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_contactUs</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.assistance">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_assistance</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="ss.footer.services">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">ss_footer_services</argument>
+                        </arguments>
+                    </block>
+                    <block class="Ss\Newsletter\Block\Subscribe" name="ss.footer.newsletter" template="Ss_Newsletter::subscribe.phtml" />
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

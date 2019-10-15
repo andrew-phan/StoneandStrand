@@ -1,0 +1,70 @@
+
+<div class="popup popup-send-hint hidden">
+    <div class="popup-content">
+        <h3 class="headding"><?php echo __('Send a hint') ?>
+            <button type="button" name="close-1" id="close-1" class="icon icon-close" data-close="">
+            </button>
+        </h3>
+        <div class="inner">
+            <form action="<?php /* @escapeNotVerified */ echo $block->getSendUrl() ?>" method="post" id="product-sendtofriend-form" data-validate-form=""
+                  class="form send friend" data-hasRequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+                <?php echo $block->getBlockHtml('formkey')?>
+                <div class="row group-custom">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sender-name"><?php /* @escapeNotVerified */ echo __('Your Name') ?></label>
+                            <input name="sender[name]" value="<?php echo $block->escapeHtml($block->getUserName()) ?>"
+                                       title="<?php /* @escapeNotVerified */ echo __('Your Name') ?>" id="sender-name" type="text" class="input-3" maxlength="256" required="" data-parsley-validate-name="" data-parsley-validate-name-message="<?php echo __("Your name invalid.") ?>" data-parsley-required-message="<?php echo __("You can't leave this empty.") ?>"
+                                       />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sender-email" class="label"><?php /* @escapeNotVerified */ echo __('Your Email') ?></label>
+                            <input name="sender[email]" value="<?php echo $block->escapeHtml($block->getEmail()) ?>"
+                                   title="<?php /* @escapeNotVerified */ echo __('Your Email') ?>" id="sender-email" type="text" class="input-3" maxlength="256" required="" data-parsley-required-message="<?php echo __("You can't leave this empty.") ?>" data-parsley-validate-email="" data-parsley-validate-email-message="<?php echo __("Email format is incorrect. Only these characters are allowed: letters, numbers, and some special characters '@', '.', '_'") ?>"
+                                   />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="send-to"><?php /* @escapeNotVerified */ echo __('Send To') ?></label>
+                    <p class="info-text"><?php /* @escapeNotVerified */ echo __('Separate each address with a comma') ?></p>
+                        <input name="sender[sendto]" value=""
+                               title="<?php /* @escapeNotVerified */ echo __('Send To') ?>" id="sender-sendto" type="text" class="input-3" maxlength="500" required="" data-parsley-required-message="<?php echo __("You can't leave this empty.") ?>" data-parsley-validate-multi-email="" data-parsley-validate-multi-email-message="<?php echo __("All emails have to valid.") ?>"
+                               />
+                </div>
+                <div class="product-name">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <p><?php /* @escapeNotVerified */ echo __('You are going to email the following:') ?></p>
+                        </div>
+                        <div class="col-md-7"><strong><?php
+                                $productId = $block->getProductId();
+                                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                $product = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
+                                echo $product->getName();
+                                ?></strong></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message-subject"><?php /* @escapeNotVerified */ echo __('Message subject:') ?></label>
+                        <input name="sender[subject]" value=""
+                               title="<?php /* @escapeNotVerified */ echo __('Message subject:') ?>" id="sender-subject" type="text" class="input-3" placeholder="<?php echo __("[Your name] has forwarded a page to you from Stone & Strand") ?>" maxlength="256"
+                               />
+                </div>
+                <div class="form-group">
+                    <label for="message"><?php /* @escapeNotVerified */ echo __('Message:') ?></label>
+                            <textarea name="sender[message]" class="input-3" id="sender-message" maxlength="500"
+                                      ><?php echo $block->escapeHtml($block->getMessage()) ?></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" name="button-send-hint" id="button-send-hint"
+                            class="btn btn-black"<?php if (!$block->canSend()): ?> disabled="disabled"<?php endif ?>>
+                        <?php /* @escapeNotVerified */ echo __('Send a hint') ?></button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

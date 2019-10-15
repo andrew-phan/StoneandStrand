@@ -1,0 +1,48 @@
+<?php
+$postIds = $block->getPostIds();
+$designerCollections = $block->getDesignerCollections();
+$tagCollections = $block->getTagCollections();
+$designerHelper = $this->helper('Ss\Designer\Helper\Data');
+?>
+
+<div class="designer-vintage-block">
+    <div class="row">
+        <div class="col-md-6">
+            <?php if ($designerCollections->getSize() > 0): ?>
+                <h2 class="line-title"><span><?php echo $block->getTitle() ?></span></h2>
+                <div class="list-vintage">
+                    <ul>
+                        <?php foreach ($designerCollections as $designer): ?>
+                            <li><a href="<?php echo $designer->getUrl() ?>"><?php echo $designer->getName(); ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <div class="group-btn text-center">
+                    <a href="<?php echo $designerHelper->getJewelryVintageUrlPage(); ?>" title="<?php echo __('Shop all'); ?>" class="btn btn-white"><?php echo __('Shop all'); ?></a>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="col-md-5 col-md-offset-1">
+            <?php
+            if (!empty($postIds)) :
+                $postId = array_shift($postIds);
+                $post = $block->getPostById($postId);
+                if ($post->getIsActive()):
+                    ?>
+                    <div class="thumbnail">
+                        <a href="#" title="Image" class="image">
+                            <img src="<?php echo $post->getFeatureImageUrl(); ?>" alt="image"/>
+                        </a>
+                        <div class="description">
+                            <h3 class="title"><?php echo $post->getTitle() ?></h3>
+                            <div class="tinymce-editor">
+                                <?php echo $post->getContent() ?>
+                            </div>
+                            <a href="<?php echo $block->getCapsuleUrlPage() ?>" title="<?php echo __('Shop now'); ?>" class="link"><?php echo __('Shop now'); ?></a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

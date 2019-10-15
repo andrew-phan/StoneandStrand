@@ -1,0 +1,105 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+$customer = $block->getCustomer();
+// current selected option
+$attributeCode = Ss\Newsletter\Controller\Manage\Save::ATTRIBUTE_CODE_SUBSCRIBER;
+$subscriberType = $customer->getCustomAttribute($attributeCode);
+$selectedOptions = array();
+if ($subscriberType) {
+    $attributeValues = $subscriberType->getValue();
+    $selectedOptions = explode(',', $attributeValues);
+}
+// List customer's custom options 
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$customer_attributes = $om->get('Magento\Customer\Model\Customer')->load($customer->getId())->getAttribute($attributeCode);
+$options = $customer_attributes->getFrontend()->getSelectOptions();
+
+?>
+
+<div class="account-content">
+    <?php echo $block->getChildHtml('form_before') ?>
+    <form class="form form-newsletter-manage" action="<?php /* @escapeNotVerified */ echo $block->getAction() ?>" method="post" id="form-validate">
+
+        <?php echo $block->getBlockHtml('formkey') ?>
+
+        <!--  --> 
+        <h2 class="title"><?php echo __("Manage Your Subscriptions"); ?></h2>
+        <ul class="list-manage-subscription">
+            <li class="item">
+                <?php
+                $essentialLabel = isset($options[1]['label']) ? $options[1]['label'] : __("ESSENTIAL");
+                $essentialValue = isset($options[1]['value']) ? $options[1]['value'] : 0;
+                ?>
+                <h3 class="sub-title"><?php echo $essentialLabel; ?></h3>
+                <div class="desc">
+                    <p><?php echo __("Get all the important stuff - new designer launches, Stone & Strand exclusives, and - of course - all of our promos and special shopping events."); ?></p>
+                </div>
+                <div class="group-radio">
+                    <div class="custom-radio">
+                        <input type="radio" id ="radio-1" value="1" name="essential" <?php if (in_array($essentialValue, $selectedOptions)): ?>checked<?php endif; ?>>
+                        <label for="radio-1" class="label">
+                            <span><?php echo __("subscribe"); ?></span>
+                        </label>
+                    </div>
+                    <div class="custom-radio">
+                        <input type="radio" id ="radio-2" value="0" name="essential" <?php if (!in_array($essentialValue, $selectedOptions)): ?>checked<?php endif; ?>>
+                        <label for="radio-2" class="label">
+                            <span><?php echo __("unsubscribe"); ?></span>
+                        </label>
+                    </div>
+                    <input type="hidden" id ="essential" name="essential_value" value="<?php echo $essentialValue; ?>">
+                </div>
+            </li>
+            <li class="item">
+                <?php
+                $editorialLabel = isset($options[2]['label']) ? $options[2]['label'] : __("EDITORIAL");
+                $editorialValue = isset($options[2]['value']) ? $options[2]['value'] : 0;
+                ?>
+                <h3 class="sub-title"><?php echo $editorialLabel; ?></h3>
+                <div class="desc">
+                    <p><?php echo __("The latest from The Magazine, from designer profiles, jewelry styling tutorials, to our recommendations for what’s happening in arts & culture."); ?></p>
+                </div>
+                <div class="group-radio">
+                    <div class="custom-radio">
+                        <input type="radio" id ="radio-3" value="1" name="editorial" <?php if (in_array($editorialValue, $selectedOptions)): ?>checked<?php endif; ?>>
+                        <label for="radio-3" class="label">
+                            <span><?php echo __("subscribe"); ?></span>
+                        </label>
+                    </div>
+                    <div class="custom-radio">
+                        <input type="radio" id ="radio-4" value="0" name="editorial" <?php if (!in_array($editorialValue, $selectedOptions)): ?>checked<?php endif; ?>>
+                        <label for="radio-4" class="label">
+                            <span><?php echo __("unsubscribe"); ?></span>
+                        </label>
+                    </div>
+                    <input type="hidden" id ="editorial" name="editorial_value" value="<?php echo $editorialValue; ?>">
+                </div>
+            </li>
+            <li class="item">
+                <div class="custom-checkbox-1">
+                    <?php
+                    $saleValue = isset($options[3]['value']) ? $options[3]['value'] : 0;
+                    ?>
+                    <input type="checkbox" id ="checkbox-only" name="is_subscribed" <?php if ($block->getIsSubscribed()): ?> checked="checked"<?php endif; ?> >
+                    <label for="checkbox-only" class="label">
+                        <span><?php echo __("Only receive sale promotional related info"); ?></span>
+                    </label>
+                    <input type="hidden" id ="sale" name="sale_value" value="<?php echo $saleValue; ?>">
+                </div>
+            </li>
+        </ul>
+
+        <?php /* Extensions placeholder */ ?>
+        <?php echo $block->getChildHtml('customer.form.newsletter.extra') ?>
+        <div class="actions-toolbar">
+            <!-- save button --><div class="primary"><button type="submit" title="<?php /* @escapeNotVerified */ echo __('Save') ?>" class="action save primary btn btn-black"><span><?php /* @escapeNotVerified */ echo __('Save') ?></span></button></div>
+            <!-- back button --><!-- <div class="secondary"><a class="action back" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><span><?php /* @escapeNotVerified */ echo __('Back') ?></span></a></div> -->
+        </div>
+    </form>
+    <?php /* Extensions placeholder */ ?>
+    <?php echo $block->getChildHtml('customer.form.newsletter.extra2') ?>
+</div>

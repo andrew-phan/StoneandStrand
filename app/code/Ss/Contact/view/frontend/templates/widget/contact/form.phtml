@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<div class="contact-us-form">
+    <div class="block-title">
+        <h1 class="title-page"><?php echo $block->getTitle();?></h1>
+        <strong><?php echo $block->getHeaderInfo();?></strong>
+    </div>
+    <form id="contact-form" action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>" 
+          method="post" 
+          data-validate-form="{&quot;urlRemoteValidate&quot;: &quot;data/validate-order-number.json&quot;}" 
+          class="form contact">
+        <div class="row">
+            <div class="col-md-6 form-item">
+                <div class="form-group field name required">
+                    <label for="full-name" class="label"><?php echo __('Full name') ?></label>
+                    <div class="control">
+                        <input id="full-name" name="name" title="<?php echo __('Full name') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" type="text" required maxlength="125" data-parsley-required-message="<?php echo __("You can't leave this empty.");?>" data-parsley-maxlength-message="<?php echo __("You can't type over %s characters"); ?>" class="input-text input-4">
+                    </div>
+                </div>
+                <div class="form-group field telephone">
+                    <label for="telephone" class="label"><?php echo __("Phone number"); ?></label>
+                    <div class="control">
+                        <input id="telephone" name="telephone" title="<?php __("Phone number"); ?>" value="" type="tel" required maxlength="30" data-parsley-type="digits" data-parsley-required-message="<?php echo __("You can't leave this empty."); ?>" data-parsley-maxlength-message="<?php echo __("You can't type over %s characters");?> " data-parsley-type-message="<?php echo __("Please enter type number."); ?>" class="input-text input-4">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 form-item">
+                <div class="form-group field email required">
+                    <label for="email-address" class="label"><?php echo __('Email address') ?></label>
+                    <div class="control">
+                        <input id="email-address" name="email" title="<?php echo __('Email address') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" type="text" required data-parsley-validate-email="" maxlength="125" data-parsley-required-message="<?php echo __("You can't leave this empty.");?>" data-parsley-validate-email-message="<?php echo __("Email format is incorrect. Only these characters are allowed: letters, numbers, and some special characters '@', '.', '_'"); ?>" data-parsley-maxlength-message="<?php echo __("You can't type over %s characters");?>" class="input-text input-4">
+                    </div>
+                </div>
+                <div class="form-group field email required">
+                    <label for="order-number" class="label"><?php echo __("Order number");?></label>
+                    <div class="control">
+                        <input id="order-number" name="order-number" title="<?php echo __("Order number");?>" value="" type="tel" maxlength="30" data-parsley-maxlength-message="<?php echo __("You can't type over %s characters");?>" data-parsley-type="digits" data-validate-order-number data-parsley-type-message="<?php echo __("Please enter type number.");?>" class="input-text input-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group field comment required">
+            <label for="comment" class="label"><?php echo __("Message");?></label>
+            <div class="control">
+                <textarea id="comment" name="comment" title="<?php echo __("What’s on your mind?");?>" cols="5" rows="3" required maxlength="500" data-parsley-required-message="<?php echo __("You can't leave this empty."); ?>" data-parsley-maxlength-message="<?php echo __("You can't type over %s characters");?>" class="input-text input-4"></textarea>
+            </div>
+        </div>
+        <div class="group-bottom">
+            <div class="primary">
+                <input id="hideit" type="hidden" name="hideit" value="">
+                <button type="submit" title="Submit" class="btn btn-white"><?php echo __("Submit");?></button>
+            </div>
+        </div>
+    </form>
+</div>

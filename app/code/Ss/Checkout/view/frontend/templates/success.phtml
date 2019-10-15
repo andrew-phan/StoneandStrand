@@ -1,0 +1,23 @@
+<?php
+$orderId = $block->getOrderId();
+$order = $block->getOrder();
+$customerEmail = $order->getCustomerEmail();
+$linkPrint = $block->getUrl('*/*/printreceipt');
+?>
+<div class="checkout-success">
+    <div class="content">
+        <div class="order-info">
+            <h1 class="title"><?php echo __("Thank you")?>!</h1>
+            <p><?php echo __("A confirmation email has been sent to")?>:<br><a href="#" title="<?php echo $customerEmail;?>"><?php echo $customerEmail;?></a></p>
+            <?php if ($block->getCanViewOrder()) :?>
+                <a href="<?php echo $block->getViewOrderUrl(); ?>" title="<?php echo __("Order")?> #<?php echo $block->escapeHtml($orderId)?>"><span><?php echo __("Order")?> #<?php echo $block->escapeHtml($orderId)?></span></a>
+            <?php  else :?>
+                <span><?php echo __("Order")?> #<?php echo $block->escapeHtml($orderId)?></span>
+            <?php endif;?>
+            <p class="button-wapper"><a href="<?php echo $linkPrint; ?>" title="print-receipt" target="_blank" class="btn btn-black"><?php echo __("Print receipt")?></a></p>
+            <p class="link-wapper"><a href="<?php /* @escapeNotVerified */ echo $block->getUrl() ?>" title="<?php echo __("Continue shopping")?>" class="shopping-link"><?php echo __("Continue shopping")?></a></p>
+        </div>
+        <?php echo $block->getChildHtml('success.customer.info') ?>
+    </div>
+    <?php echo $block->getChildHtml('success.order.info') ?>
+</div>

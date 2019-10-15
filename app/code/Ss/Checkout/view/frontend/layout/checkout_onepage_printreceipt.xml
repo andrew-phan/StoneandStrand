@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_order_item_price"/>
+    <referenceBlock name="page.main.title" remove="true"/>
+    <referenceBlock name="checkout.registration" remove="true"/>
+    <referenceContainer name="content">
+        <block class="Magento\Checkout\Block\Onepage\Success" name="checkout.print" template="Ss_Checkout::print.phtml" cacheable="false">
+            <block class="Magento\Theme\Block\Html\Header\Logo" name="print.logo" before="-" template="Ss_Checkout::print/logo.phtml"/>
+            <block class="Magento\Sales\Block\Order\Info" name="print.customer.info" template="Ss_Checkout::print/customer.phtml"/>
+            <block class="Magento\Sales\Block\Order\Info" name="print.order.info" template="Ss_Checkout::print/order.phtml" after="-">
+                <block class="Magento\Sales\Block\Order\Items" name="print.order.items" template="Ss_Checkout::print/items/list.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="print.order.items.renderers" as="renderer.list">
+                        <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" as="default" template="Ss_Checkout::print/items/default.phtml"/>
+                    </block>
+                </block>
+                <block class="Magento\Sales\Block\Order\Totals" name="print.order.totals" as="order_totals" template="Ss_Checkout::print/totals.phtml">
+                    <block class="Magento\Tax\Block\Sales\Order\Tax" name="print.order.tax" template="Ss_Checkout::order/tax.phtml"/>
+                </block>
+            </block>
+        </block>
+    </referenceContainer>
+</page>

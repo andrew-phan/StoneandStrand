@@ -1,0 +1,273 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject Credit memo for your {{var store.getFrontendName()}} order @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var comment":"Credit Memo Comment",
+"var creditmemo.increment_id":"Credit Memo Id",
+"layout handle=\"sales_email_order_creditmemo_items\" creditmemo=$creditmemo order=$order":"Credit Memo Items Grid",
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var order.getCustomerName()":"Customer Name",
+"var order.increment_id":"Order Id",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"var order.shipping_description":"Shipping Description",
+"var order.getCustomerFirstname()":"Customer First Name"
+} @-->
+{{template config_path="design/email/header_template"}}
+<tr>
+    <td>
+        <table width="600" align="center" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+                    <td height="50">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <table width="525" align="center" border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{trans "Dear %name," name=$order.getCustomerFirstname()}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{trans "We've processed a refund for your returned merchandise for Order %order_id. You can find details below." order_id=$order.increment_id}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                {{layout handle="sales_email_order_creditmemo_items" creditmemo=$creditmemo order=$order}}
+                                <tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{trans "Refund details:"}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{trans "Payment Method Amount Refunded"}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{var payment_method}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">(*****{{var payment_cclast4}}) {{var creditmemo_price}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{trans "Total Refunded: %creditmemo_price" creditmemo_price=$creditmemo_price}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{trans "Feel free to contact us with any questions."}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{trans "Best,"}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{trans "Lorraine"}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="28">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{config path="general/store_information/name"}} Services Team</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{var Customer_email}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{config path="general/store_information/phone"}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{config path="general/store_information/street_line1"}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <p style="color: #000000; font-size: 16px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; line-height: 28px; letter-spacing: 1px">{{var state}}, {{config path="general/store_information/city"}} {{config path="general/store_information/postcode"}} | {{config path="general/store_information/country_id"}}</p>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="107">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" width="600">
+                            <tbody><tr>
+                                    <td>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="600" height="12">
+                                            <tbody><tr>
+                                                    <td align="right" valign="middle" style="line-height: 12px"><img src="{{view url=images/email/signup_line_2.jpg}}" alt="stone&amp;strand" height="11" width="187" style="width: 187px; height: 11px; display: block"></td>
+                                                    <td align="center" valign="middle" height="12" style="padding: 0 14px"><span style="text-transform: uppercase; font-size: 11px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; letter-spacing: 3px; font-weight: bold">{{trans "CONTACT US"}}</span></td>
+                                                    <td align="left" valign="middle" style="line-height: 12px"><img src="{{view url=images/email/signup_line_2.jpg}}" alt="stone&amp;strand" height="11" width="187" style="width: 187px; height: 11px; display: block"></td>
+                                                </tr>
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" height="155">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="500">
+                                            <tbody><tr>
+                                                    <td width="250" align="center">
+                                                        <table width="250" cellpadding="0" cellspacing="0" style="border-right: 1px solid #b2b2b2; text-align: center">
+                                                            <tbody><tr>
+                                                                    <td height="58" align="right" valign="middle">
+                                                                        <p style="font-size: 27px; color: #1d1d1d; font-family: PlayfairDisplay-Regular, Verdana, sans-serif; margin: 0">{{trans "Call or Visit Us"}}</p>
+                                                                    </td>
+                                                                    <td width="25">&nbsp;</td>
+                                                                </tr>
+                                                            </tbody></table>
+                                                    </td>
+                                                    <td width="25">&nbsp;</td>
+                                                    <td width="225" align="left">
+                                                        <table border="0" cellpadding="0" cellspacing="0">
+                                                            <tbody><tr>
+                                                                    <td height="17">
+                                                                        <table border="0" cellpadding="0" cellspacing="0" height="17">
+                                                                            <tbody><tr height="17">
+                                                                                    <td valign="middle" style="line-height: 17px" width="24" align="left"><img src="{{view url=images/upload/newsletter/icon-map.jpg}}" alt="stone&amp;strand" width="8" height="13" style="width: 8px; height: 13px; display: block"></td>
+                                                                                    <td valign="middle" align="left" height="17" style="line-height: 17px"><a href="{{var Tribeca_Url}}" title="New" style="text-decoration: none; line-height: 17px"><span style="color: #1d1d1d; font-size: 10px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; font-weight: bold; letter-spacing: 2px; text-align: center; vertical-align: middle">{{trans "S&S TRIBECA"}}</span></a></td>
+                                                                                    <td valign="middle" style="line-height: 17px; padding-left: 7px"><img src="{{view url=images/upload/newsletter/icon-arrow.jpg}}" alt="stone&amp;strand" width="5" height="14" style="width: 5px; height: 14px; display: block; vertical-align: middle; text-align: center"></td>
+                                                                                </tr>
+                                                                            </tbody></table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="17" style="line-height: 0"><img src="{{view url=images/upload/newsletter/img-1x1.png}}" alt="stone&amp;strand" height="1" width="1"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="14">
+                                                                        <table border="0" cellpadding="0" cellspacing="0" width="200" height="14">
+                                                                            <tbody><tr height="14">
+                                                                                    <td valign="middle" style="line-height: 14px" width="24" align="left"><img src="{{view url=images/upload/newsletter/icon-phone.jpg}}" alt="stone&amp;strand" width="10" height="14" style="width: 10px; height: 14px; display: block"></td>
+                                                                                    <td valign="middle" align="left" height="14">
+                                                                                        <p style="color: #1d1d1d; font-size: 10px; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0; font-weight: bold; letter-spacing: 2px; margin: 0">{{config path="general/store_information/phone"}}</p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody></table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" bgcolor="#ede1df">
+                            <tbody><tr>
+                                    <td height="30">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding: 0 20px"><a href="#" title="Never Boring. Totally Reliable." style="text-decoration: none; color: #1d1d1d"><span style="font-size: 30px; color: #1d1d1d; font-family: PlayfairDisplay-Regular, Verdana, sans-serif; text-decoration: none">Never Boring. Totally Reliable.</span></a></td>
+                                </tr>
+                                <tr>
+                                    <td height="30">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td height="100" align="center"><a href="{{store url=""}}assistance/warranty" title="Image-1"><img src="{{view url=images/upload/newsletter/BannerA-Lifetime-Warranty.jpg}}" alt="stone&amp;strand" height="100" width="100"></a></td>
+                                </tr>
+                                <tr>
+                                    <td height="18">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="265"><a href="{{store url=""}}assistance/warranty" title="Lifetime Warranty" style="text-decoration: none; color: #1d1d1d"><span style="font-size: 24px; color: #1d1d1d; font-family: PlayfairDisplay-Regular, Verdana, sans-serif; text-decoration: noe">Lifetime Warranty</span></a></td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <p style="font-size: 13px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0">Some things really are forever. Shop confidently.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td height="100" align="center"><a href="{{store url=""}}assistance/return" title="Image-2"><img src="{{view url=images/upload/newsletter/BannerA-100-Day-Returns.jpg}}" alt="stone&amp;strand" height="100" width="100"></a></td>
+                                </tr>
+                                <tr>
+                                    <td height="18">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="center"><a href="{{store url=""}}assistance/return" title="100-Day Returns" style="text-decoration: none; color: #1d1d1d"><span style="font-size: 24px; color: #1d1d1d; font-family: PlayfairDisplay-Regular, Verdana, sans-serif; text-decoration: none">100-Day Returns</span></a></td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <p style="font-size: 13px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0">Commitment issues? We get it. Take it slow.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td height="100" align="center"><a href="{{store url=""}}services" title="Image-3"><img src="{{view url=images/upload/newsletter/BannerA-Concierge-Service.jpg}}" alt="stone&amp;strand" height="100" width="100"></a></td>
+                                </tr>
+                                <tr>
+                                    <td height="18">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="265"><a href="{{store url=""}}services" title="Concierge Services" style="text-decoration: none; color: #1d1d1d"><span style="font-size: 24px; color: #1d1d1d; font-family: PlayfairDisplay-Regular, Verdana, sans-serif; text-decoration: none">Concierge Services</span></a></td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <p style="font-size: 13px; color: #1d1d1d; font-family: OpenSans-Regular, Verdana, sans-serif; margin: 0">From engraving to picking that perfect gift, we’ve got you.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="40">&nbsp;</td>
+                                </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+    </td>
+</tr>
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,104 @@
+<?php
+try {
+    $_productItem = $block->getProductRepository()->getById($block->getProductId());
+} catch (\Magento\Framework\Exception\NoSuchEntityException $noEntityException) {
+    $_productItem = null;
+}
+try {
+    $_product = $block->getProductRepository()->getById($block->getItem()->getProductId());
+} catch (\Magento\Framework\Exception\NoSuchEntityException $noEntityException) {
+    $_product = null;
+}
+$_item = $block->getItem();
+
+if( ! empty($_product)) {
+    # Get image proudct
+    $imagehelper = $this->helper('Magento\Catalog\Helper\Image');
+    $featureImage = $imagehelper->init($_product, 'product_small_image')->getUrl();
+
+    #get designer
+    $designer = $block->getDesignerHelper()->getDesignerById($_product->getSsDesigner());
+    $designerName = ($designer) ? $designer->getName() : '';
+
+    # Get product ref
+    $productRef = $_product->getData('reference_number');
+}
+
+# Get image default for product
+$imageDefault = $this->getViewFileUrl('images/upload/img-135x135.png');
+
+# Get size
+
+if( ! empty($_productItem)) {
+    $themeHelper = $this->helper('Ss\Theme\Helper\Data');
+    if ($_productItem->getAttributeSetId() == $themeHelper->getConfigAttributeSetNormal()) {
+        $code_size = \Ss\Sales\Block\Order\Item\Renderer\DefaultRenderer::ATTRIBUTE_CODE_SIZE;
+    } elseif ($_productItem->getAttributeSetId() == $themeHelper->getConfigAttributeSetDiamond()) {
+        $code_size = \Ss\Sales\Block\Order\Item\Renderer\DefaultRenderer::ATTRIBUTE_CODE_DIAMOND_SIZE;
+    }
+
+    if (isset($code_size)) {
+        $_attributeSize = $_productItem->getResource()->getAttribute($code_size)->getFrontend()->getValue($_productItem);
+    }
+}
+?>
+<tr id="order-item-row-<?php /* @escapeNotVerified */ echo $_item->getId(); ?>">
+    <td class="col name" data-th="<?php echo $block->escapeHtml(__('Product')); ?> :">
+        <div class="thumbnail"><img alt="<?php $block->escapeHtml($_item->getName()); ?>" src="<?php echo isset($featureImage) ? $featureImage : ''; ?>"/>
+        </div>
+    </td>
+    <td class="col description" data-th="<?php echo $block->escapeHtml(__('Description')); ?> :">
+        <?php if(isset($designer)): ?>
+        <p class="author">
+            <p class="design-name"><?php echo isset($designerName) ? $designerName : ''; ?></p>
+        </p>
+        <?php endif ?>
+
+        <strong class="product name product-item-name"><?php echo $block->escapeHtml($_item->getName()); ?></strong>
+
+        <?php if (isset($productRef)): ?><p class="ref"><?php echo __('Ref.'); ?> <?php echo $productRef; ?></p><?php endif; ?>
+    </td>
+    <td class="col material" data-th="<?php echo $block->escapeHtml(__('Material')); ?> :">
+
+        <?php if ($_options = $block->getItemOptions()): ?>
+        <?php $htmlAttribute = []; ?>
+
+        <?php foreach ($_options as $key => $options) : ?>
+            <?php $htmlAttribute[$key] = ""; ?>
+            <?php foreach ($options as $_option) : ?>
+                <?php  if ($_option['label'] == 'Size') { continue; } ?>
+                <?php  if (isset($symbol)): ?>
+                    <?php $htmlAttribute[$key] .= $symbol; ?>
+                <?php endif; ?>
+                <?php if (isset($_option['option_id'])) { $htmlAttribute[$key] .= $block->escapeHtml($_option['label']) . ": "; } ?>
+                <?php if (!$block->getPrintStatus()): ?>
+                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option); ?>
+                        <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                            <?php /* @escapeNotVerified */ $htmlAttribute[$key] .= $_formatedOptionValue['full_view']; ?>
+                        <?php else: ?>
+                            <?php /* @escapeNotVerified */ $htmlAttribute[$key] .= $_formatedOptionValue['value']; ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?php $htmlAttribute[$key] .= nl2br($block->escapeHtml((isset($_option['print_value']) ? $_option['print_value'] : $_option['value']))); ?>
+                <?php endif; ?>
+                <?php $symbol = ", "; ?>
+            <?php endforeach; ?>
+            <?php $htmlAttribute[$key] .= "."; ?>
+            <?php unset($symbol); ?>
+            <p><?php echo $htmlAttribute[$key]; ?></p>
+        <?php endforeach; ?>
+
+        <?php endif; ?>
+
+        <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addtInfoBlock) : ?>
+            <?php echo $addtInfoBlock->setItem($_item)->toHtml(); ?>
+        <?php endif; ?>
+    </td>
+    <td class="col size" data-th="<?php echo $block->escapeHtml(__('Size')); ?> :">
+        <p><?php echo isset($_attributeSize) ? $_attributeSize : ''; ?></p>
+    </td>
+    <td class="col price" data-th="<?php echo $block->escapeHtml(__('Unit Price')); ?> :">
+        <?php echo $block->getItemRowTotalHtml(); ?>
+    </td>
+</tr>

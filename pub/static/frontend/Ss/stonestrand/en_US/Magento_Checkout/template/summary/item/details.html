@@ -1,0 +1,50 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<!-- ko foreach: getRegion('before_details') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->
+<div class="product-item-details">
+
+    <div class="product-item-inner">
+        <div class="product-item-name-block">
+            <strong class="product-item-name" data-bind="text: $parent.name"></strong>
+            <p class="author-name">
+                <a data-bind="attr: {href: $parent.designer_url, title: $parent.designer_name}" tabindex="-1">
+                    <span data-bind="text: $parent.designer_name"></span>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ko if: (JSON.parse($parent.options).length > 0)-->
+    <div class="product options">
+        <div class="product options list">
+            <!--ko foreach: JSON.parse($parent.options)-->
+
+            <!-- ko if: ($data.full_view)-->
+            <span class="values" data-bind="html: full_view"></span>
+            <!-- /ko -->
+
+            <!-- ko ifnot: ($data.full_view)-->
+            <span class="values" data-bind="html: value"></span>
+            <!-- /ko -->
+
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div class="block-qty-price">
+        <div class="details-qty">
+            (<span class="value" data-bind="text: $parent.qty"></span>)
+        </div>
+        <!-- ko foreach: getRegion('after_details') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>

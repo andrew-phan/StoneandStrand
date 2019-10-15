@@ -1,0 +1,70 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerRepository = $objectManager->get('Magento\Customer\Api\CustomerRepositoryInterface');
+$themeHelper = $objectManager->create("\Ss\Theme\Helper\Data");
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+if ($customerSession->isLoggedIn()) {
+    $customerId = $customerSession->getCustomerId();
+    $customer = $customerRepository->getById($customerId);
+    $subscriberType = $customer->getCustomAttribute(\Ss\Newsletter\Controller\Manage\Save::ATTRIBUTE_CODE_SUBSCRIBER);
+    $subscriber = explode(',', $subscriberType->getValue());
+    $countSubscriber = count($subscriber);
+}
+$welcomeMessage = $block->getWelcome();
+?>
+<?php if ($themeHelper->checkIsCustomerGroupVip()): ?>
+    <div class="header-top-club">
+<?php endif; ?>
+
+    <div class="inner">
+        <ul class="contact-list hidden-xs hidden-sm">
+            <li><a href="#" title="Live chat" class="link-icon" onclick="return SnapEngage.startLink();"><span class="icon icon-messenger"></span><span class="text"><?php echo __('Live chat') ?></span></a>
+            </li>
+            <li>
+                <a href="tel:<?php echo str_replace(' ', '', $themeHelper->getTelephone()); ?>" title="hotline" class="link-icon">
+                    <span class="icon icon-phone"></span>
+                    <span class="text"><?php echo $themeHelper->getTelephone(); ?></span>
+                </a>
+            </li>
+            <?php if (!(isset($countSubscriber) && $countSubscriber == 3)): ?>
+            <li>
+                <a href="javascript:;" title="<?php echo __('Email sign up'); ?>" class="link-icon" data-popup="{&quot;type&quot;:&quot;newsletter-singup&quot;, &quot;target&quot;: &quot;.popup-signup&quot;}">
+                    <span class="icon icon-email"></span>
+                    <span class="text"><?php echo __('Email sign up'); ?></span>
+                </a>
+            </li>
+            <?php endif; ?>
+        </ul>
+        <div class="group">
+            <?php echo $block->getChildHtml('minicart'); ?>
+            
+            <span class="greet welcome" data-bind="scope: 'customer'">
+                <a href="<?php echo $block->getUrl("customer/account/login") ?>" title="<?php echo __('sign-in'); ?>" class="sign-in-out" data-bind="text: customer().firstname ? '' : '<?php echo __('sign-in'); ?>'"></a>
+                <a href="<?php echo $block->getUrl("customer/account") ?>" data-bind="text: customer().firstname ? (customer().firstname > 8 ? $t('Hi, %1!').replace('%1', customer().firstname) : $t('Hi, %1!').replace('%1', customer().firstname.substring(0, 8))) : ''" class="sign-in-out"></a>
+                <a href="<?php echo $block->getUrl("customer/account") ?>" data-bind="text: customer().firstname ? (customer().firstname > 8 ? $t('Hi, %1!').replace('%1', customer().firstname) : $t('Hi, %1!').replace('%1', customer().firstname.substring(0, 8))) : ''" class="sign-in-out mobile-style"></a>
+            </span>
+            <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "customer": {
+                                "component": "Magento_Customer/js/view/customer"
+                            }
+                        }
+                    }
+                }
+            }
+            </script>
+        </div>
+
+        <?php echo $block->getChildHtml("ss.header.logo"); ?>
+    </div>
+    <script>
+        require(['ss_script'], function ($) {
+        });
+    </script>
+
+<?php if ($themeHelper->checkIsCustomerGroupVip()): ?>
+    </div>
+<?php endif; ?>

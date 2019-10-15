@@ -1,0 +1,10 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$themeHelper = $objectManager->create("\Ss\Theme\Helper\Data");
+?>
+<div>
+    <p class="view-call">
+        <a href="mailto:<?php echo $themeHelper->getEmailToLink(); ?>"><?php echo __('View in Person'); ?></a>
+        &nbsp;or <a href="tel:<?php echo str_replace(' ', '', $themeHelper->getTelephone()); ?>">Call <?php echo $themeHelper->getTelephone(); ?></a>
+    </p>
+</div>

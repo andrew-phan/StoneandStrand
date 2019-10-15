@@ -1,0 +1,74 @@
+<?php
+$designer = $block->getDesigner();
+$product = $block->getProduct();
+$prodcutId = $product->getEntityId();
+$title = '<span class="base" itemprop="name">' . $product->getName() . '</span>';
+$themeHelper = $this->helper('Ss\Theme\Helper\Data');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerRepository = $objectManager->get('Magento\Customer\Api\CustomerRepositoryInterface');
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+if ($customerSession->isLoggedIn()) {
+    $customerId = $customerSession->getCustomerId();
+    $customer = $customerRepository->getById($customerId);
+    $customerEmail = $customer->getEmail();
+}
+
+// Get criteo
+$criteo = $objectManager->create('Ss\Theme\Helper\Criteo');
+$criteoIsEnable = $criteo->isEnable();
+if ($criteoIsEnable) {
+    $criteoAccount = $criteo->getAccount();
+    $deviceType = $criteo->getDeviceType();
+}
+?>
+<div class="author-wishlist head-title">
+  <?php if($product->getAttributeSetId() == $themeHelper->getConfigAttributeSetNormal() && $designer){ ?>
+  <a href="<?php echo $designer->getUrl(); ?>" class="author"><?php echo $designer->getName(); ?></a>
+    <?php }elseif($product->getAttributeSetId() == $themeHelper->getConfigAttributeSetDiamond()) {?>
+      <a href="<?php echo $block->getUrl('ss-diamonds') ?>" class="author"><?php echo __('S&S DIAMONDS'); ?></a>
+    <?php } ?>
+  <div class="wishlist-block">
+      <a href="javascript:;"class="action mailto friend icon icon-email" data-popup='{"urlPopup": "<?php echo $this->helper('Magento\Catalog\Helper\Product')->getEmailToFriendUrl($product) ?>" , "imgLoading": "<?php echo $block->getViewFileUrl('images/loader-stone-strand.gif'); ?>"}'>
+         <span><?php /* @escapeNotVerified */ echo __('Email') ?></span>
+      </a>
+  </div>
+</div>
+<h1 class="page-title head-title"><?php echo $title; ?></h1>
+
+<?php if ($criteoIsEnable): ?>
+    <!--Criteo-->
+        <script type="text/javascript" src="//static.criteo.net/js/ld/ld.js" async="true"></script>
+        <script type="text/javascript">
+            window.criteo_q = window.criteo_q || [];
+            window.criteo_q.push(
+                { event: "setAccount", account: <?php echo $criteoAccount; ?> },
+                { event: "setEmail", email: "<?php echo (isset($customerEmail)) ? $customerEmail : ''; ?>" },
+                { event: "setSiteType", type: "<?php echo $deviceType ;?>" },
+                { event: "viewItem", item: "<?php echo $prodcutId ;?>" }
+            );
+        </script>
+    <!--End Criteo-->
+<?php endif ;?>
+
+<!--Google Remarketing-->
+<script type="text/javascript">
+var google_tag_params = {
+    ecomm_prodid: '<?php echo $prodcutId; ?>',
+    ecomm_pagetype: 'product',
+    ecomm_totalvalue: '<?php echo number_format($product->getFinalPrice(),2); ?>',
+};
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+    var google_conversion_id = 1000433162;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+<noscript>
+    <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1000433162/?value=0&amp;guid=ON&amp;script=0"/>
+    </div>
+</noscript>
+<!--End Google Remarketing-->

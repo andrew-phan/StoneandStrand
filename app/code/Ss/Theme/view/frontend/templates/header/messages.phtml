@@ -1,0 +1,14 @@
+<?php
+$messageError = $block->getMessageError();
+?>
+
+<div class='messages'>
+    <?php if (!empty($messageError)): ?>
+        <div class="message-error error message">
+            <div>
+                <?php echo $messageError; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+</div>

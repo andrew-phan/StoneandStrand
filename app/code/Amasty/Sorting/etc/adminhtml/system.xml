@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2016 Amasty (https://www.amasty.com)
+ * @package Amasty_Sorting
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="amasty" translate="label" sortOrder="1">
+            <label>Amasty</label>
+        </tab>
+
+        <section id="amsorting" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <label>Improved Sorting</label>
+            <tab>amasty</tab>
+            <resource>Amasty_Sorting::sorting</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>General</label>
+                <field id="use_index" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Use Index</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Recommended for large catalogs.]]>
+                    </comment>
+                </field>
+
+
+
+                <field id="no_image_last" translate="label comment" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Show Products without Images Last</label>
+                    <source_model>Amasty\Sorting\Model\Source\Stock</source_model>
+                    <comment>
+                        <![CDATA[If it is not important, select `No` to optimize server resources usage.]]>
+                    </comment>
+                </field>
+
+                <field id="out_of_stock_last" translate="label comment" type="select" sortOrder="55" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Show `Out of Stock` Products Last</label>
+                    <source_model>Amasty\Sorting\Model\Source\Stock</source_model>
+                    <comment>
+                        <![CDATA[If it is not important, select `No` to optimize server resources usage.]]>
+                    </comment>
+                </field>
+
+                <field id="out_of_stock_qty" translate="label comment" type="select" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use qty to determine if the product is `Out of Stock`</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Products with the qty < 1 will be shown last regardless of the stock label. Make sure the previous setting is `Yes` also.]]>
+                    </comment>
+                </field>
+
+                <field id="hide_best_value" translate="label comment" type="select" sortOrder="65" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Hide `Position` Sorting Option for Customers</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="desc_attributes" translate="label comment" type="text" sortOrder="70" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Sort attributes descending by default</label>
+                    <comment>
+                        <![CDATA[Comma separated list of the attribute codes.]]>
+                    </comment>
+                </field>
+
+                <field id="disable_methods" translate="label comment" type="multiselect" sortOrder="75" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Disable Sorting By</label>
+                    <source_model>Amasty\Sorting\Model\Source\Methods</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>
+                        <![CDATA[Press CTRL+mouse to select multiple values.]]>
+                    </comment>
+                </field>
+
+               <!-- <field id="profit_price" translate="label comment" type="select" sortOrder="80" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label><![CDATA[Price Type for Profit Sorting]]></label>
+                    <source_model>Amasty\Sorting\Model\Source\Price</source_model>
+                    <comment>
+                        <![CDATA[Profit is calculated as Price - Cost.]]>
+                    </comment>
+                </field>
+
+                <field id="product_attribute" translate="label comment" type="select" sortOrder="85" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label><![CDATA[Cost Attribute for Profit Sorting]]></label>
+                    <source_model>Amasty\Sorting\Model\Source\Price</source_model>
+                    <comment>
+                        <![CDATA[Profit is calculated as Price - Cost.]]>
+                    </comment>
+                </field>
+
+                <field id="best_revenue_period" translate="label comment" type="text" sortOrder="90" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Revenue Period (days)</label>
+                    <source_model>Amasty\Sorting\Model\Source\Price</source_model>
+                    <comment>
+                        <![CDATA[Leave empty for life-time statistics.]]>
+                    </comment>
+                </field>-->
+            </group>
+            <group id="new" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Newest</label>
+                <field id="new_attr" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Attribute Code for the Newest Sorting</label>
+                    <comment>
+                        <![CDATA[Leave empty to use product creation date. If you indicate a custom attribute, make sure `Used in Product Listing` for the attribute is set to `Yes`]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="bestsellers" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Bestsellers</label>
+                <field id="best_period" translate="label comment" type="text" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Bestsellers Period (days)</label>
+                    <comment>
+                        <![CDATA[Leave empty for life-time statistics.]]>
+                    </comment>
+                </field>
+
+                <field id="best_attr" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Custom Bestsellers Attribute Code</label>
+                    <comment>
+                        <![CDATA[Use to artificially move some products up in the real best sellers list. Leave empty to show real data.]]>
+                    </comment>
+                </field>
+                <field id="exclude" translate="label comment" type="multiselect" sortOrder="25" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Exclude Orders Status</label>
+                    <source_model>Amasty\Sorting\Model\Source\State</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>
+                        <![CDATA[Products from orders with selected states will not be used in the Bestsellers]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="most_viewed" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Most viewed</label>
+                <field id="viewed_period" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Most Viewed Period (days)</label>
+                    <comment>
+                        <![CDATA[Leave empty for life-time statistics.]]>
+                    </comment>
+                </field>
+
+                <field id="viewed_attr" translate="label comment" type="text" sortOrder="35" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Custom Most Viewed Attribute Code</label>
+                    <comment>
+                        <![CDATA[Use to artificially move some products up in the real most viewed list. Leave empty to show real data.]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="biggest_saving" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Biggest Saving</label>
+                <field id="saving" translate="label comment" type="select" sortOrder="45" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use Percentage for Biggest Saving Sorting</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

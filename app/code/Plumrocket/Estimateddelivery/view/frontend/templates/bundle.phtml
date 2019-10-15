@@ -1,0 +1,45 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Estimateddelivery
+ * @copyright   Copyright (c) 2015 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php $_product = $block->getProduct() ?>
+
+<?php if ($_product->isSaleable()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var bundle = new Product.Bundle(<?php echo $block->getJsonConfig() ?>);
+        var taxCalcMethod = "<?php echo $this->helper('Magento\Tax\Helper\Data')->getConfig()->getAlgorithm($_product->getStore()) ?>";
+        var CACL_UNIT_BASE = "<?php echo \Magento\Tax\Model\Calculation::CALC_UNIT_BASE ?>";
+        var CACL_ROW_BASE = "<?php echo \Magento\Tax\Model\Calculation::CALC_ROW_BASE ?>";
+        var CACL_TOTAL_BASE = "<?php echo \Magento\Tax\Model\Calculation::CALC_TOTAL_BASE ?>";
+        //]]>
+    </script>
+<?php endif; ?>
+<?php if ($block->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable()): ?>
+        <p class="availability in-stock"><?php echo __('Availability:') ?>
+            <span><?php echo __('In stock') ?></span></p>
+    <?php else: ?>
+        <p class="availability out-of-stock"><?php echo __('Availability:') ?>
+            <span><?php echo __('Out of stock') ?></span></p>
+    <?php endif; ?>
+<?php endif; ?>
+<div class="price-box-bundle">
+    <?php echo $block->getPriceHtml($_product) ?>
+</div>
+<?php echo $block->getChildHtml('bundle_prices') ?>
+<?php echo $block->getChildHtml('estimateddelivery') ?>

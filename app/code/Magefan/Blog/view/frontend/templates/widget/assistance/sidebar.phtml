@@ -1,0 +1,65 @@
+<?php
+# define url
+$urlAccount = $block->getUrl('customer/account');
+$urlCare = $block->getUrlCare() ?: $block->getUrl('assistance/care');
+$urlExchanges = $block->getUrlExchange() ?: $block->getUrl('assistance/return');
+$urlShipping = $block->getUrlShipping() ?: $block->getUrl('assistance/shipping');
+$urlWarranty = $block->getUrlWarranty() ?: $block->getUrl('assistance/warranty');
+$urlFaq = $block->getUrlFaq() ?: $block->getUrl('assistance/faq');
+
+# define title
+$titleCare = __("care & repair");
+$titleExchanges = __("returns & exchanges");
+$titleShipping = __("shipping");
+$titleWarranty = __("lifetime warranty");
+$titleFaq = __("faq");
+
+# check current url
+$themeHelper = $block->getThemeHelper();
+$currentUrl = trim($themeHelper->getCurrentUrl(), '/');
+$title = '';
+
+if ($currentUrl == trim($urlCare, '/')) {
+    $title = $titleCare;
+    $activeCare = true;
+}
+if ($currentUrl == trim($urlExchanges, '/')) {
+    $title = $titleExchanges;
+    $activeExchanges = true;
+}
+if ($currentUrl == trim($urlShipping, '/')) {
+    $title = $titleShipping;
+    $activeShipping = true;
+}
+if ($currentUrl == trim($urlWarranty, '/')) {
+    $title = $titleWarranty;
+    $activeWarranty = true;
+}
+if ($currentUrl == trim($urlFaq, '/')) {
+    $title = $titleFaq;
+    $activeFaq = true;
+}
+?>
+
+<aside data-collapse="{&quot;notRunOn&quot;: &quot;desktop&quot;, &quot;isCollapseForMobile&quot;: true}" class="col-md-2 sidebar">
+    <p class="title visible-md-up"><?php echo __('assistance'); ?></p>
+    <div data-item="" class="collapse style-3">
+        <div data-item-heading="" class="heading-collapse hidden-md-up"><span class="text"><?php echo $title; ?></span><span class="icon icon-arrow-r"></span></div>
+        <div data-item-body="" class="content-collapse" style="">
+            <ul class="assistance-list">
+                <li><a href="<?php echo $urlAccount; ?>"><?php echo __("account"); ?></a>
+                </li>
+                <li <?php if (isset($activeCare)) : ?> class="active" <?php endif; ?>><a href="<?php echo $urlCare ?>"><?php echo $titleCare; ?></a>
+                </li>
+                <li <?php if (isset($activeExchanges)) : ?> class="active" <?php endif; ?>><a href="<?php echo $urlExchanges ?>"><?php echo $titleExchanges; ?></a>
+                </li>
+                <li <?php if (isset($activeShipping)) : ?> class="active" <?php endif; ?>><a href="<?php echo $urlShipping ?>"><?php echo $titleShipping; ?></a>
+                </li>
+                <li <?php if (isset($activeWarranty)) : ?> class="active" <?php endif; ?>><a href="<?php echo $urlWarranty ?>"><?php echo $titleWarranty; ?></a>
+                </li>
+                <li <?php if (isset($activeFaq)) : ?> class="active" <?php endif; ?>><a href="<?php echo $urlFaq ?>"><?php echo $titleFaq; ?></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>
